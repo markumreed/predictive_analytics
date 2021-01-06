@@ -2,8 +2,8 @@
 
 1. [NumPy](00_numpy_introduction.ipynb)  
 1. [Wrangling](00_wrangle.ipynb)             
-1. [DataFrames](01_dataframes.ipynb)          
 1. [Pandas Introduction](01_pandas_introduction.ipynb) 
+1. [DataFrames](01_dataframes.ipynb)          
 1. [Importing Data](02_data_import.ipynb)         
 1. [Data Selection](02_selection.ipynb)           
 1. [Missing Data: Part 1](03_a_missing_data.ipynb)      
