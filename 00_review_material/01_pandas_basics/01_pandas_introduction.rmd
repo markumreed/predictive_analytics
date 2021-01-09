@@ -21,7 +21,7 @@
 - Data Input/Output
 
 
-# Pandas
+## Pandas
 This is a basic introduction to the pandas module. 
 
 First we start off with the customary imports. 
@@ -36,15 +36,14 @@ np.random.seed(42)
 
 ```
 
-# Object Creation
+E# Object Creation
 
-## Series
+### Series
 - Similar to NumPy array
     - Built on top of it
 - Can have axis labels
 
 
-## Series Creation
 - Here we will show a few ways to create series
     - Throughout the course we will be primarily dealing with DataFrames
     - DataFrames will be discussed shortly
@@ -79,14 +78,13 @@ s
 
 
 
-## Series
 - Key to using a series is understanding its index
     - Pandas makes use of these index names/numbers
     - Allows fast lookups of information
     - Works like a hash table or dictionary
     
 
-## Series Examples
+### Series Examples
 
 
 
@@ -112,7 +110,6 @@ s_1
 
 
 
-## Series Examples
 
 
 ```python
@@ -159,7 +156,6 @@ s_2.index
 
 
 
-## Series Example
 
 
 ```python
@@ -195,7 +191,6 @@ s_3[2]
 
 
 
-## Series
 - Matches operation off of the index
 - Creates NaN object where missing matches
 - Integers convert to floats
@@ -252,7 +247,7 @@ s_1 + s_2
 
 
 
-# DataFrame Creation
+## DataFrame Creation
 
 Creating a DataFrame by passing a NumPy array, with a datetime index and labeled columns.
 
@@ -502,7 +497,7 @@ df2.info()
 
 
 
-# Viewing Data
+## Viewing Data
 
 Here is how to view the top and bottom rows of the frame:
 
@@ -1133,7 +1128,7 @@ df.sort_values(by='B', ascending=False)
 
 
 
-# Selection
+## Selection
 Selecting a single columns yields a `Series`
 
 

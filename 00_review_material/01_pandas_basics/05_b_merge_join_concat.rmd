@@ -1,4 +1,5 @@
-# Merging, Joining, and Concatenating
+# Merging Data: Part 2
+## Merging, Joining, and Concatenating
 
 There are 3 methods to combine DataFrames: 
     

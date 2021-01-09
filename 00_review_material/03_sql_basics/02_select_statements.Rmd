@@ -1,0 +1,126 @@
+# SELECT Statements
+
+When working with databases and SQL, the most common task is to request data from one or more tables and display it. 
+
+The `SELECT` statement accomplishes this. 
+
+## Retrieving Data with SQL
+
+Let’s write our first SQL statement. The most common SQL operation is a `SELECT` statement, which pulls data from a table and then displays the results. 
+
+Write the following statement:
+
+
+```{sql, eval=FALSE}
+ SELECT * FROM CUSTOMER;
+```
+
+
+Let’s break down exactly what happened. A SELECT statement allows you to choose which columns to pull from a table. So the first part of the SQL shown here should be read as “Select all columns,” where * is a placeholder to specify all columns.
+
+And you are getting these columns from the CUSTOMER table.
+
+You do not have to pull all columns in a SELECT statement. You can also pick and choose only the columns you are interested in. The following query will only pull the CUSTOMER_ID and NAME columns:
+
+
+``````{sql, eval=FALSE}
+ SELECT CUSTOMER_ID, NAME FROM CUSTOMER;
+```
+
+
+## Expression in SELECT Statements
+
+The SELECT statement can do far more than simply select columns. You can also do calculations on one or more columns and include them in your query result. Let’s work with another table called PRODUCT.
+
+
+```{sql, eval=FALSE}
+ SELECT * FROM PRODUCT;
+```
+
+
+Suppose we wanted to generate a calculated column called TAXED_PRICE that is 7% higher than PRICE. We could use a SELECT query to dynamically calculate this for us
+
+
+```{sql, eval=FALSE}
+
+
+SELECT
+PRODUCT_ID,
+DESCRIPTION,
+PRICE,
+PRICE * 1.07 AS TAXED_PRICE
+FROM PRODUCT;
+```
+
+
+Notice how the TAXED_PRICE column was dynamically calculated in the SELECT query. This column is not stored in the table, but rather calculated and displayed to us every time we run this query.
+
+Let’s take a look at our TAXED_PRICE column and break down how it was created. We first see the PRICE is multiplied by 1.07 to calculate the taxed amount. We generate this TAXED_PRICE value for every record.
+
+Notice too that we gave this calculated value a name using an AS statement (this is known as an alias):
+
+We can use aliases to give names to expressions. We can also use aliases to apply a new name to an existing column within the query. For example, we can alias the PRICE column to UNTAXED_PRICE. This does not actually change the name of the column in the table, but it gives it a new name within the scope of our SELECT statement:
+
+
+
+```{sql, eval=FALSE}
+
+SELECT
+PRODUCT_ID,
+DESCRIPTION, 
+PRICE AS UNTAXED_PRICE,
+PRICE * 1.07 AS TAXED_PRICE
+FROM PRODUCT
+```
+
+
+To round the TAXED_PRICE to two decimal places, we can pass the multiplication expression PRICE * 1.07 as the first argument, and a 2 as the second:
+
+
+```{sql, eval=FALSE}
+
+SELECT
+PRODUCT_ID,
+DESCRIPTION, 
+PRICE AS UNTAXED_PRICE,
+round(PRICE * 1.07,2) AS TAXED_PRICE
+FROM PRODUCT
+```
+
+
+Here are the mathematical operators you can use in SQL:
+
+| Operator 	| Description                                   	| Example              	|
+|----------	|-----------------------------------------------	|----------------------	|
+| +        	| Adds two numbers                              	| STOCK + NEW_SHIPMENT 	|
+| -        	| Subtracts two numbers                         	| STOCK - DEFECTS      	|
+| *        	| Multiplies two numbers                        	| PRICE * 1.07         	|
+| /        	| Divides two numbers                           	| STOCK / PALLET_SIZE  	|
+| %        	| Divides two, numbers but return the remainder 	| STOCK % PALLET_SIZE  	|
+
+## Text Concatenation
+
+The concatenate operator is specified by a double pipe (||), and you put the data values to concatenate on both sides of it.
+
+
+```{sql, eval=FALSE}
+
+SELECT NAME,
+CITY || ', ' || STATE AS LOCATION
+FROM CUSTOMER;
+```
+
+
+
+```{sql, eval=FALSE}
+
+SELECT NAME,
+STREET_ADDRESS || ' ' || CITY || ', ' || STATE || ' ' || ZIP AS SHIP_ADDRESS
+FROM CUSTOMER;
+```
+
+
+## Summary
+In this section, we covered how to use the SELECT statement, the most common SQL operation. It retrieves and transforms data from a table without affecting the table itself. We also learned how to select columns and write expressions.
+
+Within expressions, we can use operators and functions to do tasks such as rounding, math, and concatenation. 

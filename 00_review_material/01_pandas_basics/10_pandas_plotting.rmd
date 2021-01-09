@@ -1,5 +1,4 @@
-# Plotting
-
+# Plotting Data with Pandas
 
 ```python
 ts = pd.Series(np.random.randn(1000),

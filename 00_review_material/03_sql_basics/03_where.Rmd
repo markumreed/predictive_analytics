@@ -1,0 +1,242 @@
+# WHERE Statements
+
+Over the next few weeks, we will be adding more functionalities to the SELECT statement. A very common task when working with data is filtering for records based on criteria, which can be done with a WHERE statement. 
+
+We will be learning more functions and using them in the WHERE clause, but we can also use them in SELECT statements, as discussed in the previous chapter. For the most part, expressions and functions can be used in any part of a SQL statement.
+
+## Filtering Records
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data;
+```
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data
+WHERE year = 2010;
+```
+
+Conversely, you can use != or <> to get everything but 2010.
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data
+WHERE year != 2010;
+```
+
+We can also qualify inclusive ranges using a BETWEEN statement:
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data
+WHERE year BETWEEN 2005 AND 2010;
+```
+
+## AND, OR, and IN Statements
+
+A BETWEEN can alternatively be expressed using greater than or equal to and less than or equal to expressions and an AND statement.
+
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data 
+WHERE year >= 2005 AND year <= 2010;
+```
+
+If we wanted everything between 2005 and 2010 exclusively — i.e., not including those two years — we would just get rid of the = characters. Only 2006, 2007, 2008, and 2009 would then qualify:
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data
+WHERE year > 2005 AND year < 2010;
+```
+
+We also have the option of using OR. In an OR statement, at least one of the criteria must be true for the record to qualify. If we wanted only records with months 3, 6, 9, or 12, we could use an OR to accomplish that:
+
+
+```{sql, eval=FALSE}
+
+
+SELECT * FROM station_data 
+WHERE MONTH = 3 
+OR MONTH = 6 
+OR MONTH = 9 
+OR MONTH = 12;
+
+```
+
+A more efficient way is to use the IN statement.
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data
+WHERE MONTH IN (3,6,9,12);
+```
+
+If we want everything except 3,6,9,12, we use the NOT IN:
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data
+WHERE MONTH NOT IN (3,6,9,12);
+```
+
+
+
+We could also leverage some logic:
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data
+WHERE MONTH % 3 = 0;
+```
+
+## Using Where on Text
+
+The rules for qualifying text fields follow the same structure, although there are subtle differences. You can use =, AND, OR, and IN statements with text. However, when using text, you must wrap literals (or text values you specify) in single quotes. For example, if you wanted to filter for a specific report_code, you could run this query:
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data
+WHERE report_code = '513A63';
+```
+
+ 
+
+This single-quote rule applies to all text operations, including this IN operation: 
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data 
+WHERE report_code IN ('513A63','1F8A7B','EF616A');
+```
+
+
+The length function will count the number of characters for a given value:
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data
+WHERE length(report_code) != 6;
+```
+
+
+Another common operation is to use wildcards with a LIKE expression, where % is any number of characters and _ is any single character. Any other character is interpreted literally. So, if you wanted to find all report codes that start with the letter “A,” you would run this statement to find “A” followed by any characters:
+
+
+```{sql, eval=FALSE}
+
+
+SELECT * FROM station_data
+WHERE report_code LIKE 'A%';
+```
+
+If you wanted to find all report codes that have a “B” as the first character and a “C” as the third character, you would specify an underscore (_) for the second position, and follow with any number of characters after the “C”:
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM station_data
+WHERE report_code LIKE 'B_C%'
+```
+
+## WHERE on Booleans
+
+
+```{sql, eval=FALSE}
+
+
+SELECT * FROM station_data
+WHERE tornado = 1 AND hail = 1;
+```
+
+SQLite only supports using 1 for true and 0 for false.
+
+
+```{sql, eval=FALSE}
+
+SELECT * FRPM station_data
+WHERE tornado =0 AND hail = 1;
+```
+
+## Handling NULL
+
+Some columns such as `station_pressure` and `snow_depth`, have *null* values. A null is a value that has no value. It is the complete absence of any content.
+
+
+```{sql, eval=FALSE}
+
+
+SELECT * FROM station_data
+WHERE snow_depth IS NULL;
+```
+
+Nulls can be hard to handle when composing WHERE statements. If you wanted to query all records where `precipitation is less than 0.5, you could write:
+
+
+```{sql, eval=FALSE}
+
+
+SELECT * FROM station_data
+WHERE precipitation <= 0.5;
+```
+
+But you must consider the null values. If you wanted the nulls to be included you need to use an OR statement.
+
+
+```{sql, eval=FALSE}
+
+
+SELECT * FROM station_data
+WHERE precipitation IS NULL OR precipitation <= 0.5;
+```
+
+A more elegant way is to use `coalesce()`. If you wanted nulls to be treated as 0 within our condition, we could `coalesce()` the precipitation field to convert null to 0:
+
+
+```{sql, eval=FALSE}
+
+
+SELECT * FROM station_data
+WHERE coalesce(precipitation, 0) <= 0.5;
+```
+
+## Grouping Conditions
+
+When chaining AND and OR together, it is good to group them. 
+
+Make sure that you organize each set of conditions between each OR in a way that groups related conditions. 
+
+
+```{sql, eval=FALSE}
+
+
+SELECT * FROM station_data
+WHERE rain = 1 AND temperature <=32
+OR snow_depth>0;
+```
+
+While this technically works, there is a degree of ambiguity.
+
+
+```{sql, eval=FALSE}
+
+
+SELECT * FROM station_data
+WHERE (rain=1 AND temperature <=32)
+OR snow_depth >0;
+```
+
+Here we group the expression within parentheses so it is calculated as a single unit, and temperature is not mixed up with the OR operator and accidentally mangled with the snow_depth.
+

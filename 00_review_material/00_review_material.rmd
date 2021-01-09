@@ -1,0 +1,62 @@
+# Review Material
+
+Here are the basic programming concepts that for students to review:
+
+## Python Basics {#python_basics}
+This section is based on [@downey2012think].
+
+1. [Introduction, Types, & Expressions]
+1. [Dictionaries]
+1. [Functions: Part 1]
+1. [Functions: Part 2]
+1. [Iteration]
+1. [Strings]
+1. [Conditionals and Recursion]
+1. [Lists]
+
+## Pandas Basics {#pandas_basics}
+This section is based on [@mckinney2012python] and [@vanderplas2016python].
+
+1. [NumPy]
+1. [Wrangling]
+1. [Introduction to Pandas]
+1. [DataFrames]
+1. [Data Import]
+1. [Data Selection]
+1. [Missing Data: Part 1]
+1. [Missing Data: Part 2]
+1. [Tidy Data]
+1. [Operations]
+1. [Merging Data: Part 1]
+1. [Merging Data: Part 2]
+1. [Groupby: Part 1]
+1. [Groupby: Part 2]
+1. [Reshaping]
+1. [Time Series]
+1. [Categorical Data]
+1. [Plotting Data with Pandas]
+1. [Data Input/Output: Part 1]
+1. [Data Input/Output: Part 2]
+
+## Data Science at the Command Line {#shell_basics}
+This section is based on [@janssens2014data].
+
+1. [Introduction to the Shell]
+1. [Getting Started with the Command Line]
+1. [Obtaining Data]
+1. [Reusable Command-line Tools]
+
+
+## SQL Basics {#sql_basics}
+
+This section is based on [@nield2016getting].
+
+1. [Why Learn SQL?]
+1. [Using SQL in R Markdown]
+1. [Using SQL in Jupyter Notebooks]
+1. [SELECT Statements]
+1. [WHERE Statements]
+1. [GROUP BY and ORDER BY]
+1. [CASE Statements]
+1. [JOIN Statements]
+1. [SQL Practice]

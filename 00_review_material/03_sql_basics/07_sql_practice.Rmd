@@ -1,0 +1,132 @@
+# SQL Practice
+
+Get to know the three Tables in this database:
+
+1. ARTIST
+1. ALBUM
+1. TRACK
+1. Playlist
+1. PlaylistTrack
+
+
+```{sql, eval=FALSE}
+%%sql
+
+SELECT name FROM track
+
+LIMIT(3);
+```
+
+
+## Question 1:
+
+Create a table that contains the artists name, album title and tracks.
+
+Use the `GROUP_CONCAT` function to concat the Track names.
+
+Group by artist name and album title.
+
+
+```{sql, eval=FALSE}
+
+SELECT 
+ARTIST.NAME AS ARTIST_NAME,
+TITLE AS ALBUM_TITLE,
+GROUP_CONCAT(TRACK.Name,', ') AS TRACKS
+
+FROM ARTIST INNER JOIN ALBUM
+ON ARTIST.ArtistId = ALBUM.ArtistId
+
+INNER JOIN TRACK
+ON TRACK.AlbumId = Album.AlbumId
+
+GROUP BY 1,2
+LIMIT(5);
+```
+
+
+## Question 2:
+
+Grunge Playlists:
+
+Join Playlist and PlaylistTrack, Track and Album, Album and Artist.
+
+Where the playlist is grunge:
+
+(HINT: Grunge = 16)
+
+
+```{sql, eval=FALSE}
+
+SELECT 
+Playlist.Name as PLAYLIST_NAME,
+Artist.Name as ARTIST_NAME,
+Track.Name as TRACK_NAME,
+Album.Title as ALBUM_TITLE
+
+FROM Playlist INNER JOIN PlaylistTrack
+ON Playlist.PlaylistId = PlaylistTrack.PlaylistId
+
+INNER JOIN Track
+ON PlaylistTrack.TrackId = Track.TrackId
+
+INNER JOIN Album
+ON Track.AlbumId = Album.AlbumId
+
+INNER JOIN Artist
+ON Album.ArtistId = Artist.ArtistId
+
+WHERE Playlist.PlaylistId = 16
+```
+
+
+## Question Prep
+Get to know the following tables:
+
+1. Invoice
+1. Customer
+
+
+```{sql, eval=FALSE}
+
+SELECT * FROM Invoice
+LIMIT(3);
+```
+
+
+## Question 3:
+
+Find total sales by country, round to 2 decimal places.
+
+
+```{sql, eval=FALSE}
+
+SELECT BillingCountry as COUNTRY,
+round(SUM(Total),2) as TOTAL_SALES
+
+FROM Invoice
+GROUP BY BillingCountry
+```
+
+
+
+## Question 4:
+Calculate Total sales by customer, give their first and last names. Round to 2 decimals.
+
+
+```{sql, eval=FALSE}
+
+SELECT 
+Customer.CustomerId,
+FirstName,
+LastName,
+
+round(SUM(Total),2) as TOTAL_SALES
+
+FROM Invoice INNER JOIN Customer 
+ON Invoice.CustomerId = Customer.CustomerId
+
+GROUP BY Customer.CustomerId, FirstName, LastName
+
+
+```

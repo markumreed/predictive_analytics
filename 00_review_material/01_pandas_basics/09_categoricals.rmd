@@ -1,4 +1,4 @@
-# Categoricals
+# Categorical Data
 pandas can include categorical data in a DataFrame.
 
 

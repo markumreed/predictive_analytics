@@ -1,4 +1,4 @@
-# Groupby
+# Groupby: Part 2
 - `.groupby` method allow syou to group rows of data together and call aggregate functions
 
 

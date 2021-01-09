@@ -1,4 +1,4 @@
-# Chapter 6 - Linear Model Selection and Regularization
+# Linear Model Selection and Regularization: Practice
 
 - [Lab 2: Ridge Regression](#6.6.1-Ridge-Regression)
 - [Lab 2: The Lasso](#6.6.2-The-Lasso)
@@ -7,7 +7,6 @@
 
 
 ```python
-# %load ../standard_import.txt
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

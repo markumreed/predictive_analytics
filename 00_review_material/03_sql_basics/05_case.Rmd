@@ -1,0 +1,97 @@
+# CASE Statements
+
+A CASE statement allows us to map one or more conditions to a corresponding value for each condition. You start a CASE statement with the word CASE and conclude it with an END. Between those keywords, you specify each condition with the a WHEN [condition] THEN [value].
+
+After specifying the condition-value pairs, you can have a catch-all value to default to if none of the conditions where met, which is specified in the ELSE.
+
+
+```{sql, eval=FALSE}
+
+SELECT report_code, year, month, day, wind_speed,
+
+CASE
+  WHEN wind_speed >= 40 THEN 'HIGH'
+  WHEN wind_speed >= 30 AND wind_speed < 40 THEN 'MODERATE'
+  ELSE 'LOW'
+END as wind_severity
+FROM station_data
+LIMIT 10;
+```
+
+
+## Grouping CASE Statements
+
+When you create CAST statements and group them, you can create some very powerful transformations. Converting values based on one or more conditions before aggregating them gives us even more possibilities to slice data in interesting ways. 
+
+
+```{sql, eval=FALSE}
+
+SELECT year,
+
+CASE
+  WHEN wind_speed >= 40 THEN 'HIGHT'
+  WHEN wind_speed >= 40 THEN 'MODERATE'
+  ELSE 'LOW'
+END as wind_seversity,
+
+COUNT(*) as record_count
+
+FROM station_data
+GROUP BY 1, 2
+
+LIMIT 10;
+```
+
+
+## The "Zero/Null" CASE Trick
+
+You can use tricks with the CASE statement. One simple but useful pattern is the "zero/null" CASE trick. This allows you to apply different filters for different aggregate values, all in a single SELECT query.
+
+
+```{sql, eval=FALSE}
+SELECT year, month,
+
+round(SUM(CASE WHEN tornado = 1 THEN precipitation ELSE 0 END),2) as tornado_precipitation,
+
+round(SUM(CASE WHEN tornado = 0 THEN precipitation ELSE 0 END),2) as non_tornado_precipitation
+
+FROM station_data
+GROUP BY year, month
+LIMIT 10;
+```
+
+
+The CASE statement can do an impressive amount of work, especially in complex aggregation task. By leverageing a condition to make a value 0 if the condition is not met, we effectively ignore that value and exclude it from the SUM (since adding 0 has no impact).
+
+You could so a similar calculation with MIN or MAX operations, and us a null instead of 0 to make sure values with certain coinditon are never considered:
+
+
+```{sql, eval=FALSE}
+SELECT year,
+
+MAX(CASE WHEN tornado = 0 THEN precipitation ELSE NULL END) as max_non_tornado_precipitation,
+
+MAX(CASE WHEN tornado = 1 THEN precipitation ELSE NULL END) as max_tornado_precipitation
+FROM station_data
+WHERE year >= 1990
+GROUP BY year
+LIMIT 10;
+```
+
+
+Just like the WHERE statement, you can use any Boolean expression in a CASE statement, in cluding function and AND, OR, and NOT statements. The following query will find the avarage temperatures by month when rain/hail was present versus not present after the year 2000:
+
+
+```{sql, eval=FALSE}
+
+SELECT month, 
+
+round(AVG(CASE WHEN rain OR hail THEN temperature ELSE null END),2) as avg_precipitation_temp,
+
+round(AVG(CASE WHEN NOT (rain OR hail) THEN temperature ELSE null END),2) as avg_non_precipitation_temp
+
+FROM station_data
+WHERE year > 2000
+GROUP BY month
+LIMIT 10;
+```

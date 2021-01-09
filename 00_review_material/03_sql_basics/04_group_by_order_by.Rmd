@@ -1,0 +1,154 @@
+# GROUP BY and ORDER BY
+
+Aggregating is creating a " total form a number of records. Sum, min, max, count, and average are common aggregate operations. In SQL we group these totals on a any column, allowing you to control the scope of these aggregations.
+
+## Grouping Records
+
+The simplest aggregation: count the number of records in a table.
+
+
+```{sql, eval=FALSE}
+ SELECT COUNT(*) as record_count FROM station_data
+```
+
+
+```{sql, eval=FALSE}
+
+SELECT COUNT(*) AS record_count 
+FROM station_data
+WHERE tornado=1;
+```
+
+
+You should see 3000 records. If we want to separate the count by year:
+
+
+```{sql, eval=FALSE}
+
+SELECT year, COUNT(*) as record_count 
+FROM station_data
+WHERE tornado=1
+GROUP BY year;
+```
+
+This data becomes more meaningful.
+
+We specify that we are grouping by year. This is what effectively allows us to count the number of records by year.
+
+
+```{sql eval=FALSE}
+SELECT year, month, COUNT(*) AS record_count 
+FROM station_data
+WHERE tornado=1
+GROUP BY year, month;
+```
+
+
+
+## Ordering Records
+
+Notice that the month column is not in an order we'd expect. 
+
+If we wanted to sort by year, and then month:
+
+
+```{sql, eval=FALSE}
+SELECT year, month, COUNT(*) AS record_count
+FROM station_data
+WHERE tornado=1
+GROUP BY year, month
+ORDER BY year, month;
+```
+
+
+
+What if we want to more recent data at the top?
+
+By default, sorting is done with the ASC operator, which orders the data in ascending order. If you want to sort in descending order, apply the DESC operator to the ordering of year to make more recent records appear at the top:
+
+
+```{sql, eval=FALSE}
+
+
+SELECT year, month, COUNT(*) AS records_count 
+FROM station_data
+WHERE tornado=1
+GROUP BY year, month
+ORDER BY year DESC, month;
+```
+
+
+
+SUM is another common aggregate operation. To find the sum of snow depth by year since 2000:
+
+```{sql, eval=FALSE}
+SELECT year, SUM(snow_depth) AS total_snow
+FROM station_data
+WHERE year >= 2000
+GROUP BY year;
+```
+
+There is no limit on how many aggregations you use:
+
+```{sql, eval=FALSE}
+SELECT year,
+SUM(snow_depth) as total_snow,
+SUM(precipitation) as total_precipitation,
+MAX(precipitation) as max_precipitation
+FROM station_data
+WHERE year >=2000
+GROUP BY year;
+```
+
+
+We can also achieve very specific aggregations by leveraging WHERE
+
+
+```{sql, eval=FALSE}
+SELECT year,
+SUM(precipitation) as tornado_precipitation
+FROM station_data
+WHERE tornado=1
+GROUP BY year;
+```
+
+
+
+## HAVING 
+
+Suppose you want to filter out records based on an aggregateded value. While your first instinct may be to use the WHERE statement, this actually will not work. 
+
+- You cannot filter aggregated fields with WHERE.
+- You must use the HAVING keyword to accomplish this. 
+
+If we want to filter on the SUM() value, we would need to filter to take place after it is calculated. This is where HAVING can be applied:
+
+
+```{sql, eval=FALSE}
+SELECT year,
+SUM(precipitation) as total_precipitation
+FROM station_data
+GROUP BY year
+HAVING total_precipitation > 30
+```
+
+
+
+HAVING is the aggregated equivalent to WHERE. The WHERE keyword filters individual records, but HAVING filters aggregations.
+
+## Getting Distinct Records
+
+It is not uncommon to want to set of distinct results from a query. We know that there are some 28,000 reconfds in our station_data table. But suppose we want to get a distinct list of the station_number values?
+
+
+```{sql, eval=FALSE}
+SELECT DISTINCT station_number FROM station_data
+```
+
+
+You can also get distinct results from more than  one column. If you need to distinct station_number and year, just include both those columns.
+
+
+```{sql, eval=FALSE}
+SELECT DISTINCT station_number, year FROM station_data
+```

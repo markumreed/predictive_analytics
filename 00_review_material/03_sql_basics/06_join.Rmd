@@ -1,0 +1,177 @@
+# JOIN Statements
+## Stitching Tables Together
+
+Joining is the defining functionality of SQL an dsets it apart from other data technologies. 
+
+Remember:
+
+Normalized databases have tables with fields that point to other tables. Sonciser the CUSTOMER_ORDER table, which has a CUSTOMER_ID field.
+ 
+
+
+
+```{sql, eval=FALSE}
+SELECT * FROM customer
+LIMIT 10;
+```
+
+
+This CUSTOMER_ID field gives us a *key* to loop up in the table CUSTOMER. Knowing this, it should be no surprise that the CUSTOMER table also has a CUSTOMER_ID field. 
+
+We can retrieve customer if information from an order from this table.
+
+
+```{sql, eval=FALSE}
+SELECT * FROM customer_order
+LIMIT 10;
+```
+
+
+The other aspect to consider in a relationship is how many records in the child can be tited to a single record of the parent. Toake the CUSTOMER and CUSTOMER_ORDER tables and we see a *one-to-many relationship*, where a single customer record can line up with multiple orders. 
+
+One-to-many is the most common type of relationship since it acconodates most business needs. 
+
+## INNER JOIN
+
+Understanding table relationships, we can consider that it might be nice to stich two tables together, so we can see CUSTOMER and CUSTOMER_ORDER information side by side. We can avoid using many lookups by using the JOIN operations.
+
+The INNER JOIN allows us to merge two tables together. But if we are going to merge tables, we need to define a commonality between the two so records between the two line up. 
+
+
+
+```{sql, eval=FALSE}
+
+SELECT ORDER_ID, 
+CUSTOMER.CUSTOMER_ID, 
+ORDER_DATE, 
+SHIP_DATE, 
+NAME, 
+STREET_ADDRESS, 
+CITY, 
+STATE, 
+ZIP, PRODUCT_ID, ORDER_QTY
+
+FROM CUSTOMER INNER JOIN CUSTOMER_ORDER
+ON CUSTOMER.CUSTOMER_ID = CUSTOMER_ORDER.CUSTOMER_ID;
+```
+
+
+1. Select the fields we want from the CUSTOMER and CUSTOMER_ORDER tables.
+
+1. The important part that temporarily merges two tables into one.
+
+## LEFT JOIN
+
+Two customers were excluded from the INNER JOIN on CUSTOMER_ID since they didn't have any orders to join on. But suppose we wanted them included anyways. 
+
+Modify the previous query to utilize the LEFT JOIN:
+
+
+```{sql, eval=FALSE}
+
+SELECT ORDER_ID, 
+CUSTOMER.CUSTOMER_ID, 
+ORDER_DATE, 
+SHIP_DATE, 
+NAME, 
+STREET_ADDRESS, 
+CITY, 
+STATE, 
+ZIP, PRODUCT_ID, ORDER_QTY
+
+FROM CUSTOMER LEFT JOIN CUSTOMER_ORDER
+ON CUSTOMER.CUSTOMER_ID = CUSTOMER_ORDER.CUSTOMER_ID;
+```
+
+
+The table specified on the "left" side of the LEFT JOIN operator will have all its records included, even if they do not have any child records in the "right" table. Notice we have two additional records for the customers that have no orders.
+
+It is common to use LEFT JOIN to find "orphaned" child records. 
+
+
+```{sql, eval=FALSE}
+
+SELECT 
+CUSTOMER.CUSTOMER_ID,
+NAME as CUSTOMER_NAME
+FROM CUSTOMER LEFT JOIN CUSTOMER_ORDER
+ON CUSTOMER.CUSTOMER_ID = CUSTOMER_ORDER.CUSTOMER_ID
+WHERE ORDER_ID IS NULL;
+```
+
+
+## Joining Mutliple Tables
+
+Relational databases can be complex in terms of relationships between tables.
+
+For example, we can supply not only CUSTOMER information to the CUSTOMER_ORDER table, but also PRODUCT information using PRODUCT_ID.
+
+We can use these relationships to execute a query that displays orders with customer information and product information simultaneously. All we do is define the two joins.
+
+```{sql, eval=FALSE}
+
+SELECT
+ORDER_ID,
+CUSTOMER.CUSTOMER_ID,
+NAME as CUSTOMER_NAME,
+STREET_ADDRESS,
+CITY,
+STATE,
+ZIP,
+ORDER_DATE,
+PRODUCT.PRODUCT_ID,
+DESCRIPTION,
+ORDER_QTY,
+ORDER_QTY * PRICE as REVENUE
+
+FROM CUSTOMER
+INNER JOIN CUSTOMER_ORDER 
+ON CUSTOMER.CUSTOMER_ID = CUSTOMER_ORDER.CUSTOMER_ID
+
+INNER JOIN PRODUCT
+ON CUSTOMER_ORDER.PRODUCT_ID = PRODUCT.PRODUCT_ID
+```
+
+
+## Grouping JOINs
+
+We have orders with their revenue, thatnks to the join we built. But suppose we want to find the total_revenue by customer? We still need to use all three tables and merge them together with out current join setup, since we need the revenue we just calculated. But also we need to do a GROUP BY:
+
+
+```{sql, eval=FALSE}
+
+SELECT CUSTOMER.CUSTOMER_ID,
+NAME as CUSTOMER_NAME,
+sum(ORDER_QTY * PRICE) as TOTAL_REVENUE
+
+FROM CUSTOMER_ORDER
+
+INNER JOIN CUSTOMER
+ON CUSTOMER.CUSTOMER_ID = CUSTOMER_ORDER.CUSTOMER_ID 
+
+INNER JOIN PRODUCT
+ON CUSTOMER_ORDER.PRODUCT_ID = PRODUCT.PRODUCT_ID
+
+GROUP BY 1, 2
+```
+
+Since we want all customers we can use LEFT JOIN in place of INNER JOIN
+
+
+```{sql, eval=FALSE}
+
+SELECT CUSTOMER.CUSTOMER_ID,
+NAME as CUSTOMER_NAME,
+coalesce(sum(ORDER_QTY * PRICE),0) as TOTAL_REVENUE
+
+FROM CUSTOMER_ORDER
+
+LEFT JOIN CUSTOMER
+ON CUSTOMER.CUSTOMER_ID = CUSTOMER_ORDER.CUSTOMER_ID 
+
+LEFT JOIN PRODUCT
+ON CUSTOMER_ORDER.PRODUCT_ID = PRODUCT.PRODUCT_ID
+
+GROUP BY 1, 2
+```
+

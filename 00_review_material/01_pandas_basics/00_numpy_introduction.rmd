@@ -19,7 +19,7 @@ import numpy as np
 
 Numpy has many built-in functions and capabilities. We won't cover them all but instead we will focus on some of the most important aspects of Numpy: vectors,arrays,matrices, and number generation. Let's start by discussing arrays.
 
-# Numpy Arrays
+## Numpy Arrays
 
 NumPy arrays are the main way we will use Numpy throughout the course. Numpy arrays essentially come in two flavors: vectors and matrices. Vectors are strictly 1-d arrays and matrices are 2-d (but you should note a matrix can still have only one row or one column).
 
@@ -552,7 +552,7 @@ arr.dtype
 
 
 
-# NumPy Indexing and Selection
+## NumPy Indexing and Selection
 
 In this lecture we will discuss how to select elements or groups of elements from an array.
 
@@ -653,7 +653,6 @@ arr
 
 
 
-## Broadcasting
 
 
 ```python
@@ -756,7 +755,6 @@ arr_2d[1]
 
 
 
-## Indexing a 2D array (matrices)
 
 
 ```python
@@ -785,8 +783,6 @@ arr_2d[1,0]
     20
 
 
-
-## Indexing a 2D array (matrices)
 
 
 ```python
@@ -939,7 +935,6 @@ arr > 4
 
 
 
-## Selection
 
 
 ```python
@@ -959,7 +954,6 @@ bool_arr
 
 
 
-## Selection
 
 
 ```python
@@ -998,7 +992,7 @@ arr[arr>x]
 
 
 
-# NumPy Operations
+## NumPy Operations
 
 ## Arithmetic
 
@@ -1008,8 +1002,6 @@ You can easily perform array with array arithmetic, or scalar with array arithme
 ```python
 arr = np.arange(0,10)
 ```
-
-## Arithmetic
 
 
 ```python
@@ -1047,9 +1039,6 @@ arr - arr
 
 
 
-## Arithmetic
-
-
 ```python
 # Warning on division by zero, but not an error!
 # Just replaced with nan
@@ -1067,7 +1056,7 @@ arr/arr
 
 
 
-## Arithmetic
+
 
 
 ```python
@@ -1087,7 +1076,6 @@ arr/arr
 
 
 
-## Arithmetic
 
 
 ```python
@@ -1119,7 +1107,6 @@ np.sqrt(arr)
 
 
 
-## Universal Array Functions
 
 
 ```python
@@ -1149,7 +1136,6 @@ np.max(arr) #same as arr.max()
 
 
 
-## Universal Array Functions
 
 
 ```python
@@ -1179,8 +1165,3 @@ np.log(arr)
     array([      -inf, 0.        , 0.69314718, 1.09861229, 1.38629436,
            1.60943791, 1.79175947, 1.94591015, 2.07944154, 2.19722458])
 
-
-
-
-## Great Job!
-That's all we need to know for now!

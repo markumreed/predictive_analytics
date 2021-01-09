@@ -2,5 +2,8 @@ book_filename: "predictive_analytics"
 delete_merged_file: true
 language:
   ui:
-    chapter_name: "Chapter "
-rmd_subdir: ['00_review_material','01_intro_ml','02_linear_regression','03_classification','04_resampling','05_model_selection','06_moving_beyond_linearity','07_tree_based_methods','08_support_vector_machines','09_unsupervised_learning']
+    chapter_name: "Section "
+rmd_subdir: ['00_review_material','01_intro_ml','02_linear_regression',
+'03_classification','04_resampling','05_model_selection',
+'06_moving_beyond_linearity','07_tree_based_methods',
+'08_support_vector_machines','09_unsupervised_learning']

@@ -1,4 +1,4 @@
-# Chapter 10 - Unsupervised Learning 
+# Unsupervised Learning: Practice
 
 - [Lab 1: Principal Component Analysis](#Lab-1:-Principal-Component-Analysis)
 - [Lab 2: K-Means Clustering](#Lab-2:-Clustering)
@@ -7,7 +7,6 @@
 
 
 ```python
-# %load ../standard_import.txt
 import pandas as pd
 import numpy as np
 import matplotlib as mpl

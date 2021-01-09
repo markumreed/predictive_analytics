@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Section 73 Tree Based Methods: Theory | Predictive Analytics</title>
+  <meta name="description" content="This course aims to go beyond the classical statistical methods. As computing power has increased many new, highly computational, regression, or “Machine Learning,” methods have been developed. There has been a significant expansion of the number of possible approaches. Since these methods are so new, the business community is generally unaware of their huge potential. With the explosion of “Big Data” problems, machine learning has become a hot field in many scientific areas as well as marketing, finance and other business disciplines. People with machine learning skills are in high demand." />
+  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Section 73 Tree Based Methods: Theory | Predictive Analytics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This course aims to go beyond the classical statistical methods. As computing power has increased many new, highly computational, regression, or “Machine Learning,” methods have been developed. There has been a significant expansion of the number of possible approaches. Since these methods are so new, the business community is generally unaware of their huge potential. With the explosion of “Big Data” problems, machine learning has become a hot field in many scientific areas as well as marketing, finance and other business disciplines. People with machine learning skills are in high demand." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Section 73 Tree Based Methods: Theory | Predictive Analytics" />
+  
+  <meta name="twitter:description" content="This course aims to go beyond the classical statistical methods. As computing power has increased many new, highly computational, regression, or “Machine Learning,” methods have been developed. There has been a significant expansion of the number of possible approaches. Since these methods are so new, the business community is generally unaware of their huge potential. With the explosion of “Big Data” problems, machine learning has become a hot field in many scientific areas as well as marketing, finance and other business disciplines. People with machine learning skills are in high demand." />
+  
+
+<meta name="author" content="Markum Reed" />
+
+
+<meta name="date" content="2021-01-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="moving-beyond-linearity.html"/>
+<link rel="next" href="tree-based-methods-practice.html"/>
+<script src="libs/header-attrs-2.6.4/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Predictive Analytics</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#course-text"><i class="fa fa-check"></i><b>1.0.1</b> Course Text</a></li>
+<li class="chapter" data-level="1.0.2" data-path="index.html"><a href="index.html#course-material"><i class="fa fa-check"></i><b>1.0.2</b> Course Material</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="2" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html"><i class="fa fa-check"></i><b>2</b> Introduction, Types, &amp; Expressions</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#why-learn-to-code"><i class="fa fa-check"></i><b>2.1</b> Why Learn to Code?</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#outcomes"><i class="fa fa-check"></i><b>2.1.1</b> Outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#why-python"><i class="fa fa-check"></i><b>2.2</b> Why Python?</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#storing-and-computing-data"><i class="fa fa-check"></i><b>2.3</b> Storing and Computing Data</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#expressions"><i class="fa fa-check"></i><b>2.3.1</b> Expressions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#types"><i class="fa fa-check"></i><b>2.4</b> Types</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#how-to-tell-the-type-of-a-value"><i class="fa fa-check"></i><b>2.4.1</b> How to tell the type of a value</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#float-floating-point"><i class="fa fa-check"></i><b>2.4.2</b> float (floating point)</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#int-integers"><i class="fa fa-check"></i><b>2.4.3</b> int (integers)</a></li>
+<li class="chapter" data-level="2.4.4" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#bool-boolean"><i class="fa fa-check"></i><b>2.4.4</b> bool (boolean)</a></li>
+<li class="chapter" data-level="2.4.5" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#str-string-for-text"><i class="fa fa-check"></i><b>2.4.5</b> str (string) for text</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dictionaries.html"><a href="dictionaries.html"><i class="fa fa-check"></i><b>3</b> Dictionaries</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dictionaries.html"><a href="dictionaries.html#dictionary-as-a-collection-of-counters"><i class="fa fa-check"></i><b>3.1</b> Dictionary as a collection of counters</a></li>
+<li class="chapter" data-level="3.2" data-path="dictionaries.html"><a href="dictionaries.html#looping-and-dictionaries"><i class="fa fa-check"></i><b>3.2</b> Looping and dictionaries</a></li>
+<li class="chapter" data-level="3.3" data-path="dictionaries.html"><a href="dictionaries.html#reverse-lookup"><i class="fa fa-check"></i><b>3.3</b> Reverse Lookup</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="functions-part-1.html"><a href="functions-part-1.html"><i class="fa fa-check"></i><b>4</b> Functions: Part 1</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="functions-part-1.html"><a href="functions-part-1.html#function-calls"><i class="fa fa-check"></i><b>4.1</b> Function calls</a></li>
+<li class="chapter" data-level="4.2" data-path="functions-part-1.html"><a href="functions-part-1.html#math-functions"><i class="fa fa-check"></i><b>4.2</b> Math functions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="functions-part-1.html"><a href="functions-part-1.html#example"><i class="fa fa-check"></i><b>4.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="functions-part-1.html"><a href="functions-part-1.html#new-functions"><i class="fa fa-check"></i><b>4.3</b> New Functions</a></li>
+<li class="chapter" data-level="4.4" data-path="functions-part-1.html"><a href="functions-part-1.html#definitions-and-uses"><i class="fa fa-check"></i><b>4.4</b> Definitions and Uses</a></li>
+<li class="chapter" data-level="4.5" data-path="functions-part-1.html"><a href="functions-part-1.html#parameters-and-arguments"><i class="fa fa-check"></i><b>4.5</b> Parameters and arguments</a></li>
+<li class="chapter" data-level="4.6" data-path="functions-part-1.html"><a href="functions-part-1.html#variables-and-parameters-are-local"><i class="fa fa-check"></i><b>4.6</b> Variables and parameters are local</a></li>
+<li class="chapter" data-level="4.7" data-path="functions-part-1.html"><a href="functions-part-1.html#why-functions"><i class="fa fa-check"></i><b>4.7</b> Why functions</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="functions-part-2.html"><a href="functions-part-2.html"><i class="fa fa-check"></i><b>5</b> Functions: Part 2</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="functions-part-2.html"><a href="functions-part-2.html#fruitful-functions-for-business"><i class="fa fa-check"></i><b>5.1</b> Fruitful Functions (For Business)</a></li>
+<li class="chapter" data-level="5.2" data-path="functions-part-2.html"><a href="functions-part-2.html#return-values"><i class="fa fa-check"></i><b>5.2</b> Return values</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="functions-part-2.html"><a href="functions-part-2.html#example-1"><i class="fa fa-check"></i><b>5.2.1</b> Example</a></li>
+<li class="chapter" data-level="5.2.2" data-path="functions-part-2.html"><a href="functions-part-2.html#example-2"><i class="fa fa-check"></i><b>5.2.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="functions-part-2.html"><a href="functions-part-2.html#boolean-functions"><i class="fa fa-check"></i><b>5.3</b> Boolean Functions</a></li>
+<li class="chapter" data-level="5.4" data-path="functions-part-2.html"><a href="functions-part-2.html#recursion-factorial-example"><i class="fa fa-check"></i><b>5.4</b> Recursion (Factorial Example)</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="functions-part-2.html"><a href="functions-part-2.html#step-1-decide-on-parameters"><i class="fa fa-check"></i><b>5.4.1</b> Step 1: Decide on parameters</a></li>
+<li class="chapter" data-level="5.4.2" data-path="functions-part-2.html"><a href="functions-part-2.html#step-2-add-basic-conditional-argument"><i class="fa fa-check"></i><b>5.4.2</b> Step 2: Add basic conditional argument</a></li>
+<li class="chapter" data-level="5.4.3" data-path="functions-part-2.html"><a href="functions-part-2.html#step-3-make-it-recursive"><i class="fa fa-check"></i><b>5.4.3</b> Step 3: Make it recursive</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="functions-part-2.html"><a href="functions-part-2.html#fibonacci-example"><i class="fa fa-check"></i><b>5.5</b> Fibonacci Example</a></li>
+<li class="chapter" data-level="5.6" data-path="functions-part-2.html"><a href="functions-part-2.html#checking-types-factorial-example-2"><i class="fa fa-check"></i><b>5.6</b> Checking types: Factorial Example 2</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="functions-part-2.html"><a href="functions-part-2.html#solution"><i class="fa fa-check"></i><b>5.6.1</b> Solution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>6</b> Iteration</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="iteration.html"><a href="iteration.html#reassignment"><i class="fa fa-check"></i><b>6.1</b> Reassignment</a></li>
+<li class="chapter" data-level="6.2" data-path="iteration.html"><a href="iteration.html#updating-variables"><i class="fa fa-check"></i><b>6.2</b> Updating variables</a></li>
+<li class="chapter" data-level="6.3" data-path="iteration.html"><a href="iteration.html#while-statement"><i class="fa fa-check"></i><b>6.3</b> while statement</a></li>
+<li class="chapter" data-level="6.4" data-path="iteration.html"><a href="iteration.html#break"><i class="fa fa-check"></i><b>6.4</b> break</a></li>
+<li class="chapter" data-level="6.5" data-path="iteration.html"><a href="iteration.html#example-square-roots"><i class="fa fa-check"></i><b>6.5</b> Example: Square roots</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="strings.html"><a href="strings.html"><i class="fa fa-check"></i><b>7</b> Strings</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="strings.html"><a href="strings.html#a-string-is-a-sequence"><i class="fa fa-check"></i><b>7.1</b> A string is a sequence</a></li>
+<li class="chapter" data-level="7.2" data-path="strings.html"><a href="strings.html#len"><i class="fa fa-check"></i><b>7.2</b> len</a></li>
+<li class="chapter" data-level="7.3" data-path="strings.html"><a href="strings.html#traversal-with-a-for-loop"><i class="fa fa-check"></i><b>7.3</b> Traversal with a for loop</a></li>
+<li class="chapter" data-level="7.4" data-path="strings.html"><a href="strings.html#example-concatenation"><i class="fa fa-check"></i><b>7.4</b> Example: Concatenation</a></li>
+<li class="chapter" data-level="7.5" data-path="strings.html"><a href="strings.html#example-in-class-question"><i class="fa fa-check"></i><b>7.5</b> Example: In-class question</a></li>
+<li class="chapter" data-level="7.6" data-path="strings.html"><a href="strings.html#string-slices"><i class="fa fa-check"></i><b>7.6</b> String slices</a></li>
+<li class="chapter" data-level="7.7" data-path="strings.html"><a href="strings.html#strings-are-immutable"><i class="fa fa-check"></i><b>7.7</b> Strings are immutable</a></li>
+<li class="chapter" data-level="7.8" data-path="strings.html"><a href="strings.html#search"><i class="fa fa-check"></i><b>7.8</b> Search</a></li>
+<li class="chapter" data-level="7.9" data-path="strings.html"><a href="strings.html#looping-and-counting"><i class="fa fa-check"></i><b>7.9</b> Looping and counting</a></li>
+<li class="chapter" data-level="7.10" data-path="strings.html"><a href="strings.html#string-methods"><i class="fa fa-check"></i><b>7.10</b> String methods</a></li>
+<li class="chapter" data-level="7.11" data-path="strings.html"><a href="strings.html#in-operator"><i class="fa fa-check"></i><b>7.11</b> in operator</a></li>
+<li class="chapter" data-level="7.12" data-path="strings.html"><a href="strings.html#example-3"><i class="fa fa-check"></i><b>7.12</b> Example</a></li>
+<li class="chapter" data-level="7.13" data-path="strings.html"><a href="strings.html#string-comparison"><i class="fa fa-check"></i><b>7.13</b> String comparison</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html"><i class="fa fa-check"></i><b>8</b> Conditionals and Recursion</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#floor-division-and-modulus"><i class="fa fa-check"></i><b>8.1</b> Floor division and modulus</a></li>
+<li class="chapter" data-level="8.2" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#boolean-expressions"><i class="fa fa-check"></i><b>8.2</b> Boolean expressions</a></li>
+<li class="chapter" data-level="8.3" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#logical-operators"><i class="fa fa-check"></i><b>8.3</b> Logical operators</a></li>
+<li class="chapter" data-level="8.4" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#conditional-execution"><i class="fa fa-check"></i><b>8.4</b> Conditional execution</a></li>
+<li class="chapter" data-level="8.5" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#alternative-execution"><i class="fa fa-check"></i><b>8.5</b> Alternative execution</a></li>
+<li class="chapter" data-level="8.6" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#chained-conditionals"><i class="fa fa-check"></i><b>8.6</b> Chained conditionals</a></li>
+<li class="chapter" data-level="8.7" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#nested-conditionals"><i class="fa fa-check"></i><b>8.7</b> Nested conditionals</a></li>
+<li class="chapter" data-level="8.8" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#recursion"><i class="fa fa-check"></i><b>8.8</b> Recursion</a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#what-is-recursion-in-python"><i class="fa fa-check"></i><b>8.8.1</b> What is recursion in Python?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#infinite-recursion"><i class="fa fa-check"></i><b>8.9</b> Infinite recursion</a></li>
+<li class="chapter" data-level="8.10" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#keyboard-input"><i class="fa fa-check"></i><b>8.10</b> Keyboard Input</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="lists.html"><a href="lists.html"><i class="fa fa-check"></i><b>9</b> Lists</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="lists.html"><a href="lists.html#list-sequence"><i class="fa fa-check"></i><b>9.1</b> List == Sequence</a></li>
+<li class="chapter" data-level="9.2" data-path="lists.html"><a href="lists.html#lists-are-mutable"><i class="fa fa-check"></i><b>9.2</b> Lists are Mutable</a></li>
+<li class="chapter" data-level="9.3" data-path="lists.html"><a href="lists.html#traversing-a-list"><i class="fa fa-check"></i><b>9.3</b> Traversing a list</a></li>
+<li class="chapter" data-level="9.4" data-path="lists.html"><a href="lists.html#list-operations"><i class="fa fa-check"></i><b>9.4</b> List operations</a></li>
+<li class="chapter" data-level="9.5" data-path="lists.html"><a href="lists.html#list-slices"><i class="fa fa-check"></i><b>9.5</b> List slices</a></li>
+<li class="chapter" data-level="9.6" data-path="lists.html"><a href="lists.html#list-methods"><i class="fa fa-check"></i><b>9.6</b> List methods</a></li>
+<li class="chapter" data-level="9.7" data-path="lists.html"><a href="lists.html#map-filter-reduce"><i class="fa fa-check"></i><b>9.7</b> Map, filter, reduce</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="lists.html"><a href="lists.html#reduce"><i class="fa fa-check"></i><b>9.7.1</b> Reduce</a></li>
+<li class="chapter" data-level="9.7.2" data-path="lists.html"><a href="lists.html#map"><i class="fa fa-check"></i><b>9.7.2</b> Map</a></li>
+<li class="chapter" data-level="9.7.3" data-path="lists.html"><a href="lists.html#filter"><i class="fa fa-check"></i><b>9.7.3</b> Filter</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="lists.html"><a href="lists.html#deleting-elements"><i class="fa fa-check"></i><b>9.8</b> Deleting Elements</a></li>
+<li class="chapter" data-level="9.9" data-path="lists.html"><a href="lists.html#lists-and-strings"><i class="fa fa-check"></i><b>9.9</b> Lists and strings</a></li>
+<li class="chapter" data-level="9.10" data-path="lists.html"><a href="lists.html#list-arguments"><i class="fa fa-check"></i><b>9.10</b> List arguments</a></li>
+<li class="chapter" data-level="9.11" data-path="lists.html"><a href="lists.html#debugging"><i class="fa fa-check"></i><b>9.11</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="9.11.1" data-path="lists.html"><a href="lists.html#most-list-methods-modify-the-argument-and-return-none"><i class="fa fa-check"></i><b>9.11.1</b> Most list methods modify the argument and return <code>None</code></a></li>
+<li class="chapter" data-level="9.11.2" data-path="lists.html"><a href="lists.html#pick-an-idiom-and-stick-with-it"><i class="fa fa-check"></i><b>9.11.2</b> Pick an idiom and stick with it</a></li>
+<li class="chapter" data-level="9.11.3" data-path="lists.html"><a href="lists.html#make-copies-to-avoid-aliasing."><i class="fa fa-check"></i><b>9.11.3</b> Make copies to avoid aliasing.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="python-basics.html"><a href="python-basics.html"><i class="fa fa-check"></i><b>10</b> Python Basics</a></li>
+<li class="chapter" data-level="11" data-path="review-material.html"><a href="review-material.html"><i class="fa fa-check"></i><b>11</b> Review Material</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="review-material.html"><a href="review-material.html#python_basics"><i class="fa fa-check"></i><b>11.1</b> Python Basics</a></li>
+<li class="chapter" data-level="11.2" data-path="review-material.html"><a href="review-material.html#pandas_basics"><i class="fa fa-check"></i><b>11.2</b> Pandas Basics</a></li>
+<li class="chapter" data-level="11.3" data-path="review-material.html"><a href="review-material.html#shell_basics"><i class="fa fa-check"></i><b>11.3</b> Data Science at the Command Line</a></li>
+<li class="chapter" data-level="11.4" data-path="review-material.html"><a href="review-material.html#sql_basics"><i class="fa fa-check"></i><b>11.4</b> SQL Basics</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="numpy.html"><a href="numpy.html"><i class="fa fa-check"></i><b>12</b> NumPy</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="numpy.html"><a href="numpy.html#using-numpy"><i class="fa fa-check"></i><b>12.1</b> Using NumPy</a></li>
+<li class="chapter" data-level="12.2" data-path="numpy.html"><a href="numpy.html#numpy-arrays"><i class="fa fa-check"></i><b>12.2</b> Numpy Arrays</a></li>
+<li class="chapter" data-level="12.3" data-path="numpy.html"><a href="numpy.html#creating-numpy-arrays"><i class="fa fa-check"></i><b>12.3</b> Creating NumPy Arrays</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="numpy.html"><a href="numpy.html#from-a-python-list"><i class="fa fa-check"></i><b>12.3.1</b> From a Python List</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="numpy.html"><a href="numpy.html#built-in-methods"><i class="fa fa-check"></i><b>12.4</b> Built-in Methods</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="numpy.html"><a href="numpy.html#arange"><i class="fa fa-check"></i><b>12.4.1</b> arange</a></li>
+<li class="chapter" data-level="12.4.2" data-path="numpy.html"><a href="numpy.html#zeros-and-ones"><i class="fa fa-check"></i><b>12.4.2</b> zeros and ones</a></li>
+<li class="chapter" data-level="12.4.3" data-path="numpy.html"><a href="numpy.html#linspace"><i class="fa fa-check"></i><b>12.4.3</b> linspace</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="numpy.html"><a href="numpy.html#eye"><i class="fa fa-check"></i><b>12.5</b> eye</a></li>
+<li class="chapter" data-level="12.6" data-path="numpy.html"><a href="numpy.html#random"><i class="fa fa-check"></i><b>12.6</b> Random</a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="numpy.html"><a href="numpy.html#rand"><i class="fa fa-check"></i><b>12.6.1</b> rand</a></li>
+<li class="chapter" data-level="12.6.2" data-path="numpy.html"><a href="numpy.html#randn"><i class="fa fa-check"></i><b>12.6.2</b> randn</a></li>
+<li class="chapter" data-level="12.6.3" data-path="numpy.html"><a href="numpy.html#randint"><i class="fa fa-check"></i><b>12.6.3</b> randint</a></li>
+</ul></li>
+<li class="chapter" data-level="12.7" data-path="numpy.html"><a href="numpy.html#array-attributes-and-methods"><i class="fa fa-check"></i><b>12.7</b> Array Attributes and Methods</a></li>
+<li class="chapter" data-level="12.8" data-path="numpy.html"><a href="numpy.html#reshape"><i class="fa fa-check"></i><b>12.8</b> Reshape</a>
+<ul>
+<li class="chapter" data-level="12.8.1" data-path="numpy.html"><a href="numpy.html#maxminargmaxargmin"><i class="fa fa-check"></i><b>12.8.1</b> max,min,argmax,argmin</a></li>
+</ul></li>
+<li class="chapter" data-level="12.9" data-path="numpy.html"><a href="numpy.html#shape"><i class="fa fa-check"></i><b>12.9</b> Shape</a>
+<ul>
+<li class="chapter" data-level="12.9.1" data-path="numpy.html"><a href="numpy.html#dtype"><i class="fa fa-check"></i><b>12.9.1</b> dtype</a></li>
+</ul></li>
+<li class="chapter" data-level="12.10" data-path="numpy.html"><a href="numpy.html#numpy-indexing-and-selection"><i class="fa fa-check"></i><b>12.10</b> NumPy Indexing and Selection</a></li>
+<li class="chapter" data-level="12.11" data-path="numpy.html"><a href="numpy.html#bracket-indexing-and-selection"><i class="fa fa-check"></i><b>12.11</b> Bracket Indexing and Selection</a></li>
+<li class="chapter" data-level="12.12" data-path="numpy.html"><a href="numpy.html#broadcasting"><i class="fa fa-check"></i><b>12.12</b> Broadcasting</a></li>
+<li class="chapter" data-level="12.13" data-path="numpy.html"><a href="numpy.html#broadcasting-dangers"><i class="fa fa-check"></i><b>12.13</b> Broadcasting (DANGERS)</a></li>
+<li class="chapter" data-level="12.14" data-path="numpy.html"><a href="numpy.html#copying"><i class="fa fa-check"></i><b>12.14</b> Copying</a></li>
+<li class="chapter" data-level="12.15" data-path="numpy.html"><a href="numpy.html#indexing-a-2d-array-matrices"><i class="fa fa-check"></i><b>12.15</b> Indexing a 2D array (matrices)</a>
+<ul>
+<li class="chapter" data-level="12.15.1" data-path="numpy.html"><a href="numpy.html#fancy-indexing"><i class="fa fa-check"></i><b>12.15.1</b> Fancy Indexing</a></li>
+<li class="chapter" data-level="12.15.2" data-path="numpy.html"><a href="numpy.html#fancy-indexing-1"><i class="fa fa-check"></i><b>12.15.2</b> Fancy Indexing</a></li>
+</ul></li>
+<li class="chapter" data-level="12.16" data-path="numpy.html"><a href="numpy.html#more-indexing-help"><i class="fa fa-check"></i><b>12.16</b> More Indexing Help</a></li>
+<li class="chapter" data-level="12.17" data-path="numpy.html"><a href="numpy.html#selection"><i class="fa fa-check"></i><b>12.17</b> Selection</a></li>
+<li class="chapter" data-level="12.18" data-path="numpy.html"><a href="numpy.html#numpy-operations"><i class="fa fa-check"></i><b>12.18</b> NumPy Operations</a></li>
+<li class="chapter" data-level="12.19" data-path="numpy.html"><a href="numpy.html#arithmetic"><i class="fa fa-check"></i><b>12.19</b> Arithmetic</a></li>
+<li class="chapter" data-level="12.20" data-path="numpy.html"><a href="numpy.html#universal-array-functions"><i class="fa fa-check"></i><b>12.20</b> Universal Array Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="wrangling.html"><a href="wrangling.html"><i class="fa fa-check"></i><b>13</b> Wrangling</a></li>
+<li class="chapter" data-level="14" data-path="dataframes.html"><a href="dataframes.html"><i class="fa fa-check"></i><b>14</b> DataFrames</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="dataframes.html"><a href="dataframes.html#introduction"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="dataframes.html"><a href="dataframes.html#creating-a-dataframe-using-list"><i class="fa fa-check"></i><b>14.2</b> Creating a dataframe using List:</a></li>
+<li class="chapter" data-level="14.3" data-path="dataframes.html"><a href="dataframes.html#creating-dataframe-from-dict-of-ndarraylists"><i class="fa fa-check"></i><b>14.3</b> Creating DataFrame from dict of ndarray/lists:</a></li>
+<li class="chapter" data-level="14.4" data-path="dataframes.html"><a href="dataframes.html#dealing-with-rows-and-columns"><i class="fa fa-check"></i><b>14.4</b> Dealing with Rows and Columns</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="dataframes.html"><a href="dataframes.html#column-selection"><i class="fa fa-check"></i><b>14.4.1</b> Column Selection:</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="dataframes.html"><a href="dataframes.html#select-multiple-columns"><i class="fa fa-check"></i><b>14.5</b> Select Multiple Columns</a></li>
+<li class="chapter" data-level="14.6" data-path="dataframes.html"><a href="dataframes.html#row-selection"><i class="fa fa-check"></i><b>14.6</b> Row Selection:</a></li>
+<li class="chapter" data-level="14.7" data-path="dataframes.html"><a href="dataframes.html#indexing-and-selecting-data"><i class="fa fa-check"></i><b>14.7</b> Indexing and Selecting Data</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="dataframes.html"><a href="dataframes.html#indexing-a-dataframe-using-indexing-operator"><i class="fa fa-check"></i><b>14.7.1</b> Indexing a Dataframe using indexing operator [] :</a></li>
+<li class="chapter" data-level="14.7.2" data-path="dataframes.html"><a href="dataframes.html#indexing-a-dataframe-using-.loc"><i class="fa fa-check"></i><b>14.7.2</b> Indexing a DataFrame using .loc[ ] :</a></li>
+<li class="chapter" data-level="14.7.3" data-path="dataframes.html"><a href="dataframes.html#indexing-a-dataframe-using-.iloc"><i class="fa fa-check"></i><b>14.7.3</b> Indexing a DataFrame using .iloc[ ] :</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="introduction-to-pandas.html"><a href="introduction-to-pandas.html"><i class="fa fa-check"></i><b>15</b> Introduction to Pandas</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="introduction-to-pandas.html"><a href="introduction-to-pandas.html#overview-of-pandas-capabilities"><i class="fa fa-check"></i><b>15.1</b> Overview of Pandas Capabilities</a></li>
+<li class="chapter" data-level="15.2" data-path="introduction-to-pandas.html"><a href="introduction-to-pandas.html#pandas"><i class="fa fa-check"></i><b>15.2</b> Pandas</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="introduction-to-pandas.html"><a href="introduction-to-pandas.html#series"><i class="fa fa-check"></i><b>15.2.1</b> Series</a></li>
+<li class="chapter" data-level="15.2.2" data-path="introduction-to-pandas.html"><a href="introduction-to-pandas.html#series-examples"><i class="fa fa-check"></i><b>15.2.2</b> Series Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="introduction-to-pandas.html"><a href="introduction-to-pandas.html#dataframe-creation"><i class="fa fa-check"></i><b>15.3</b> DataFrame Creation</a></li>
+<li class="chapter" data-level="15.4" data-path="introduction-to-pandas.html"><a href="introduction-to-pandas.html#viewing-data"><i class="fa fa-check"></i><b>15.4</b> Viewing Data</a></li>
+<li class="chapter" data-level="15.5" data-path="introduction-to-pandas.html"><a href="introduction-to-pandas.html#selection-1"><i class="fa fa-check"></i><b>15.5</b> Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>16</b> Data Import</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="data-import.html"><a href="data-import.html#obtaining-data"><i class="fa fa-check"></i><b>16.1</b> Obtaining Data</a></li>
+<li class="chapter" data-level="16.2" data-path="data-import.html"><a href="data-import.html#importing-data-with-pandas"><i class="fa fa-check"></i><b>16.2</b> Importing Data with pandas</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="data-import.html"><a href="data-import.html#prerequisites"><i class="fa fa-check"></i><b>16.2.1</b> Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="data-import.html"><a href="data-import.html#getting-started"><i class="fa fa-check"></i><b>16.3</b> Getting started</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="data-import.html"><a href="data-import.html#exercises"><i class="fa fa-check"></i><b>16.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="data-import.html"><a href="data-import.html#parsing-a-list"><i class="fa fa-check"></i><b>16.4</b> Parsing a list</a></li>
+<li class="chapter" data-level="16.5" data-path="data-import.html"><a href="data-import.html#numbers"><i class="fa fa-check"></i><b>16.5</b> Numbers</a></li>
+<li class="chapter" data-level="16.6" data-path="data-import.html"><a href="data-import.html#strings-1"><i class="fa fa-check"></i><b>16.6</b> Strings</a></li>
+<li class="chapter" data-level="16.7" data-path="data-import.html"><a href="data-import.html#categoricals-in-pandas"><i class="fa fa-check"></i><b>16.7</b> Categoricals in Pandas</a></li>
+<li class="chapter" data-level="16.8" data-path="data-import.html"><a href="data-import.html#dates-date-times-and-times"><i class="fa fa-check"></i><b>16.8</b> Dates, date-times, and times</a>
+<ul>
+<li class="chapter" data-level="16.8.1" data-path="data-import.html"><a href="data-import.html#exercises-1"><i class="fa fa-check"></i><b>16.8.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16.9" data-path="data-import.html"><a href="data-import.html#parsing-a-file"><i class="fa fa-check"></i><b>16.9</b> Parsing a file</a>
+<ul>
+<li class="chapter" data-level="16.9.1" data-path="data-import.html"><a href="data-import.html#strategy"><i class="fa fa-check"></i><b>16.9.1</b> Strategy</a></li>
+<li class="chapter" data-level="16.9.2" data-path="data-import.html"><a href="data-import.html#problems"><i class="fa fa-check"></i><b>16.9.2</b> Problems</a></li>
+<li class="chapter" data-level="16.9.3" data-path="data-import.html"><a href="data-import.html#other-strategies"><i class="fa fa-check"></i><b>16.9.3</b> Other Strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="16.10" data-path="data-import.html"><a href="data-import.html#writing-to-a-file"><i class="fa fa-check"></i><b>16.10</b> Writing to a file</a></li>
+<li class="chapter" data-level="16.11" data-path="data-import.html"><a href="data-import.html#other-types-of-data"><i class="fa fa-check"></i><b>16.11</b> Other types of data</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="data-selection.html"><a href="data-selection.html"><i class="fa fa-check"></i><b>17</b> Data Selection</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="data-selection.html"><a href="data-selection.html#selection-by-label"><i class="fa fa-check"></i><b>17.1</b> Selection by label</a></li>
+<li class="chapter" data-level="17.2" data-path="data-selection.html"><a href="data-selection.html#selection-by-position"><i class="fa fa-check"></i><b>17.2</b> Selection by position</a></li>
+<li class="chapter" data-level="17.3" data-path="data-selection.html"><a href="data-selection.html#boolean-indexing"><i class="fa fa-check"></i><b>17.3</b> Boolean indexing</a></li>
+<li class="chapter" data-level="17.4" data-path="data-selection.html"><a href="data-selection.html#setting"><i class="fa fa-check"></i><b>17.4</b> Setting</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="missing-data-part-1.html"><a href="missing-data-part-1.html"><i class="fa fa-check"></i><b>18</b> Missing Data: Part 1</a></li>
+<li class="chapter" data-level="19" data-path="missing-data-part-2.html"><a href="missing-data-part-2.html"><i class="fa fa-check"></i><b>19</b> Missing Data: Part 2</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="missing-data-part-2.html"><a href="missing-data-part-2.html#dealing-with-missing-data"><i class="fa fa-check"></i><b>19.1</b> Dealing with Missing Data</a></li>
+<li class="chapter" data-level="19.2" data-path="missing-data-part-2.html"><a href="missing-data-part-2.html#creating-missing-data"><i class="fa fa-check"></i><b>19.2</b> Creating Missing Data</a></li>
+<li class="chapter" data-level="19.3" data-path="missing-data-part-2.html"><a href="missing-data-part-2.html#drop-missing-data"><i class="fa fa-check"></i><b>19.3</b> Drop Missing Data</a></li>
+<li class="chapter" data-level="19.4" data-path="missing-data-part-2.html"><a href="missing-data-part-2.html#keep-rows-at-threshold"><i class="fa fa-check"></i><b>19.4</b> Keep rows at Threshold</a></li>
+<li class="chapter" data-level="19.5" data-path="missing-data-part-2.html"><a href="missing-data-part-2.html#fill-missing-values"><i class="fa fa-check"></i><b>19.5</b> Fill Missing Values</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="done.html"><a href="done.html"><i class="fa fa-check"></i><b>20</b> DONE!</a></li>
+<li class="chapter" data-level="21" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>21</b> Tidy Data</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="tidy-data.html"><a href="tidy-data.html#introduction-1"><i class="fa fa-check"></i><b>21.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="21.1.1" data-path="tidy-data.html"><a href="tidy-data.html#prerequisties"><i class="fa fa-check"></i><b>21.1.1</b> Prerequisties</a></li>
+<li class="chapter" data-level="21.1.2" data-path="tidy-data.html"><a href="tidy-data.html#exercises-2"><i class="fa fa-check"></i><b>21.1.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="21.2" data-path="tidy-data.html"><a href="tidy-data.html#spreading-and-gathering"><i class="fa fa-check"></i><b>21.2</b> Spreading and gathering</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="tidy-data.html"><a href="tidy-data.html#melt-gathering"><i class="fa fa-check"></i><b>21.2.1</b> Melt (Gathering)</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="tidy-data.html"><a href="tidy-data.html#pivot-spreading"><i class="fa fa-check"></i><b>21.3</b> Pivot (Spreading)</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-3"><i class="fa fa-check"></i><b>21.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="21.4" data-path="tidy-data.html"><a href="tidy-data.html#separating-and-uniting"><i class="fa fa-check"></i><b>21.4</b> Separating and uniting</a></li>
+<li class="chapter" data-level="21.5" data-path="tidy-data.html"><a href="tidy-data.html#separate"><i class="fa fa-check"></i><b>21.5</b> Separate</a>
+<ul>
+<li class="chapter" data-level="21.5.1" data-path="tidy-data.html"><a href="tidy-data.html#unite"><i class="fa fa-check"></i><b>21.5.1</b> Unite</a></li>
+<li class="chapter" data-level="21.5.2" data-path="tidy-data.html"><a href="tidy-data.html#exercises-4"><i class="fa fa-check"></i><b>21.5.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="21.6" data-path="tidy-data.html"><a href="tidy-data.html#missing-values"><i class="fa fa-check"></i><b>21.6</b> Missing Values</a>
+<ul>
+<li class="chapter" data-level="21.6.1" data-path="tidy-data.html"><a href="tidy-data.html#exercise-2"><i class="fa fa-check"></i><b>21.6.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="21.7" data-path="tidy-data.html"><a href="tidy-data.html#case-study"><i class="fa fa-check"></i><b>21.7</b> Case Study</a>
+<ul>
+<li class="chapter" data-level="21.7.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-5"><i class="fa fa-check"></i><b>21.7.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="21.8" data-path="tidy-data.html"><a href="tidy-data.html#non-tidy-data"><i class="fa fa-check"></i><b>21.8</b> Non-tidy data</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="operations.html"><a href="operations.html"><i class="fa fa-check"></i><b>22</b> Operations</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="operations.html"><a href="operations.html#stats"><i class="fa fa-check"></i><b>22.1</b> Stats</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="apply.html"><a href="apply.html"><i class="fa fa-check"></i><b>23</b> Apply</a></li>
+<li class="chapter" data-level="24" data-path="histogramming.html"><a href="histogramming.html"><i class="fa fa-check"></i><b>24</b> Histogramming</a></li>
+<li class="chapter" data-level="25" data-path="string-methods-1.html"><a href="string-methods-1.html"><i class="fa fa-check"></i><b>25</b> String Methods</a></li>
+<li class="chapter" data-level="26" data-path="merging-data-part-1.html"><a href="merging-data-part-1.html"><i class="fa fa-check"></i><b>26</b> Merging Data: Part 1</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="merging-data-part-1.html"><a href="merging-data-part-1.html#merge"><i class="fa fa-check"></i><b>26.1</b> Merge</a></li>
+<li class="chapter" data-level="26.2" data-path="merging-data-part-1.html"><a href="merging-data-part-1.html#concat"><i class="fa fa-check"></i><b>26.2</b> Concat</a></li>
+</ul></li>
+<li class="chapter" data-level="27" data-path="join.html"><a href="join.html"><i class="fa fa-check"></i><b>27</b> Join</a></li>
+<li class="chapter" data-level="28" data-path="append.html"><a href="append.html"><i class="fa fa-check"></i><b>28</b> Append</a></li>
+<li class="chapter" data-level="29" data-path="merging-data-part-2.html"><a href="merging-data-part-2.html"><i class="fa fa-check"></i><b>29</b> Merging Data: Part 2</a>
+<ul>
+<li class="chapter" data-level="29.1" data-path="merging-data-part-2.html"><a href="merging-data-part-2.html#merging-joining-and-concatenating"><i class="fa fa-check"></i><b>29.1</b> Merging, Joining, and Concatenating</a></li>
+<li class="chapter" data-level="29.2" data-path="merging-data-part-2.html"><a href="merging-data-part-2.html#create-dataframe-examples-using-list-comprehension"><i class="fa fa-check"></i><b>29.2</b> Create DataFrame Examples Using List Comprehension</a></li>
+<li class="chapter" data-level="29.3" data-path="merging-data-part-2.html"><a href="merging-data-part-2.html#concatenation"><i class="fa fa-check"></i><b>29.3</b> Concatenation</a></li>
+<li class="chapter" data-level="29.4" data-path="merging-data-part-2.html"><a href="merging-data-part-2.html#example-dataframes-with-keys"><i class="fa fa-check"></i><b>29.4</b> Example DataFrames with Keys</a></li>
+<li class="chapter" data-level="29.5" data-path="merging-data-part-2.html"><a href="merging-data-part-2.html#merging"><i class="fa fa-check"></i><b>29.5</b> Merging</a></li>
+<li class="chapter" data-level="29.6" data-path="merging-data-part-2.html"><a href="merging-data-part-2.html#joining"><i class="fa fa-check"></i><b>29.6</b> Joining</a></li>
+</ul></li>
+<li class="chapter" data-level="30" data-path="done-1.html"><a href="done-1.html"><i class="fa fa-check"></i><b>30</b> DONE</a></li>
+<li class="chapter" data-level="31" data-path="groupby-part-1.html"><a href="groupby-part-1.html"><i class="fa fa-check"></i><b>31</b> Groupby: Part 1</a></li>
+<li class="chapter" data-level="32" data-path="groupby-part-2.html"><a href="groupby-part-2.html"><i class="fa fa-check"></i><b>32</b> Groupby: Part 2</a>
+<ul>
+<li class="chapter" data-level="32.1" data-path="groupby-part-2.html"><a href="groupby-part-2.html#groupby"><i class="fa fa-check"></i><b>32.1</b> groupby()</a></li>
+<li class="chapter" data-level="32.2" data-path="groupby-part-2.html"><a href="groupby-part-2.html#groupby-and-aggregation-methods"><i class="fa fa-check"></i><b>32.2</b> Groupby and Aggregation Methods</a></li>
+<li class="chapter" data-level="32.3" data-path="groupby-part-2.html"><a href="groupby-part-2.html#groupby-describe-method"><i class="fa fa-check"></i><b>32.3</b> Groupby + describe method</a></li>
+<li class="chapter" data-level="32.4" data-path="groupby-part-2.html"><a href="groupby-part-2.html#groupby-describe-method-1"><i class="fa fa-check"></i><b>32.4</b> Groupby + describe method</a></li>
+<li class="chapter" data-level="32.5" data-path="groupby-part-2.html"><a href="groupby-part-2.html#groupby-describe-method-multiple-numeric-values"><i class="fa fa-check"></i><b>32.5</b> Groupby + describe method (multiple numeric values)</a></li>
+</ul></li>
+<li class="chapter" data-level="33" data-path="done-2.html"><a href="done-2.html"><i class="fa fa-check"></i><b>33</b> DONE</a></li>
+<li class="chapter" data-level="34" data-path="reshaping.html"><a href="reshaping.html"><i class="fa fa-check"></i><b>34</b> Reshaping</a>
+<ul>
+<li class="chapter" data-level="34.1" data-path="reshaping.html"><a href="reshaping.html#stack"><i class="fa fa-check"></i><b>34.1</b> Stack</a></li>
+<li class="chapter" data-level="34.2" data-path="reshaping.html"><a href="reshaping.html#removing-columns"><i class="fa fa-check"></i><b>34.2</b> Removing Columns</a></li>
+<li class="chapter" data-level="34.3" data-path="reshaping.html"><a href="reshaping.html#removedrop-data-for-real"><i class="fa fa-check"></i><b>34.3</b> Remove/Drop data (For real)</a></li>
+<li class="chapter" data-level="34.4" data-path="reshaping.html"><a href="reshaping.html#dropping-rows"><i class="fa fa-check"></i><b>34.4</b> Dropping rows</a></li>
+<li class="chapter" data-level="34.5" data-path="reshaping.html"><a href="reshaping.html#why-0-for-row-1-for-column"><i class="fa fa-check"></i><b>34.5</b> Why 0 for row; 1 for column</a></li>
+</ul></li>
+<li class="chapter" data-level="35" data-path="pivot-tables.html"><a href="pivot-tables.html"><i class="fa fa-check"></i><b>35</b> Pivot tables</a></li>
+<li class="chapter" data-level="36" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>36</b> Time Series</a></li>
+<li class="chapter" data-level="37" data-path="categorical-data.html"><a href="categorical-data.html"><i class="fa fa-check"></i><b>37</b> Categorical Data</a></li>
+<li class="chapter" data-level="38" data-path="plotting-data-with-pandas.html"><a href="plotting-data-with-pandas.html"><i class="fa fa-check"></i><b>38</b> Plotting Data with Pandas</a></li>
+<li class="chapter" data-level="39" data-path="data-inputoutput-part-1.html"><a href="data-inputoutput-part-1.html"><i class="fa fa-check"></i><b>39</b> Data Input/Output: Part 1</a>
+<ul>
+<li class="chapter" data-level="39.1" data-path="data-inputoutput-part-1.html"><a href="data-inputoutput-part-1.html#csv"><i class="fa fa-check"></i><b>39.1</b> CSV</a></li>
+<li class="chapter" data-level="39.2" data-path="data-inputoutput-part-1.html"><a href="data-inputoutput-part-1.html#hdf5"><i class="fa fa-check"></i><b>39.2</b> HDF5</a></li>
+<li class="chapter" data-level="39.3" data-path="data-inputoutput-part-1.html"><a href="data-inputoutput-part-1.html#excel"><i class="fa fa-check"></i><b>39.3</b> Excel</a></li>
+</ul></li>
+<li class="chapter" data-level="40" data-path="data-inputoutput-part-2.html"><a href="data-inputoutput-part-2.html"><i class="fa fa-check"></i><b>40</b> Data Input/Output: Part 2</a>
+<ul>
+<li class="chapter" data-level="40.1" data-path="data-inputoutput-part-2.html"><a href="data-inputoutput-part-2.html#csv-1"><i class="fa fa-check"></i><b>40.1</b> CSV</a>
+<ul>
+<li class="chapter" data-level="40.1.1" data-path="data-inputoutput-part-2.html"><a href="data-inputoutput-part-2.html#csv-input"><i class="fa fa-check"></i><b>40.1.1</b> CSV Input</a></li>
+<li class="chapter" data-level="40.1.2" data-path="data-inputoutput-part-2.html"><a href="data-inputoutput-part-2.html#csv-output"><i class="fa fa-check"></i><b>40.1.2</b> CSV Output</a></li>
+</ul></li>
+<li class="chapter" data-level="40.2" data-path="data-inputoutput-part-2.html"><a href="data-inputoutput-part-2.html#excel-1"><i class="fa fa-check"></i><b>40.2</b> Excel</a>
+<ul>
+<li class="chapter" data-level="40.2.1" data-path="data-inputoutput-part-2.html"><a href="data-inputoutput-part-2.html#excel-output"><i class="fa fa-check"></i><b>40.2.1</b> Excel Output</a></li>
+<li class="chapter" data-level="40.2.2" data-path="data-inputoutput-part-2.html"><a href="data-inputoutput-part-2.html#html-input"><i class="fa fa-check"></i><b>40.2.2</b> HTML Input</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="41" data-path="operations-1.html"><a href="operations-1.html"><i class="fa fa-check"></i><b>41</b> Operations</a>
+<ul>
+<li class="chapter" data-level="41.1" data-path="operations-1.html"><a href="operations-1.html#unique"><i class="fa fa-check"></i><b>41.1</b> Unique</a></li>
+<li class="chapter" data-level="41.2" data-path="operations-1.html"><a href="operations-1.html#select-data"><i class="fa fa-check"></i><b>41.2</b> Select Data</a></li>
+<li class="chapter" data-level="41.3" data-path="operations-1.html"><a href="operations-1.html#applying-functions"><i class="fa fa-check"></i><b>41.3</b> Applying Functions</a></li>
+<li class="chapter" data-level="41.4" data-path="operations-1.html"><a href="operations-1.html#columns"><i class="fa fa-check"></i><b>41.4</b> Columns</a></li>
+<li class="chapter" data-level="41.5" data-path="operations-1.html"><a href="operations-1.html#sort-and-order-dataframes"><i class="fa fa-check"></i><b>41.5</b> Sort and Order DataFrames</a></li>
+<li class="chapter" data-level="41.6" data-path="operations-1.html"><a href="operations-1.html#null-values"><i class="fa fa-check"></i><b>41.6</b> Null Values</a></li>
+</ul></li>
+<li class="chapter" data-level="42" data-path="sql.html"><a href="sql.html"><i class="fa fa-check"></i><b>42</b> SQL</a></li>
+<li class="chapter" data-level="43" data-path="pandas-basics.html"><a href="pandas-basics.html"><i class="fa fa-check"></i><b>43</b> Pandas Basics</a></li>
+<li class="chapter" data-level="44" data-path="introduction-to-the-shell.html"><a href="introduction-to-the-shell.html"><i class="fa fa-check"></i><b>44</b> Introduction to the Shell</a></li>
+<li class="chapter" data-level="45" data-path="why-data-science-at-the-command-line.html"><a href="why-data-science-at-the-command-line.html"><i class="fa fa-check"></i><b>45</b> Why Data Science at the Command Line?</a>
+<ul>
+<li class="chapter" data-level="45.1" data-path="why-data-science-at-the-command-line.html"><a href="why-data-science-at-the-command-line.html#obtaining-data-1"><i class="fa fa-check"></i><b>45.1</b> Obtaining Data</a></li>
+</ul></li>
+<li class="chapter" data-level="46" data-path="scrubbing-data.html"><a href="scrubbing-data.html"><i class="fa fa-check"></i><b>46</b> Scrubbing Data</a>
+<ul>
+<li class="chapter" data-level="46.1" data-path="scrubbing-data.html"><a href="scrubbing-data.html#exploring-data"><i class="fa fa-check"></i><b>46.1</b> Exploring Data</a></li>
+<li class="chapter" data-level="46.2" data-path="scrubbing-data.html"><a href="scrubbing-data.html#modeling-data"><i class="fa fa-check"></i><b>46.2</b> Modeling Data</a></li>
+<li class="chapter" data-level="46.3" data-path="scrubbing-data.html"><a href="scrubbing-data.html#interpreting-data"><i class="fa fa-check"></i><b>46.3</b> Interpreting Data</a></li>
+</ul></li>
+<li class="chapter" data-level="47" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html"><i class="fa fa-check"></i><b>47</b> Getting Started with the Command Line</a>
+<ul>
+<li class="chapter" data-level="47.1" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html#executing-a-command-line-tool"><i class="fa fa-check"></i><b>47.1</b> Executing a Command-line Tool</a>
+<ul>
+<li class="chapter" data-level="47.1.1" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html#five-types-of-command-line-tools"><i class="fa fa-check"></i><b>47.1.1</b> Five Types of Command-line Tools</a></li>
+<li class="chapter" data-level="47.1.2" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html#binary-executable"><i class="fa fa-check"></i><b>47.1.2</b> Binary Executable</a></li>
+<li class="chapter" data-level="47.1.3" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html#shell-builtin"><i class="fa fa-check"></i><b>47.1.3</b> Shell Builtin</a></li>
+<li class="chapter" data-level="47.1.4" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html#interpreted-script"><i class="fa fa-check"></i><b>47.1.4</b> Interpreted Script</a></li>
+<li class="chapter" data-level="47.1.5" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html#shell-function"><i class="fa fa-check"></i><b>47.1.5</b> Shell Function</a></li>
+<li class="chapter" data-level="47.1.6" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html#alias"><i class="fa fa-check"></i><b>47.1.6</b> Alias</a></li>
+</ul></li>
+<li class="chapter" data-level="47.2" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html#combining-command-line-tools"><i class="fa fa-check"></i><b>47.2</b> Combining Command-line Tools</a></li>
+<li class="chapter" data-level="47.3" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html#redirecting-input-and-output"><i class="fa fa-check"></i><b>47.3</b> Redirecting Input and Output</a></li>
+<li class="chapter" data-level="47.4" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html#working-with-files"><i class="fa fa-check"></i><b>47.4</b> Working With Files</a></li>
+<li class="chapter" data-level="47.5" data-path="getting-started-with-the-command-line.html"><a href="getting-started-with-the-command-line.html#help"><i class="fa fa-check"></i><b>47.5</b> Help</a></li>
+</ul></li>
+<li class="chapter" data-level="48" data-path="obtaining-data-2.html"><a href="obtaining-data-2.html"><i class="fa fa-check"></i><b>48</b> Obtaining Data</a>
+<ul>
+<li class="chapter" data-level="48.1" data-path="obtaining-data-2.html"><a href="obtaining-data-2.html#calling-a-web-api"><i class="fa fa-check"></i><b>48.1</b> Calling a Web API</a></li>
+</ul></li>
+<li class="chapter" data-level="49" data-path="reusable-command-line-tools.html"><a href="reusable-command-line-tools.html"><i class="fa fa-check"></i><b>49</b> Reusable Command-line Tools</a></li>
+<li class="chapter" data-level="50" data-path="why-learn-sql.html"><a href="why-learn-sql.html"><i class="fa fa-check"></i><b>50</b> Why Learn SQL?</a>
+<ul>
+<li class="chapter" data-level="50.1" data-path="why-learn-sql.html"><a href="why-learn-sql.html#what-is-sql-and-why-is-it-marketable"><i class="fa fa-check"></i><b>50.1</b> What Is SQL and Why Is It Marketable?</a></li>
+<li class="chapter" data-level="50.2" data-path="why-learn-sql.html"><a href="why-learn-sql.html#databases"><i class="fa fa-check"></i><b>50.2</b> Databases</a>
+<ul>
+<li class="chapter" data-level="50.2.1" data-path="why-learn-sql.html"><a href="why-learn-sql.html#what-is-a-database"><i class="fa fa-check"></i><b>50.2.1</b> What Is a Database?</a></li>
+</ul></li>
+<li class="chapter" data-level="50.3" data-path="why-learn-sql.html"><a href="why-learn-sql.html#exploring-relational-databases"><i class="fa fa-check"></i><b>50.3</b> Exploring Relational Databases</a>
+<ul>
+<li class="chapter" data-level="50.3.1" data-path="why-learn-sql.html"><a href="why-learn-sql.html#why-separate-tables"><i class="fa fa-check"></i><b>50.3.1</b> Why Separate Tables?</a></li>
+</ul></li>
+<li class="chapter" data-level="50.4" data-path="why-learn-sql.html"><a href="why-learn-sql.html#sqlite"><i class="fa fa-check"></i><b>50.4</b> SQLite</a>
+<ul>
+<li class="chapter" data-level="50.4.1" data-path="why-learn-sql.html"><a href="why-learn-sql.html#what-is-sqlite"><i class="fa fa-check"></i><b>50.4.1</b> What is SQLite?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="51" data-path="using-sql-in-r-markdown.html"><a href="using-sql-in-r-markdown.html"><i class="fa fa-check"></i><b>51</b> Using SQL in R Markdown</a></li>
+<li class="chapter" data-level="52" data-path="using-sql-in-jupyter-notebooks.html"><a href="using-sql-in-jupyter-notebooks.html"><i class="fa fa-check"></i><b>52</b> Using SQL in Jupyter Notebooks</a></li>
+<li class="chapter" data-level="53" data-path="select-statements.html"><a href="select-statements.html"><i class="fa fa-check"></i><b>53</b> SELECT Statements</a>
+<ul>
+<li class="chapter" data-level="53.1" data-path="select-statements.html"><a href="select-statements.html#retrieving-data-with-sql"><i class="fa fa-check"></i><b>53.1</b> Retrieving Data with SQL</a></li>
+<li class="chapter" data-level="53.2" data-path="select-statements.html"><a href="select-statements.html#expression-in-select-statements"><i class="fa fa-check"></i><b>53.2</b> Expression in SELECT Statements</a></li>
+<li class="chapter" data-level="53.3" data-path="select-statements.html"><a href="select-statements.html#text-concatenation"><i class="fa fa-check"></i><b>53.3</b> Text Concatenation</a></li>
+<li class="chapter" data-level="53.4" data-path="select-statements.html"><a href="select-statements.html#summary"><i class="fa fa-check"></i><b>53.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="54" data-path="where-statements.html"><a href="where-statements.html"><i class="fa fa-check"></i><b>54</b> WHERE Statements</a>
+<ul>
+<li class="chapter" data-level="54.1" data-path="where-statements.html"><a href="where-statements.html#filtering-records"><i class="fa fa-check"></i><b>54.1</b> Filtering Records</a></li>
+<li class="chapter" data-level="54.2" data-path="where-statements.html"><a href="where-statements.html#and-or-and-in-statements"><i class="fa fa-check"></i><b>54.2</b> AND, OR, and IN Statements</a></li>
+<li class="chapter" data-level="54.3" data-path="where-statements.html"><a href="where-statements.html#using-where-on-text"><i class="fa fa-check"></i><b>54.3</b> Using Where on Text</a></li>
+<li class="chapter" data-level="54.4" data-path="where-statements.html"><a href="where-statements.html#where-on-booleans"><i class="fa fa-check"></i><b>54.4</b> WHERE on Booleans</a></li>
+<li class="chapter" data-level="54.5" data-path="where-statements.html"><a href="where-statements.html#handling-null"><i class="fa fa-check"></i><b>54.5</b> Handling NULL</a></li>
+<li class="chapter" data-level="54.6" data-path="where-statements.html"><a href="where-statements.html#grouping-conditions"><i class="fa fa-check"></i><b>54.6</b> Grouping Conditions</a></li>
+</ul></li>
+<li class="chapter" data-level="55" data-path="group-by-and-order-by.html"><a href="group-by-and-order-by.html"><i class="fa fa-check"></i><b>55</b> GROUP BY and ORDER BY</a>
+<ul>
+<li class="chapter" data-level="55.1" data-path="group-by-and-order-by.html"><a href="group-by-and-order-by.html#grouping-records"><i class="fa fa-check"></i><b>55.1</b> Grouping Records</a></li>
+<li class="chapter" data-level="55.2" data-path="group-by-and-order-by.html"><a href="group-by-and-order-by.html#ordering-records"><i class="fa fa-check"></i><b>55.2</b> Ordering Records</a></li>
+<li class="chapter" data-level="55.3" data-path="group-by-and-order-by.html"><a href="group-by-and-order-by.html#having"><i class="fa fa-check"></i><b>55.3</b> HAVING</a></li>
+<li class="chapter" data-level="55.4" data-path="group-by-and-order-by.html"><a href="group-by-and-order-by.html#getting-distinct-records"><i class="fa fa-check"></i><b>55.4</b> Getting Distinct Records</a></li>
+</ul></li>
+<li class="chapter" data-level="56" data-path="case-statements.html"><a href="case-statements.html"><i class="fa fa-check"></i><b>56</b> CASE Statements</a>
+<ul>
+<li class="chapter" data-level="56.1" data-path="case-statements.html"><a href="case-statements.html#grouping-case-statements"><i class="fa fa-check"></i><b>56.1</b> Grouping CASE Statements</a></li>
+<li class="chapter" data-level="56.2" data-path="case-statements.html"><a href="case-statements.html#the-zeronull-case-trick"><i class="fa fa-check"></i><b>56.2</b> The “Zero/Null” CASE Trick</a></li>
+</ul></li>
+<li class="chapter" data-level="57" data-path="join-statements.html"><a href="join-statements.html"><i class="fa fa-check"></i><b>57</b> JOIN Statements</a>
+<ul>
+<li class="chapter" data-level="57.1" data-path="join-statements.html"><a href="join-statements.html#stitching-tables-together"><i class="fa fa-check"></i><b>57.1</b> Stitching Tables Together</a></li>
+<li class="chapter" data-level="57.2" data-path="join-statements.html"><a href="join-statements.html#inner-join"><i class="fa fa-check"></i><b>57.2</b> INNER JOIN</a></li>
+<li class="chapter" data-level="57.3" data-path="join-statements.html"><a href="join-statements.html#left-join"><i class="fa fa-check"></i><b>57.3</b> LEFT JOIN</a></li>
+<li class="chapter" data-level="57.4" data-path="join-statements.html"><a href="join-statements.html#joining-mutliple-tables"><i class="fa fa-check"></i><b>57.4</b> Joining Mutliple Tables</a></li>
+<li class="chapter" data-level="57.5" data-path="join-statements.html"><a href="join-statements.html#grouping-joins"><i class="fa fa-check"></i><b>57.5</b> Grouping JOINs</a></li>
+</ul></li>
+<li class="chapter" data-level="58" data-path="sql-practice.html"><a href="sql-practice.html"><i class="fa fa-check"></i><b>58</b> SQL Practice</a>
+<ul>
+<li class="chapter" data-level="58.1" data-path="sql-practice.html"><a href="sql-practice.html#question-1"><i class="fa fa-check"></i><b>58.1</b> Question 1:</a></li>
+<li class="chapter" data-level="58.2" data-path="sql-practice.html"><a href="sql-practice.html#question-2"><i class="fa fa-check"></i><b>58.2</b> Question 2:</a></li>
+<li class="chapter" data-level="58.3" data-path="sql-practice.html"><a href="sql-practice.html#question-prep"><i class="fa fa-check"></i><b>58.3</b> Question Prep</a></li>
+<li class="chapter" data-level="58.4" data-path="sql-practice.html"><a href="sql-practice.html#question-3"><i class="fa fa-check"></i><b>58.4</b> Question 3:</a></li>
+<li class="chapter" data-level="58.5" data-path="sql-practice.html"><a href="sql-practice.html#question-4"><i class="fa fa-check"></i><b>58.5</b> Question 4:</a></li>
+</ul></li>
+<li class="chapter" data-level="59" data-path="sql-basics.html"><a href="sql-basics.html"><i class="fa fa-check"></i><b>59</b> SQL Basics</a>
+<ul>
+<li class="chapter" data-level="59.1" data-path="sql-basics.html"><a href="sql-basics.html#lectures"><i class="fa fa-check"></i><b>59.1</b> Lectures</a></li>
+</ul></li>
+<li class="chapter" data-level="60" data-path="statistical-learning.html"><a href="statistical-learning.html"><i class="fa fa-check"></i><b>60</b> Statistical Learning</a>
+<ul>
+<li class="chapter" data-level="60.1" data-path="statistical-learning.html"><a href="statistical-learning.html#what-is-statistical-learning"><i class="fa fa-check"></i><b>60.1</b> What is Statistical Learning?</a>
+<ul>
+<li class="chapter" data-level="60.1.1" data-path="statistical-learning.html"><a href="statistical-learning.html#why-estimate-f"><i class="fa fa-check"></i><b>60.1.1</b> Why Estimate <span class="math inline">\(f\)</span>?</a></li>
+<li class="chapter" data-level="60.1.2" data-path="statistical-learning.html"><a href="statistical-learning.html#how-to-estimate-f"><i class="fa fa-check"></i><b>60.1.2</b> How to Estimate <span class="math inline">\(f\)</span>?</a></li>
+<li class="chapter" data-level="60.1.3" data-path="statistical-learning.html"><a href="statistical-learning.html#accuracy-vs.-interpretability"><i class="fa fa-check"></i><b>60.1.3</b> Accuracy vs. Interpretability</a></li>
+<li class="chapter" data-level="60.1.4" data-path="statistical-learning.html"><a href="statistical-learning.html#supervised-vs.-unsupervised-learning"><i class="fa fa-check"></i><b>60.1.4</b> Supervised vs. Unsupervised Learning</a></li>
+<li class="chapter" data-level="60.1.5" data-path="statistical-learning.html"><a href="statistical-learning.html#regression-vs.-classification"><i class="fa fa-check"></i><b>60.1.5</b> Regression vs. Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="60.2" data-path="statistical-learning.html"><a href="statistical-learning.html#assessing-model-accuracy"><i class="fa fa-check"></i><b>60.2</b> Assessing Model Accuracy</a>
+<ul>
+<li class="chapter" data-level="60.2.1" data-path="statistical-learning.html"><a href="statistical-learning.html#measuring-quality-of-fit"><i class="fa fa-check"></i><b>60.2.1</b> Measuring Quality of Fit</a></li>
+<li class="chapter" data-level="60.2.2" data-path="statistical-learning.html"><a href="statistical-learning.html#the-bias-variance-tradeoff"><i class="fa fa-check"></i><b>60.2.2</b> The Bias-Variance Tradeoff</a></li>
+<li class="chapter" data-level="60.2.3" data-path="statistical-learning.html"><a href="statistical-learning.html#the-classification-setting"><i class="fa fa-check"></i><b>60.2.3</b> The Classification Setting</a></li>
+</ul></li>
+<li class="chapter" data-level="60.3" data-path="statistical-learning.html"><a href="statistical-learning.html#footnotes"><i class="fa fa-check"></i><b>60.3</b> Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="61" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html"><i class="fa fa-check"></i><b>61</b> Linear Regression: Practice</a>
+<ul>
+<li class="chapter" data-level="61.0.1" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#load-datasets"><i class="fa fa-check"></i><b>61.0.1</b> Load Datasets</a></li>
+<li class="chapter" data-level="61.1" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#simple-linear-regression"><i class="fa fa-check"></i><b>61.1</b> 3.1 Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="61.1.1" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#figure-3.1---least-squares-fit"><i class="fa fa-check"></i><b>61.1.1</b> Figure 3.1 - Least squares fit</a></li>
+<li class="chapter" data-level="61.1.2" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#figure-3.2---regression-coefficients---rss"><i class="fa fa-check"></i><b>61.1.2</b> Figure 3.2 - Regression coefficients - RSS</a></li>
+<li class="chapter" data-level="61.1.3" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#confidence-interval-on-page-67-table-3.1-3.2---statsmodels"><i class="fa fa-check"></i><b>61.1.3</b> Confidence interval on page 67 &amp; Table 3.1 &amp; 3.2 - Statsmodels</a></li>
+<li class="chapter" data-level="61.1.4" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#table-3.1-3.2---scikit-learn"><i class="fa fa-check"></i><b>61.1.4</b> Table 3.1 &amp; 3.2 - Scikit-learn</a></li>
+</ul></li>
+<li class="chapter" data-level="61.2" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#multiple-linear-regression"><i class="fa fa-check"></i><b>61.2</b> 3.2 Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="61.2.1" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#table-3.3---statsmodels"><i class="fa fa-check"></i><b>61.2.1</b> Table 3.3 - Statsmodels</a></li>
+<li class="chapter" data-level="61.2.2" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#table-3.4-3.6---statsmodels"><i class="fa fa-check"></i><b>61.2.2</b> Table 3.4 &amp; 3.6 - Statsmodels</a></li>
+<li class="chapter" data-level="61.2.3" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#table-3.5---correlation-matrix"><i class="fa fa-check"></i><b>61.2.3</b> Table 3.5 - Correlation Matrix</a></li>
+<li class="chapter" data-level="61.2.4" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#figure-3.5---multiple-linear-regression"><i class="fa fa-check"></i><b>61.2.4</b> Figure 3.5 - Multiple Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="61.3" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#other-considerations-in-the-regression-model"><i class="fa fa-check"></i><b>61.3</b> 3.3 Other Considerations in the Regression Model</a>
+<ul>
+<li class="chapter" data-level="61.3.1" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#figure-3.6"><i class="fa fa-check"></i><b>61.3.1</b> Figure 3.6</a></li>
+<li class="chapter" data-level="61.3.2" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#table-3.7"><i class="fa fa-check"></i><b>61.3.2</b> Table 3.7</a></li>
+<li class="chapter" data-level="61.3.3" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#table-3.8"><i class="fa fa-check"></i><b>61.3.3</b> Table 3.8</a></li>
+<li class="chapter" data-level="61.3.4" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#table-3.9---interaction-variables"><i class="fa fa-check"></i><b>61.3.4</b> Table 3.9 - Interaction Variables</a></li>
+<li class="chapter" data-level="61.3.5" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#figure-3.7---interaction-between-qualitative-and-quantative-variables"><i class="fa fa-check"></i><b>61.3.5</b> Figure 3.7 - Interaction between qualitative and quantative variables</a></li>
+<li class="chapter" data-level="61.3.6" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#figure-3.8---non-linear-relationships"><i class="fa fa-check"></i><b>61.3.6</b> Figure 3.8 - Non-linear relationships</a></li>
+<li class="chapter" data-level="61.3.7" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#table-3.10"><i class="fa fa-check"></i><b>61.3.7</b> Table 3.10</a></li>
+<li class="chapter" data-level="61.3.8" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#figure-3.9"><i class="fa fa-check"></i><b>61.3.8</b> Figure 3.9</a></li>
+<li class="chapter" data-level="61.3.9" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#figure-3.14"><i class="fa fa-check"></i><b>61.3.9</b> Figure 3.14</a></li>
+<li class="chapter" data-level="61.3.10" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#figure-3.15"><i class="fa fa-check"></i><b>61.3.10</b> Figure 3.15</a></li>
+<li class="chapter" data-level="61.3.11" data-path="linear-regression-practice.html"><a href="linear-regression-practice.html#variance-inflation-factor---page-102"><i class="fa fa-check"></i><b>61.3.11</b> Variance Inflation Factor - page 102</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="62" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html"><i class="fa fa-check"></i><b>62</b> Linear Regression: Theory</a>
+<ul>
+<li class="chapter" data-level="62.1" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#simple-linear-regression-1"><i class="fa fa-check"></i><b>62.1</b> Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="62.1.1" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#estimating-the-coefficients"><i class="fa fa-check"></i><b>62.1.1</b> Estimating the Coefficients</a></li>
+<li class="chapter" data-level="62.1.2" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#assessing-the-accuracy-of-the-coefficent-estimates"><i class="fa fa-check"></i><b>62.1.2</b> Assessing the Accuracy of the Coefficent Estimates</a></li>
+<li class="chapter" data-level="62.1.3" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#assessing-the-accuracy-of-the-model"><i class="fa fa-check"></i><b>62.1.3</b> Assessing the Accuracy of the Model</a></li>
+<li class="chapter" data-level="62.1.4" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#residual-standard-errors"><i class="fa fa-check"></i><b>62.1.4</b> Residual Standard Errors</a></li>
+<li class="chapter" data-level="62.1.5" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#r2-statistic"><i class="fa fa-check"></i><b>62.1.5</b> <span class="math inline">\(R^2\)</span> Statistic</a></li>
+</ul></li>
+<li class="chapter" data-level="62.2" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#multiple-linear-regression-1"><i class="fa fa-check"></i><b>62.2</b> Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="62.2.1" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#estimating-the-regression-coefficients"><i class="fa fa-check"></i><b>62.2.1</b> Estimating the Regression Coefficients</a></li>
+<li class="chapter" data-level="62.2.2" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#important-questions"><i class="fa fa-check"></i><b>62.2.2</b> Important Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="62.3" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#other-considerations-in-the-regression-model-1"><i class="fa fa-check"></i><b>62.3</b> Other Considerations In the Regression Model</a>
+<ul>
+<li class="chapter" data-level="62.3.1" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#qualitative-predictors"><i class="fa fa-check"></i><b>62.3.1</b> Qualitative Predictors</a></li>
+<li class="chapter" data-level="62.3.2" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#extensions-of-the-linear-model"><i class="fa fa-check"></i><b>62.3.2</b> Extensions of the Linear Model</a></li>
+<li class="chapter" data-level="62.3.3" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#potential-problems"><i class="fa fa-check"></i><b>62.3.3</b> Potential Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="62.4" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#the-marketing-plan"><i class="fa fa-check"></i><b>62.4</b> The Marketing Plan</a></li>
+<li class="chapter" data-level="62.5" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#comparison-of-linear-regression-and-k-nearest-neighbors"><i class="fa fa-check"></i><b>62.5</b> Comparison of Linear Regression and K-Nearest Neighbors</a></li>
+<li class="chapter" data-level="62.6" data-path="linear-regression-theory.html"><a href="linear-regression-theory.html#footnotes-1"><i class="fa fa-check"></i><b>62.6</b> Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="63" data-path="classification-practice.html"><a href="classification-practice.html"><i class="fa fa-check"></i><b>63</b> Classification: Practice</a>
+<ul>
+<li class="chapter" data-level="63.0.1" data-path="classification-practice.html"><a href="classification-practice.html#load-dataset"><i class="fa fa-check"></i><b>63.0.1</b> Load dataset</a></li>
+<li class="chapter" data-level="63.0.2" data-path="classification-practice.html"><a href="classification-practice.html#figure-4.1---default-data-set"><i class="fa fa-check"></i><b>63.0.2</b> Figure 4.1 - Default data set</a></li>
+<li class="chapter" data-level="63.1" data-path="classification-practice.html"><a href="classification-practice.html#logistic-regression"><i class="fa fa-check"></i><b>63.1</b> 4.3 Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="63.1.1" data-path="classification-practice.html"><a href="classification-practice.html#figure-4.2"><i class="fa fa-check"></i><b>63.1.1</b> Figure 4.2</a></li>
+<li class="chapter" data-level="63.1.2" data-path="classification-practice.html"><a href="classification-practice.html#table-4.1"><i class="fa fa-check"></i><b>63.1.2</b> Table 4.1</a></li>
+<li class="chapter" data-level="63.1.3" data-path="classification-practice.html"><a href="classification-practice.html#table-4.2"><i class="fa fa-check"></i><b>63.1.3</b> Table 4.2</a></li>
+<li class="chapter" data-level="63.1.4" data-path="classification-practice.html"><a href="classification-practice.html#table-4.3---multiple-logistic-regression"><i class="fa fa-check"></i><b>63.1.4</b> Table 4.3 - Multiple Logistic Regression</a></li>
+<li class="chapter" data-level="63.1.5" data-path="classification-practice.html"><a href="classification-practice.html#figure-4.3---confounding"><i class="fa fa-check"></i><b>63.1.5</b> Figure 4.3 - Confounding</a></li>
+</ul></li>
+<li class="chapter" data-level="63.2" data-path="classification-practice.html"><a href="classification-practice.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>63.2</b> 4.4 Linear Discriminant Analysis</a>
+<ul>
+<li class="chapter" data-level="63.2.1" data-path="classification-practice.html"><a href="classification-practice.html#table-4.4"><i class="fa fa-check"></i><b>63.2.1</b> Table 4.4</a></li>
+<li class="chapter" data-level="63.2.2" data-path="classification-practice.html"><a href="classification-practice.html#table-4.5"><i class="fa fa-check"></i><b>63.2.2</b> Table 4.5</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="64" data-path="lab.html"><a href="lab.html"><i class="fa fa-check"></i><b>64</b> Lab</a>
+<ul>
+<li class="chapter" data-level="64.0.1" data-path="lab.html"><a href="lab.html#linear-discriminant-analysis-1"><i class="fa fa-check"></i><b>64.0.1</b> 4.6.3 Linear Discriminant Analysis</a></li>
+<li class="chapter" data-level="64.0.2" data-path="lab.html"><a href="lab.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>64.0.2</b> 4.6.4 Quadratic Discriminant Analysis</a></li>
+<li class="chapter" data-level="64.0.3" data-path="lab.html"><a href="lab.html#k-nearest-neighbors-1"><i class="fa fa-check"></i><b>64.0.3</b> 4.6.5 K-Nearest Neighbors</a></li>
+<li class="chapter" data-level="64.0.4" data-path="lab.html"><a href="lab.html#an-application-to-caravan-insurance-data"><i class="fa fa-check"></i><b>64.0.4</b> 4.6.6 An Application to Caravan Insurance Data</a></li>
+<li class="chapter" data-level="64.1" data-path="lab.html"><a href="lab.html#an-overview-of-classification"><i class="fa fa-check"></i><b>64.1</b> An Overview of Classification</a></li>
+<li class="chapter" data-level="64.2" data-path="lab.html"><a href="lab.html#why-not-linear-regression"><i class="fa fa-check"></i><b>64.2</b> Why Not Linear Regression?</a></li>
+<li class="chapter" data-level="64.3" data-path="lab.html"><a href="lab.html#logistic-regression-2"><i class="fa fa-check"></i><b>64.3</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="64.3.1" data-path="lab.html"><a href="lab.html#the-logistic-model"><i class="fa fa-check"></i><b>64.3.1</b> The Logistic Model</a></li>
+<li class="chapter" data-level="64.3.2" data-path="lab.html"><a href="lab.html#estimating-the-regression-coefficients-1"><i class="fa fa-check"></i><b>64.3.2</b> Estimating the Regression Coefficients</a></li>
+<li class="chapter" data-level="64.3.3" data-path="lab.html"><a href="lab.html#making-predictions"><i class="fa fa-check"></i><b>64.3.3</b> Making Predictions</a></li>
+<li class="chapter" data-level="64.3.4" data-path="lab.html"><a href="lab.html#multiple-logistic-regression"><i class="fa fa-check"></i><b>64.3.4</b> Multiple Logistic Regression</a></li>
+<li class="chapter" data-level="64.3.5" data-path="lab.html"><a href="lab.html#logistic-regression-for-more-than-two-response-classes"><i class="fa fa-check"></i><b>64.3.5</b> Logistic Regression for more than two response classes</a></li>
+</ul></li>
+<li class="chapter" data-level="64.4" data-path="lab.html"><a href="lab.html#linear-discriminant-analysis-2"><i class="fa fa-check"></i><b>64.4</b> Linear Discriminant Analysis</a>
+<ul>
+<li class="chapter" data-level="64.4.1" data-path="lab.html"><a href="lab.html#bayes-theorem-for-classification"><i class="fa fa-check"></i><b>64.4.1</b> Bayes Theorem for Classification</a></li>
+<li class="chapter" data-level="64.4.2" data-path="lab.html"><a href="lab.html#linear-discriminant-analysis-for-p1"><i class="fa fa-check"></i><b>64.4.2</b> Linear Discriminant Analysis for p=1</a></li>
+<li class="chapter" data-level="64.4.3" data-path="lab.html"><a href="lab.html#linear-discriminant-analysis-for-p-1"><i class="fa fa-check"></i><b>64.4.3</b> Linear Discriminant Analysis for p &gt; 1</a></li>
+<li class="chapter" data-level="64.4.4" data-path="lab.html"><a href="lab.html#quadratic-discriminant-analysis-1"><i class="fa fa-check"></i><b>64.4.4</b> Quadratic Discriminant Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="64.5" data-path="lab.html"><a href="lab.html#a-comparison-of-classification-methods"><i class="fa fa-check"></i><b>64.5</b> A Comparison of Classification Methods</a></li>
+<li class="chapter" data-level="64.6" data-path="lab.html"><a href="lab.html#footnotes-2"><i class="fa fa-check"></i><b>64.6</b> Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="65" data-path="resampling-practice.html"><a href="resampling-practice.html"><i class="fa fa-check"></i><b>65</b> Resampling: Practice</a>
+<ul>
+<li class="chapter" data-level="65.0.1" data-path="resampling-practice.html"><a href="resampling-practice.html#load-dataset-1"><i class="fa fa-check"></i><b>65.0.1</b> Load dataset</a></li>
+<li class="chapter" data-level="65.1" data-path="resampling-practice.html"><a href="resampling-practice.html#cross-validation"><i class="fa fa-check"></i><b>65.1</b> 5.1 Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="65.1.1" data-path="resampling-practice.html"><a href="resampling-practice.html#figure-5.2---validation-set-approach"><i class="fa fa-check"></i><b>65.1.1</b> Figure 5.2 - Validation Set Approach</a></li>
+<li class="chapter" data-level="65.1.2" data-path="resampling-practice.html"><a href="resampling-practice.html#figure-5.4"><i class="fa fa-check"></i><b>65.1.2</b> Figure 5.4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="66" data-path="resampling-theory.html"><a href="resampling-theory.html"><i class="fa fa-check"></i><b>66</b> Resampling: Theory</a>
+<ul>
+<li class="chapter" data-level="66.1" data-path="resampling-theory.html"><a href="resampling-theory.html#cross-validation-1"><i class="fa fa-check"></i><b>66.1</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="66.1.1" data-path="resampling-theory.html"><a href="resampling-theory.html#the-validation-set-approach"><i class="fa fa-check"></i><b>66.1.1</b> The Validation Set Approach</a></li>
+<li class="chapter" data-level="66.1.2" data-path="resampling-theory.html"><a href="resampling-theory.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>66.1.2</b> Leave-One-Out Cross Validation</a></li>
+<li class="chapter" data-level="66.1.3" data-path="resampling-theory.html"><a href="resampling-theory.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>66.1.3</b> <span class="math inline">\(k\)</span>-fold Cross-Validation</a></li>
+<li class="chapter" data-level="66.1.4" data-path="resampling-theory.html"><a href="resampling-theory.html#bias-variance-tradeoff-for-k-fold-cross-validation"><i class="fa fa-check"></i><b>66.1.4</b> Bias-Variance Tradeoff for <span class="math inline">\(k\)</span>-fold Cross Validation</a></li>
+<li class="chapter" data-level="66.1.5" data-path="resampling-theory.html"><a href="resampling-theory.html#cross-validation-on-classification-problems"><i class="fa fa-check"></i><b>66.1.5</b> Cross-Validation on Classification Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="66.2" data-path="resampling-theory.html"><a href="resampling-theory.html#the-bootstrap"><i class="fa fa-check"></i><b>66.2</b> The Bootstrap</a></li>
+<li class="chapter" data-level="66.3" data-path="resampling-theory.html"><a href="resampling-theory.html#footnotes-3"><i class="fa fa-check"></i><b>66.3</b> Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="67" data-path="linear-model-selection-and-regularization-practice.html"><a href="linear-model-selection-and-regularization-practice.html"><i class="fa fa-check"></i><b>67</b> Linear Model Selection and Regularization: Practice</a></li>
+<li class="chapter" data-level="68" data-path="lab-2.html"><a href="lab-2.html"><i class="fa fa-check"></i><b>68</b> Lab 2</a>
+<ul>
+<li class="chapter" data-level="68.0.1" data-path="lab-2.html"><a href="lab-2.html#ridge-regression"><i class="fa fa-check"></i><b>68.0.1</b> 6.6.1 Ridge Regression</a></li>
+<li class="chapter" data-level="68.0.2" data-path="lab-2.html"><a href="lab-2.html#scikit-learn-1"><i class="fa fa-check"></i><b>68.0.2</b> Scikit-learn</a></li>
+<li class="chapter" data-level="68.0.3" data-path="lab-2.html"><a href="lab-2.html#python-glmnet-update-2016-08-29"><i class="fa fa-check"></i><b>68.0.3</b> python-glmnet (update 2016-08-29)</a></li>
+<li class="chapter" data-level="68.0.4" data-path="lab-2.html"><a href="lab-2.html#the-lasso"><i class="fa fa-check"></i><b>68.0.4</b> 6.6.2 The Lasso</a></li>
+<li class="chapter" data-level="68.0.5" data-path="lab-2.html"><a href="lab-2.html#scikit-learn-2"><i class="fa fa-check"></i><b>68.0.5</b> Scikit-learn</a></li>
+<li class="chapter" data-level="68.0.6" data-path="lab-2.html"><a href="lab-2.html#python-glmnet"><i class="fa fa-check"></i><b>68.0.6</b> python-glmnet</a></li>
+</ul></li>
+<li class="chapter" data-level="69" data-path="lab-3.html"><a href="lab-3.html"><i class="fa fa-check"></i><b>69</b> Lab 3</a>
+<ul>
+<li class="chapter" data-level="69.0.1" data-path="lab-3.html"><a href="lab-3.html#principal-components-regression"><i class="fa fa-check"></i><b>69.0.1</b> 6.7.1 Principal Components Regression</a></li>
+<li class="chapter" data-level="69.0.2" data-path="lab-3.html"><a href="lab-3.html#partial-least-squares"><i class="fa fa-check"></i><b>69.0.2</b> 6.7.2 Partial Least Squares</a></li>
+</ul></li>
+<li class="chapter" data-level="70" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html"><i class="fa fa-check"></i><b>70</b> Linear Model Selection and Regularization: Theory</a>
+<ul>
+<li class="chapter" data-level="70.1" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#subset-selection"><i class="fa fa-check"></i><b>70.1</b> Subset Selection</a>
+<ul>
+<li class="chapter" data-level="70.1.1" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#best-subset-selection"><i class="fa fa-check"></i><b>70.1.1</b> Best Subset Selection</a></li>
+<li class="chapter" data-level="70.1.2" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#stepwise-selection"><i class="fa fa-check"></i><b>70.1.2</b> Stepwise Selection</a></li>
+<li class="chapter" data-level="70.1.3" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#choosing-the-optimal-model"><i class="fa fa-check"></i><b>70.1.3</b> Choosing the Optimal Model</a></li>
+</ul></li>
+<li class="chapter" data-level="70.2" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#shrinkage-methods"><i class="fa fa-check"></i><b>70.2</b> Shrinkage Methods</a>
+<ul>
+<li class="chapter" data-level="70.2.1" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#ridge-regression-1"><i class="fa fa-check"></i><b>70.2.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="70.2.2" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#the-lasso-1"><i class="fa fa-check"></i><b>70.2.2</b> The Lasso</a></li>
+<li class="chapter" data-level="70.2.3" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>70.2.3</b> Selecting the Tuning Parameter</a></li>
+</ul></li>
+<li class="chapter" data-level="70.3" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#dimension-reduction-methods"><i class="fa fa-check"></i><b>70.3</b> Dimension Reduction Methods</a>
+<ul>
+<li class="chapter" data-level="70.3.1" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#principal-components-regression-1"><i class="fa fa-check"></i><b>70.3.1</b> Principal Components Regression</a></li>
+<li class="chapter" data-level="70.3.2" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#partial-least-squares-1"><i class="fa fa-check"></i><b>70.3.2</b> Partial Least Squares</a></li>
+</ul></li>
+<li class="chapter" data-level="70.4" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#considerations-in-high-dimensions"><i class="fa fa-check"></i><b>70.4</b> Considerations in High Dimensions</a>
+<ul>
+<li class="chapter" data-level="70.4.1" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#high-dimensional-data"><i class="fa fa-check"></i><b>70.4.1</b> High-Dimensional Data</a></li>
+<li class="chapter" data-level="70.4.2" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#what-goes-wrong-in-high-dimensions"><i class="fa fa-check"></i><b>70.4.2</b> What Goes Wrong in High Dimensions?</a></li>
+<li class="chapter" data-level="70.4.3" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#regression-in-high-dimensions"><i class="fa fa-check"></i><b>70.4.3</b> Regression in High Dimensions</a></li>
+<li class="chapter" data-level="70.4.4" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#interpreting-results-in-high-dimensions"><i class="fa fa-check"></i><b>70.4.4</b> Interpreting Results in High Dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="70.5" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#footnotes-4"><i class="fa fa-check"></i><b>70.5</b> Footnotes</a>
+<ul>
+<li class="chapter" data-level="70.5.1" data-path="linear-model-selection-and-regularization-theory.html"><a href="linear-model-selection-and-regularization-theory.html#blah"><i class="fa fa-check"></i><b>70.5.1</b> blah</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="71" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html"><i class="fa fa-check"></i><b>71</b> Chapter 7 - Moving Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="71.0.1" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#load-dataset-2"><i class="fa fa-check"></i><b>71.0.1</b> Load dataset</a></li>
+<li class="chapter" data-level="71.1" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#lab-1"><i class="fa fa-check"></i><b>71.1</b> Lab</a>
+<ul>
+<li class="chapter" data-level="71.1.1" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#polynomial-regression-and-step-functions"><i class="fa fa-check"></i><b>71.1.1</b> 7.8.1 Polynomial Regression and Step Functions</a></li>
+<li class="chapter" data-level="71.1.2" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#figure-7.1"><i class="fa fa-check"></i><b>71.1.2</b> Figure 7.1</a></li>
+<li class="chapter" data-level="71.1.3" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#figure-7.2"><i class="fa fa-check"></i><b>71.1.3</b> Figure 7.2</a></li>
+<li class="chapter" data-level="71.1.4" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#splines"><i class="fa fa-check"></i><b>71.1.4</b> 7.8.2 Splines</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="72" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html"><i class="fa fa-check"></i><b>72</b> Moving Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="72.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#polynomial-regression"><i class="fa fa-check"></i><b>72.1</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="72.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#step-functions"><i class="fa fa-check"></i><b>72.2</b> Step Functions</a></li>
+<li class="chapter" data-level="72.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#basis-functions"><i class="fa fa-check"></i><b>72.3</b> Basis Functions</a></li>
+<li class="chapter" data-level="72.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#regression-splines"><i class="fa fa-check"></i><b>72.4</b> Regression Splines</a>
+<ul>
+<li class="chapter" data-level="72.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#piecewise-polynomials"><i class="fa fa-check"></i><b>72.4.1</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="72.4.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#constraints-and-splines"><i class="fa fa-check"></i><b>72.4.2</b> Constraints and Splines</a></li>
+<li class="chapter" data-level="72.4.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#the-spline-basis-representation"><i class="fa fa-check"></i><b>72.4.3</b> The Spline Basis Representation</a></li>
+<li class="chapter" data-level="72.4.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#choosing-the-number-and-the-locations-of-the-knots"><i class="fa fa-check"></i><b>72.4.4</b> Choosing the Number and the Locations of the Knots</a></li>
+<li class="chapter" data-level="72.4.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#comparison-to-polynomial-regression"><i class="fa fa-check"></i><b>72.4.5</b> Comparison to Polynomial Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="72.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#smoothing-splines"><i class="fa fa-check"></i><b>72.5</b> Smoothing Splines</a>
+<ul>
+<li class="chapter" data-level="72.5.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#an-overview-of-smoothing-splines"><i class="fa fa-check"></i><b>72.5.1</b> An Overview of Smoothing Splines</a></li>
+<li class="chapter" data-level="72.5.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#choosing-the-smoothing-parameter-lambda"><i class="fa fa-check"></i><b>72.5.2</b> Choosing the Smoothing Parameter <span class="math inline">\(\lambda\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="72.6" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#local-regression"><i class="fa fa-check"></i><b>72.6</b> Local Regression</a></li>
+<li class="chapter" data-level="72.7" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#generalized-additive-models"><i class="fa fa-check"></i><b>72.7</b> Generalized Additive Models</a>
+<ul>
+<li class="chapter" data-level="72.7.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gams-for-regression-problems"><i class="fa fa-check"></i><b>72.7.1</b> GAMs for Regression Problems</a></li>
+<li class="chapter" data-level="72.7.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gams-for-classification-problems"><i class="fa fa-check"></i><b>72.7.2</b> GAMs for Classification Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="72.8" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#footnotes-5"><i class="fa fa-check"></i><b>72.8</b> Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="73" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html"><i class="fa fa-check"></i><b>73</b> Tree Based Methods: Theory</a>
+<ul>
+<li class="chapter" data-level="73.1" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html#the-basics-of-decision-trees"><i class="fa fa-check"></i><b>73.1</b> The Basics of Decision Trees</a>
+<ul>
+<li class="chapter" data-level="73.1.1" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html#regression-trees"><i class="fa fa-check"></i><b>73.1.1</b> Regression Trees</a></li>
+<li class="chapter" data-level="73.1.2" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html#classification-trees"><i class="fa fa-check"></i><b>73.1.2</b> Classification Trees</a></li>
+<li class="chapter" data-level="73.1.3" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html#trees-versus-linear-models"><i class="fa fa-check"></i><b>73.1.3</b> Trees Versus Linear Models</a></li>
+<li class="chapter" data-level="73.1.4" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html#advantages-and-disadvantages-of-trees"><i class="fa fa-check"></i><b>73.1.4</b> Advantages and Disadvantages of Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="73.2" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html#bagging-random-forests-boosting"><i class="fa fa-check"></i><b>73.2</b> Bagging, Random Forests, Boosting</a>
+<ul>
+<li class="chapter" data-level="73.2.1" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html#bagging"><i class="fa fa-check"></i><b>73.2.1</b> Bagging</a></li>
+<li class="chapter" data-level="73.2.2" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html#random-forests"><i class="fa fa-check"></i><b>73.2.2</b> Random Forests</a></li>
+<li class="chapter" data-level="73.2.3" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html#boosting"><i class="fa fa-check"></i><b>73.2.3</b> Boosting</a></li>
+</ul></li>
+<li class="chapter" data-level="73.3" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html#footnotes-6"><i class="fa fa-check"></i><b>73.3</b> Footnotes</a>
+<ul>
+<li class="chapter" data-level="73.3.1" data-path="tree-based-methods-theory.html"><a href="tree-based-methods-theory.html#blah-1"><i class="fa fa-check"></i><b>73.3.1</b> blah</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="74" data-path="tree-based-methods-practice.html"><a href="tree-based-methods-practice.html"><i class="fa fa-check"></i><b>74</b> Tree Based Methods: Practice</a>
+<ul>
+<li class="chapter" data-level="74.0.1" data-path="tree-based-methods-practice.html"><a href="tree-based-methods-practice.html#regression-trees-1"><i class="fa fa-check"></i><b>74.0.1</b> 8.1.1 Regression Trees</a></li>
+<li class="chapter" data-level="74.0.2" data-path="tree-based-methods-practice.html"><a href="tree-based-methods-practice.html#figure-8.1"><i class="fa fa-check"></i><b>74.0.2</b> Figure 8.1</a></li>
+<li class="chapter" data-level="74.0.3" data-path="tree-based-methods-practice.html"><a href="tree-based-methods-practice.html#figure-8.2"><i class="fa fa-check"></i><b>74.0.3</b> Figure 8.2</a></li>
+<li class="chapter" data-level="74.0.4" data-path="tree-based-methods-practice.html"><a href="tree-based-methods-practice.html#pruning"><i class="fa fa-check"></i><b>74.0.4</b> Pruning</a></li>
+<li class="chapter" data-level="74.0.5" data-path="tree-based-methods-practice.html"><a href="tree-based-methods-practice.html#classification-trees-1"><i class="fa fa-check"></i><b>74.0.5</b> 8.1.2 Classification Trees</a></li>
+<li class="chapter" data-level="74.1" data-path="tree-based-methods-practice.html"><a href="tree-based-methods-practice.html#lab-4"><i class="fa fa-check"></i><b>74.1</b> Lab</a>
+<ul>
+<li class="chapter" data-level="74.1.1" data-path="tree-based-methods-practice.html"><a href="tree-based-methods-practice.html#fitting-classification-trees"><i class="fa fa-check"></i><b>74.1.1</b> 8.3.1 Fitting Classification Trees</a></li>
+<li class="chapter" data-level="74.1.2" data-path="tree-based-methods-practice.html"><a href="tree-based-methods-practice.html#fitting-regression-trees"><i class="fa fa-check"></i><b>74.1.2</b> 8.3.2 Fitting Regression Trees</a></li>
+<li class="chapter" data-level="74.1.3" data-path="tree-based-methods-practice.html"><a href="tree-based-methods-practice.html#bagging-and-random-forests"><i class="fa fa-check"></i><b>74.1.3</b> 8.3.3 Bagging and Random Forests</a></li>
+<li class="chapter" data-level="74.1.4" data-path="tree-based-methods-practice.html"><a href="tree-based-methods-practice.html#boosting-1"><i class="fa fa-check"></i><b>74.1.4</b> 8.3.4 Boosting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="75" data-path="support-vector-machines-practice.html"><a href="support-vector-machines-practice.html"><i class="fa fa-check"></i><b>75</b> Support Vector Machines: Practice</a>
+<ul>
+<li class="chapter" data-level="75.1" data-path="support-vector-machines-practice.html"><a href="support-vector-machines-practice.html#lab-5"><i class="fa fa-check"></i><b>75.1</b> LAB</a>
+<ul>
+<li class="chapter" data-level="75.1.1" data-path="support-vector-machines-practice.html"><a href="support-vector-machines-practice.html#support-vector-classifier"><i class="fa fa-check"></i><b>75.1.1</b> 9.6.1 Support Vector Classifier</a></li>
+<li class="chapter" data-level="75.1.2" data-path="support-vector-machines-practice.html"><a href="support-vector-machines-practice.html#support-vector-machine"><i class="fa fa-check"></i><b>75.1.2</b> 9.6.2 Support Vector Machine</a></li>
+<li class="chapter" data-level="75.1.3" data-path="support-vector-machines-practice.html"><a href="support-vector-machines-practice.html#roc-curves"><i class="fa fa-check"></i><b>75.1.3</b> 9.6.3 ROC Curves</a></li>
+<li class="chapter" data-level="75.1.4" data-path="support-vector-machines-practice.html"><a href="support-vector-machines-practice.html#svm-with-multiple-classes"><i class="fa fa-check"></i><b>75.1.4</b> 9.6.4 SVM with Multiple Classes</a></li>
+<li class="chapter" data-level="75.1.5" data-path="support-vector-machines-practice.html"><a href="support-vector-machines-practice.html#application-to-gene-expression-data"><i class="fa fa-check"></i><b>75.1.5</b> 9.6.5 Application to Gene Expression Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="76" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html"><i class="fa fa-check"></i><b>76</b> Support Vector Machines: Theory</a>
+<ul>
+<li class="chapter" data-level="76.1" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#maximal-margin-classifier"><i class="fa fa-check"></i><b>76.1</b> Maximal Margin Classifier</a>
+<ul>
+<li class="chapter" data-level="76.1.1" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#what-is-a-hyperplane"><i class="fa fa-check"></i><b>76.1.1</b> What Is a Hyperplane?</a></li>
+<li class="chapter" data-level="76.1.2" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#classification-using-a-separating-hyperplane"><i class="fa fa-check"></i><b>76.1.2</b> Classification Using a Separating Hyperplane</a></li>
+<li class="chapter" data-level="76.1.3" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#the-maximal-margin-classifier"><i class="fa fa-check"></i><b>76.1.3</b> The Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="76.1.4" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#construction-of-the-maximal-margin-classifier"><i class="fa fa-check"></i><b>76.1.4</b> Construction of the Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="76.1.5" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#the-non-separable-case"><i class="fa fa-check"></i><b>76.1.5</b> The Non-separable Case</a></li>
+</ul></li>
+<li class="chapter" data-level="76.2" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#support-vector-classifiers"><i class="fa fa-check"></i><b>76.2</b> Support Vector Classifiers</a>
+<ul>
+<li class="chapter" data-level="76.2.1" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#overview-of-the-support-vector-classifier"><i class="fa fa-check"></i><b>76.2.1</b> Overview of the Support Vector Classifier</a></li>
+<li class="chapter" data-level="76.2.2" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#details-of-the-support-vector-classifier"><i class="fa fa-check"></i><b>76.2.2</b> Details of the Support Vector Classifier</a></li>
+</ul></li>
+<li class="chapter" data-level="76.3" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#support-vector-machines"><i class="fa fa-check"></i><b>76.3</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="76.3.1" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#classification-with-non-linear-decision-boundaries"><i class="fa fa-check"></i><b>76.3.1</b> Classification with Non-Linear Decision Boundaries</a></li>
+<li class="chapter" data-level="76.3.2" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#the-support-vector-machine"><i class="fa fa-check"></i><b>76.3.2</b> The Support Vector Machine</a></li>
+</ul></li>
+<li class="chapter" data-level="76.4" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#svms-with-more-than-two-classes"><i class="fa fa-check"></i><b>76.4</b> SVMs with More than Two Classes</a>
+<ul>
+<li class="chapter" data-level="76.4.1" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#one-versus-one-classification"><i class="fa fa-check"></i><b>76.4.1</b> One-Versus-One Classification</a></li>
+<li class="chapter" data-level="76.4.2" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#one-versus-all-classification"><i class="fa fa-check"></i><b>76.4.2</b> One-Versus-All Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="76.5" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#relationship-to-logistic-regression"><i class="fa fa-check"></i><b>76.5</b> Relationship to Logistic Regression</a></li>
+<li class="chapter" data-level="76.6" data-path="support-vector-machines-theory.html"><a href="support-vector-machines-theory.html#footnotes-7"><i class="fa fa-check"></i><b>76.6</b> Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="77" data-path="unsupervised-learning-practice.html"><a href="unsupervised-learning-practice.html"><i class="fa fa-check"></i><b>77</b> Unsupervised Learning: Practice</a>
+<ul>
+<li class="chapter" data-level="77.1" data-path="unsupervised-learning-practice.html"><a href="unsupervised-learning-practice.html#lab-1-principal-component-analysis"><i class="fa fa-check"></i><b>77.1</b> Lab 1: Principal Component Analysis</a></li>
+<li class="chapter" data-level="77.2" data-path="unsupervised-learning-practice.html"><a href="unsupervised-learning-practice.html#lab-2-clustering"><i class="fa fa-check"></i><b>77.2</b> Lab 2: Clustering</a>
+<ul>
+<li class="chapter" data-level="77.2.1" data-path="unsupervised-learning-practice.html"><a href="unsupervised-learning-practice.html#k-means-clustering"><i class="fa fa-check"></i><b>77.2.1</b> 10.5.1 K-Means Clustering</a></li>
+<li class="chapter" data-level="77.2.2" data-path="unsupervised-learning-practice.html"><a href="unsupervised-learning-practice.html#hierarchical-clustering"><i class="fa fa-check"></i><b>77.2.2</b> 10.5.3 Hierarchical Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="77.3" data-path="unsupervised-learning-practice.html"><a href="unsupervised-learning-practice.html#lab-3-nci60-data-example"><i class="fa fa-check"></i><b>77.3</b> Lab 3: NCI60 Data Example</a>
+<ul>
+<li class="chapter" data-level="77.3.1" data-path="unsupervised-learning-practice.html"><a href="unsupervised-learning-practice.html#pca"><i class="fa fa-check"></i><b>77.3.1</b> § 10.6.1 PCA</a></li>
+<li class="chapter" data-level="77.3.2" data-path="unsupervised-learning-practice.html"><a href="unsupervised-learning-practice.html#clustering"><i class="fa fa-check"></i><b>77.3.2</b> § 10.6.2 Clustering</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="78" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html"><i class="fa fa-check"></i><b>78</b> Unsupervised Learning: Theory</a>
+<ul>
+<li class="chapter" data-level="78.1" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html#the-challenge-of-unsupervised-learning"><i class="fa fa-check"></i><b>78.1</b> The Challenge of Unsupervised Learning</a></li>
+<li class="chapter" data-level="78.2" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html#principal-components-analysis"><i class="fa fa-check"></i><b>78.2</b> Principal Components Analysis</a>
+<ul>
+<li class="chapter" data-level="78.2.1" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html#what-are-principal-components"><i class="fa fa-check"></i><b>78.2.1</b> What Are Principal Components?</a></li>
+<li class="chapter" data-level="78.2.2" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html#another-interpretation-of-principal-components"><i class="fa fa-check"></i><b>78.2.2</b> Another Interpretation of Principal Components</a></li>
+<li class="chapter" data-level="78.2.3" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html#more-on-pca"><i class="fa fa-check"></i><b>78.2.3</b> More on PCA</a></li>
+<li class="chapter" data-level="78.2.4" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html#other-uses-for-principal-components"><i class="fa fa-check"></i><b>78.2.4</b> Other Uses for Principal Components</a></li>
+</ul></li>
+<li class="chapter" data-level="78.3" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html#clustering-methods"><i class="fa fa-check"></i><b>78.3</b> Clustering Methods</a>
+<ul>
+<li class="chapter" data-level="78.3.1" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html#k-means-clustering-1"><i class="fa fa-check"></i><b>78.3.1</b> <span class="math inline">\(K\)</span>-Means Clustering</a></li>
+<li class="chapter" data-level="78.3.2" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html#hierarchical-clustering-1"><i class="fa fa-check"></i><b>78.3.2</b> Hierarchical Clustering</a></li>
+<li class="chapter" data-level="78.3.3" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html#practical-issues-in-clustering"><i class="fa fa-check"></i><b>78.3.3</b> Practical Issues in Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="78.4" data-path="unsupervised-learning-theory.html"><a href="unsupervised-learning-theory.html#footnotes-8"><i class="fa fa-check"></i><b>78.4</b> Footnotes</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predictive Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tree-based-methods-theory" class="section level1" number="73">
+<h1><span class="header-section-number">Section 73</span> Tree Based Methods: Theory</h1>
+<hr />
+<div id="the-basics-of-decision-trees" class="section level2" number="73.1">
+<h2><span class="header-section-number">73.1</span> The Basics of Decision Trees</h2>
+<div id="regression-trees" class="section level3" number="73.1.1">
+<h3><span class="header-section-number">73.1.1</span> Regression Trees</h3>
+<div id="overview" class="section level5" number="73.1.1.0.1">
+<h5><span class="header-section-number">73.1.1.0.1</span> Overview</h5>
+<ul>
+<li>There are two main steps:
+<ul>
+<li>Partition predictor space <span class="math inline">\(\mathbb{R}^p\)</span> into regions <span class="math inline">\(R_1, \dots, R_M\)</span>.</li>
+<li>For all <span class="math inline">\(X = (X_1, \dots, X_p) \in R_m\)</span>, predict the average over the responses in <span class="math inline">\(R_m\)</span>
+<span class="math display">\[\hat{f}(X) = \hat{y}_{R_m} := \frac{1}{N_m}\sum_{i: y_i\in R_m} y_i\]</span>
+where <span class="math inline">\(N_m = |\{y_i\ |\ y_i \in R_m\}|\)</span></li>
+</ul></li>
+<li>In practice, we take the regions of the partition to be rectangular for simplicity and ease of interpretation.</li>
+<li>We choose the partition to minimize the RSS
+<span class="math display">\[ \sum_{m = 1}^M \sum_{i: y_i \in R_m} (y_i - \hat{y}_{R_m})^2 \]</span></li>
+<li>We search the space of partitions using a <strong><em>recursive binary splitting</em></strong><sup><a href='#foot64' id='ref64'>64</a></sup> strategy.</li>
+</ul>
+</div>
+<div id="algorithm-recursive-binary-decision-tree-for-linear-regression" class="section level5" number="73.1.1.0.2">
+<h5><span class="header-section-number">73.1.1.0.2</span> Algorithm: Recursive Binary Decision Tree for Linear Regression</h5>
+<ol style="list-style-type: decimal">
+<li><p>Start with top node <span class="math inline">\(\mathbb{R}^p\)</span></p></li>
+<li><p>While a stopping criterion is unsatisfied:</p>
+<ol style="list-style-type: decimal">
+<li>Let</li>
+</ol>
+<p><span class="math display">\[(\hat{i}, \hat{j}) = \underset{(i, j)}{\text{argmin}}\left(
+                              \sum_{i: x_i\in R_1} (y_i - \hat{y}_{R_1})^ 2 + 
+                              \sum_{i: x_i\in R_2} (y_i - \hat{y}_{R_2})^ 2\right)\]</span>
+where</p>
+<p><span class="math display">\[R_{1} = \{X| X_j &lt; x_{i,j}\}\]</span>
+<span class="math display">\[R_{2} = \{X| X_j \geqslant x_{i,j}\}\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Add nodes</p>
+<p><span class="math display">\[\hat{R}_{1} = \{X| X_\hat{j} &lt; x_{\hat{i},\hat{j}}\}\]</span>
+<span class="math display">\[\hat{R}_{2} = \{X| X_\hat{j} \geqslant x_{\hat{i},\hat{j}}\}\]</span></p>
+<p>to the partition, and recurse on one of the nodes</p></li>
+</ol></li>
+</ol>
+</div>
+<div id="tree-pruning" class="section level5" number="73.1.1.0.3">
+<h5><span class="header-section-number">73.1.1.0.3</span> Tree-pruning</h5>
+<ul>
+<li>Complex trees can overfit, but simpler trees may avoid it <sup><a href='#foot65' id='ref65'>65</a></sup>.</li>
+<li>To get a simpler tree, we can grow a large tree <span class="math inline">\(T_0\)</span> and <strong><em>prune</em></strong> it to obtain a subtree.</li>
+<li><strong><em>Cost complexity</em></strong> or <strong><em>weakest link</em></strong> pruning is a method for finding an optimal subtree <sup><a href='#foot66' id='ref66'>66</a></sup>. For <span class="math inline">\(\alpha &gt; 0\)</span>, we obtain a subtree
+<span class="math display">\[ T_\alpha = \underset{T\ \subset T_0}{\text{argmin}}
+                \left(\sum_{m=1}^{|T|} \sum_{i: x_i \in R_m} \left(y_i - \hat{y}_{R_m}\right)^2 + \alpha|T|\right)\]</span>
+where
+<span class="math inline">\(|T|\)</span> is the number of terminal nodes of <span class="math inline">\(T\)</span>, <span class="math inline">\(R_m\)</span> is the rectangle corresponding to the <span class="math inline">\(m\)</span>-th terminal node, and <span class="math inline">\(\hat{y}_{R_m}\)</span> is the predicted response (average of <span class="math inline">\(y_i\in R_m\)</span>) <sup><a href='#foot67' id='ref67'>67</a></sup>.</li>
+</ul>
+</div>
+<div id="algorithm-weakest-link-regression-tree-with-k-fold-cross-validation" class="section level5" number="73.1.1.0.4">
+<h5><span class="header-section-number">73.1.1.0.4</span> Algorithm: Weakest link regression tree with <span class="math inline">\(K\)</span>-fold cross-validation</h5>
+<ol style="list-style-type: decimal">
+<li><p>For each<sup><a href='#foot68' id='ref68'>68</a></sup> <span class="math inline">\(\alpha &gt; 0\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>For <span class="math inline">\(k = 1, \dots K\)</span>:
+<ol style="list-style-type: decimal">
+<li>Let <span class="math inline">\(\mathcal{D}_k = \mathcal{D} \backslash \{k-\text{th fold}\}\)</span></li>
+<li>Use recursive binary splitting to grow a tree <span class="math inline">\(T_{k}\)</span>, stopping when each node has fewer than some minimum number of observations <span class="math inline">\(M\)</span> is reached <sup><a href='#foot69' id='ref69'>69</a></sup></li>
+<li>Use weakest link pruning to find a subtree <span class="math inline">\(T_{k, \alpha}\)</span></li>
+</ol></li>
+<li>Let <span class="math inline">\(CV_{(k)}(\alpha)\)</span> be the <span class="math inline">\(K\)</span>-fold cross-validation estimate of the mean squared test error</li>
+</ol></li>
+<li><p>Choose
+<span class="math display">\[ \hat{\alpha} = \underset{\alpha}{\text{argmin}}\ CV_{(k)}(\alpha) \]</span></p></li>
+<li><p>Return <span class="math inline">\(\hat{T} = T_{\hat{\alpha}}\)</span></p></li>
+</ol>
+</div>
+</div>
+<div id="classification-trees" class="section level3" number="73.1.2">
+<h3><span class="header-section-number">73.1.2</span> Classification Trees</h3>
+<ul>
+<li><strong><em>Classification trees</em></strong> are very similar to regression trees, but they predict qualitative responses. The predicted class for an observation <span class="math inline">\((x_i, y_i)\)</span> in <span class="math inline">\(R_m\)</span> is <sup><a href='#foot70' id='ref70'>70</a></sup> is
+<span class="math display">\[ \hat{k}_m = \underset{k}{\text{argmax}}\ \hat{p}_{m,k} \]</span>
+where <span class="math inline">\(\hat{p}_{m,k}\)</span> is the fraction of observations <span class="math inline">\((x_i, y_i)\)</span> in the region <span class="math inline">\(R_m\)</span> such that <span class="math inline">\(y_i = k\)</span>.</li>
+<li>One performance measure is the <strong><em>Classification error rate</em></strong><sup><a href='#foot71' id='ref71'>71</a></sup> for the region <span class="math inline">\(R_m\)</span> is
+<span class="math display">\[ E_m = 1 - \hat{p}_{m, \hat{k}} \]</span></li>
+<li>A better performance measure is the <strong><em>Gini index</em></strong> for the region <span class="math inline">\(R_m\)</span>, a measure of total variance <sup><a href='#foot72' id='ref72'>72</a></sup> across classes
+<span class="math display">\[ G_m = \sum_{k = 1}^K \hat{p}_{m,k}(1 - \hat{p}_{m,k})\]</span></li>
+<li>Another better performance measure is the <strong><em>entropy</em></strong> for the region <span class="math inline">\(R_m\)</span><sup><a href='#foot73' id='ref73'>73</a></sup>
+<span class="math display">\[ D_m = \sum_{k = 1}^K - \hat{p}_{m,k}\log(\hat{p}_{m,k}) \]</span></li>
+<li>Typically the Gini index or entropy is used to prune, due to their sensitivity to node purity. However, if prediction accuracy is the goal then classification error rate is preferable.</li>
+</ul>
+</div>
+<div id="trees-versus-linear-models" class="section level3" number="73.1.3">
+<h3><span class="header-section-number">73.1.3</span> Trees Versus Linear Models</h3>
+<ul>
+<li><p>A linear regression model is of the form</p>
+<p><span class="math display">\[f(X) = \beta_0 + \sum_{j = 1}^p \beta_j X_j\]</span></p>
+<p>while a regression tree model is of the form</p>
+<p><span class="math display">\[ f(X) = \sum_{m = 1}^M c_m I(X \in R_m)\]</span></p></li>
+<li><p>Linear regression will tend to perform better if the relationship between features and response is well-approximated by a linear function, whereas the regression tree will tend perform better if the relationship is non-linear or complex.</p></li>
+</ul>
+</div>
+<div id="advantages-and-disadvantages-of-trees" class="section level3" number="73.1.4">
+<h3><span class="header-section-number">73.1.4</span> Advantages and Disadvantages of Trees</h3>
+<div id="advantages-18" class="section level5" number="73.1.4.0.1">
+<h5><span class="header-section-number">73.1.4.0.1</span> Advantages</h5>
+<ul>
+<li>Conceptual simplicity</li>
+<li>May mirror human decision-making better than previous regression and classification methods</li>
+<li>Readily visualizable and easily interpreted</li>
+<li>Can handle qualitative predictors without the need for dummy variables</li>
+</ul>
+</div>
+<div id="disadvantages-16" class="section level5" number="73.1.4.0.2">
+<h5><span class="header-section-number">73.1.4.0.2</span> Disadvantages</h5>
+<ul>
+<li>Less accurate prediction than previous regression and classification methods</li>
+<li>Non-robust to changes in data – small changes in data lead to large changes in estimated tree.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="bagging-random-forests-boosting" class="section level2" number="73.2">
+<h2><span class="header-section-number">73.2</span> Bagging, Random Forests, Boosting</h2>
+<p>These are methods for improving the prediction accuracy of decision trees.</p>
+<div id="bagging" class="section level3" number="73.2.1">
+<h3><span class="header-section-number">73.2.1</span> Bagging</h3>
+<ul>
+<li><p>The decision trees in <a href="#The-Basics-of-Decision-Trees">§ 8.1</a> suffer from high variance.</p></li>
+<li><p><strong><em>Bagging</em></strong> is a method of reducing the variance of a statistical learning process <sup><a href='#foot74' id='ref74'>74</a></sup>. The bagging estimate of the target function of the process with dataset <span class="math inline">\(\mathcal{D}\)</span> is</p>
+<p><span class="math display">\[\hat{f}_{\text{bag}}(x) = \frac{1}{B} \sum_{b = 1}^B \hat{f}^{*b}(x) \]</span></p>
+<p>where <span class="math inline">\(\hat{f^*}^b(x)\)</span> is the estimate of target function on the boostrap dataset <span class="math inline">\(\mathcal{D}_b\)</span> <sup><a href='#foot75' id='ref75'>75</a></sup>.</p></li>
+<li><p>Bagging can be used for any statistical learning method but it is particularly useful for decision trees.<sup><a href='#foot76' id='ref76'>76</a></sup></p></li>
+</ul>
+<div id="out-of-bag-error-estimation" class="section level5" number="73.2.1.0.1">
+<h5><span class="header-section-number">73.2.1.0.1</span> Out-of-bag Error Estimation</h5>
+<ul>
+<li>On average, a bagged tree uses about 2/3 of the data – the remaining 1/3 is the <strong><em>out-of-bag</em></strong> (OOB) data.</li>
+<li>We can predict the response for each observation using the trees for which it was OOB, yielding about B/3 prediction.</li>
+<li>If we’re doing regression, we can average these predicted responses, or if we’re doing classification, take a majority vote, to get a single OOB prediction for each observation.</li>
+<li>Test error can be estimated using these predictions.</li>
+</ul>
+</div>
+<div id="variable-importance-measures" class="section level5" number="73.2.1.0.2">
+<h5><span class="header-section-number">73.2.1.0.2</span> Variable Importance Measures</h5>
+<ul>
+<li>Bagging typically results in improved prediction accuracy over single trees, at the expense of interpretability</li>
+<li>The RSS (for bagging regression trees) and Gini index (for bagging classification trees) can provide measures of variable importance.</li>
+<li>For both loss functions (RSS/Gini) the amount the loss is decreases due to a split over a given predictor, averaged over the B bagged trees. The greater the decrease, the more important the predictor</li>
+</ul>
+</div>
+</div>
+<div id="random-forests" class="section level3" number="73.2.2">
+<h3><span class="header-section-number">73.2.2</span> Random Forests</h3>
+<ul>
+<li>Random forests works as follows: at each split in the tree, choose a predictor from among a new random sample of <span class="math inline">\(1 \leqslant m \leqslant p\)</span> predictors.</li>
+<li>The random predictor sampling overcomes the tendency of bagged trees to look similar given strong predictors (e.g. the strongest predictor will be at the top of most or all of the bagged trees).</li>
+<li>On average, <span class="math inline">\(\frac{p-m}{p}\)</span> of the splits will not consider a given predictor, giving other predictors a chance to be chosen. This decorrelation of the trees improves the reduction in variance achieved by bagged.</li>
+<li><span class="math inline">\(m=p\)</span> corresponds to bagging. <span class="math inline">\(m &lt;&lt; p\)</span> is useful when there is a large number of correlated predictors. Typically we choose <span class="math inline">\(m \approx \sqrt{p}\)</span></li>
+</ul>
+</div>
+<div id="boosting" class="section level3" number="73.2.3">
+<h3><span class="header-section-number">73.2.3</span> Boosting</h3>
+<ul>
+<li>Boosting is another method of improving prediction accuracy that can be applied to many statistical learning methods.</li>
+<li>In decision trees, each tree is build using information from the previous trees. Instead of bootstrapped datasets, the datasets are modified based on the previously grown trees.</li>
+<li>The boosting approach learns slowly, by slowly improving in areas where it underperforms. It has 3 parameters:
+<ul>
+<li>Number of trees <span class="math inline">\(B\)</span>. Unlike bagging and random forests, boosting can overfit if <span class="math inline">\(B\)</span> is too big, although this happens slowly.</li>
+<li>The shrinkage parameter <span class="math inline">\(\lambda &gt; 0\)</span>. Typical values are <span class="math inline">\(\lambda = 0.01, 0.001\)</span>. Very small <span class="math inline">\(\lambda\)</span> can require very large <span class="math inline">\(B\)</span> to get good performance.</li>
+<li>The number of tree splits <span class="math inline">\(d\)</span>, which controls the complexity of the boosted ensemble. Often <span class="math inline">\(d\)</span> works well (the resulting tree is called a <strong><em>stump</em></strong>). <sup><a href='#foot77' id='ref77'>77</a></sup></li>
+</ul></li>
+</ul>
+<div id="algorithm-boosting-for-regression-trees" class="section level5" number="73.2.3.0.1">
+<h5><span class="header-section-number">73.2.3.0.1</span> Algorithm: Boosting for Regression Trees</h5>
+<ol style="list-style-type: decimal">
+<li><p>Set <span class="math inline">\(\hat{f}(x) = 0\)</span> and <span class="math inline">\(r_i = y_i\)</span>, <span class="math inline">\(1 \leqslant i \leqslant n\)</span></p></li>
+<li><p>For <span class="math inline">\(b = 1, 2, \dots, B\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Fit a tree <span class="math inline">\(\hat{f}^b\)</span> with <span class="math inline">\(d\)</span> splits to <span class="math inline">\((X, r)\)</span></li>
+<li>Update the model <span class="math inline">\(\hat{f}\)</span> by adding a shrunk version of the new tree:
+<span class="math display">\[ \hat{f}(x) \leftarrow \hat{f}(x) + \lambda \hat{f}^b(x)\]</span></li>
+<li>Update the residuals:
+<span class="math display">\[ r_i \leftarrow r_i - \lambda \hat{f}^b(x)\]</span></li>
+</ol></li>
+<li><p>Output the boosted model</p>
+<p><span class="math display">\[ \hat{f}(x) = \sum_{b = 1}^B \lambda \hat{f}^b(x)\]</span></p></li>
+</ol>
+<hr />
+</div>
+</div>
+</div>
+<div id="footnotes-6" class="section level2" number="73.3">
+<h2><span class="header-section-number">73.3</span> Footnotes</h2>
+<p>
+</p>
+<div id="foot64">
+<ol start="64" style="list-style-type: decimal">
+<li>This strategy results in a binary tree with the partition regions as leaves, and binary splits as nodes. It is “top-down” because it starts at the top of the partition tree (with a single region), “binary” because it splits the predictor space into two regions at each node in the tree, “recursive” because it calls itself at each node, and “greedy” because at each node, it chooses the optimal split at that node.
+<a href="#ref64">↩︎</a></li>
+</ol>
+</div>
+<p>
+</p>
+<div id="foot65">
+<ol start="65" style="list-style-type: decimal">
+<li>That is, it may lead to lower variance and better interpretation at the cost of a higher bias
+<a href="#ref65">↩︎</a></li>
+</ol>
+</div>
+<p>
+</p>
+<div id="foot66">
+<ol start="66" style="list-style-type: decimal">
+<li>We want a subtree with minimal estimated test error but it’s infeasible to compute this for all subtrees.
+<a href="#ref66">↩︎</a></li>
+</ol>
+</div>
+<p>
+</p>
+<div id="foot67">
+<ol start="67" style="list-style-type: decimal">
+<li>This is the RSS for the partition given by the nodes of the tree <span class="math inline">\(T\)</span>, with a weighted penalty <span class="math inline">\(\alpha|T|\)</span> for the number of nodes (hence the complexity).
+<a href="#ref67">↩︎</a></li>
+</ol>
+</div>
+<p>
+</p>
+<div id="foot68">
+<ol start="68" style="list-style-type: decimal">
+<li>Even though <span class="math inline">\(\alpha \in [0, \infty)\)</span> is a continuous parameter here, in practice it will be selected from a finite set of values. In fact (cf. comment on pg 309 of the text), as <span class="math inline">\(\alpha\)</span> increases,“branches get pruned in a nested and predictable fashion,” resulting in a sequence of subtrees as a function of <span class="math inline">\(\alpha\)</span>. One can then find a sequence <span class="math inline">\(\alpha_1, \dots, \alpha_N\)</span> such that at each <span class="math inline">\(\alpha_i\)</span>, a branch is removed, and since the tree is finite, the algorithm is guaranteed to terminate.
+<a href="#ref68">↩︎</a></li>
+</ol>
+</div>
+<p>
+</p>
+<div id="foot69">
+<ol start="69" style="list-style-type: decimal">
+<li>The smallest possible number of observations per node is <span class="math inline">\(M=1\)</span>, which results in a partition with only one point in each region. This is clearly a maximal complexity tree, so we probably take <span class="math inline">\(M &gt;&gt; 1\)</span> in practice.
+<a href="#ref69">↩︎</a></li>
+</ol>
+</div>
+<p>
+</p>
+<div id="foot70">
+<ol start="70" style="list-style-type: decimal">
+<li>That is, the predicted class for observations in <span class="math inline">\(R_m\)</span> is the most frequently occuring class in <span class="math inline">\(R_m\)</span>.
+<a href="#ref70">↩︎</a></li>
+</ol>
+</div>
+<p>
+</p>
+<div id="foot71">
+<ol start="71" style="list-style-type: decimal">
+<li>The classification error rate isn’t sufficiently sensitive to “node purity,” that is degree to which a node contains observations from a single class.
+<a href="#ref71">↩︎</a></li>
+</ol>
+</div>
+<p>
+</p>
+<div id="foot72">
+<ol start="72" style="list-style-type: decimal">
+<li>The Gini index is a measure of “node purity” – it is minimized when all <span class="math inline">\(\hat{p}_{m, k} \in \{0, 1\}\)</span>, that is, when all nodes contain observations from a single class.
+<a href="#ref72">↩︎</a></li>
+</ol>
+</div>
+<p>
+</p>
+<div id="foot73">
+<ol start="73" style="list-style-type: decimal">
+<li>The <span class="math inline">\(\hat{p}_{m,k}\)</span> are the empirical pmf estimates of the conditional probabilities <span class="math inline">\(p_{m, k} = P(Y = k | X \in R_m)\)</span>, so <span class="math inline">\(D\)</span> is an estimate of the conditional entropy, i.e. the entropy of <span class="math inline">\(Y\ |\ X \in R_m\)</span>. Thus <span class="math inline">\(D\)</span> is a measure of information that the empirical pmf, and hence the corresponding tree provides, that is, of its average suprisal.</li>
+</ol>
+<p>As with the Gini index, <span class="math inline">\(D\)</span> is minimized when all <span class="math inline">\(\hat{p}_{m, k} \in \{0, 1\}\)</span>. An average surprisal of zero means the tree provides all information, that is, it perfectly separates the classes.
+<a href="#ref73">↩︎</a></p>
+</div>
+<p>
+</p>
+<div id="foot74">
+<ol start="74" style="list-style-type: decimal">
+<li>Bagging is another name for <a href='#The-Bootstrap'>bootstrapping</a>. It appears that the latter is usually used in the context of estimating the standard error of a statistic, while the former is used in the context of a statistical learning process (even though these are essentially the same).
+<a href="#ref74">↩︎</a></li>
+</ol>
+</div>
+<p>
+</p>
+<div id="foot75">
+<ol start="75" style="list-style-type: decimal">
+<li>Really this is the bootstrap estimate of the average of the target function estimate over many datasets. For a given dataset <span class="math inline">\(\mathcal{D}\)</span>, the function <span class="math inline">\(\hat{f}(x)\)</span> produced by the learning process is an estimate of the target function <span class="math inline">\(f(x)\)</span>. Repeating the process <span class="math inline">\(1 \leqslant b \leqslant B\)</span> times over datasets <span class="math inline">\(\mathcal{D}_b\)</span>, we get estimates <span class="math inline">\(\hat{f}^b(x)\)</span>. Assuming these are iid, they have common variance <span class="math inline">\(\sigma^2\)</span>, but their average</li>
+</ol>
+<p><span class="math display">\[\hat{f}_{\text{avg}} = \frac{1}{B} \sum_{b = 1}^B \hat{f}^{b}(x)\]</span></p>
+<p>has variance <span class="math inline">\(\frac{\sigma^2}{B}\)</span>. Given <span class="math inline">\(B\)</span> large enough, this variance is low. Bagging/bootstrapping gets around the lack of separate datasets <span class="math inline">\(\mathcal{D}_b\)</span> in practice by repeated sampling with replacement from a single dataset <span class="math inline">\(\mathcal{D}\)</span>.
+<a href="#ref75">↩︎</a></p>
+</div>
+<p>
+</p>
+<div id="foot76">
+<ol start="76" style="list-style-type: decimal">
+<li>For regression, one grows <span class="math inline">\(B\)</span> deep (unpruned) regression trees on <span class="math inline">\(B\)</span> bootstrapped datasets, each of which has <a href="#The-Bias-Variance-Tradeoff">low bias but high variance</a>, then averages them to get a bootstrap estimate which has the same low bias, but much lower variance. For classification (since we can’t average over the classes of the bootstrapped trees) a simple approach is to predict the majority class over the bootstrapped trees.
+<a href="#ref76">↩︎</a></li>
+</ol>
+</div>
+<p>
+</p>
+<div id="foot77">
+<ol start="77" style="list-style-type: decimal">
+<li>In the case of a stump, the boosted ensemble is fitting an additive model, since each term is a single variable. More generally, <span class="math inline">\(d\)</span> is the interaction depth – since <span class="math inline">\(d\)</span> splits can involve at most <span class="math inline">\(d\)</span> variables, this controls the interaction order of the boosted model (i.e. the model can fit interaction terms up to degree <span class="math inline">\(d\)</span>).
+<a href="#ref77">↩︎</a></li>
+</ol>
+</div>
+<div id="blah-1" class="section level3" number="73.3.1">
+<h3><span class="header-section-number">73.3.1</span> blah</h3>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="moving-beyond-linearity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tree-based-methods-practice.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["predictive_analytics.pdf", "predictive_analytics.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

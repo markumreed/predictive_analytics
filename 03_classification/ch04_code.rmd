@@ -1,4 +1,4 @@
-# Chapter 4 - Classification
+# Classification: Practice
 
 - [Load dataset](#Load-dataset)
 - [The Default data set](#Figure-4.1---Default-data-set)
@@ -11,7 +11,6 @@
 
 
 ```python
-# %load ../standard_import.txt
 import pandas as pd
 import numpy as np
 import matplotlib as mpl

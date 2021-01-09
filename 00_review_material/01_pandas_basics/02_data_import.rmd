@@ -1,7 +1,16 @@
 <a href="https://colab.research.google.com/github/SoIllEconomist/ds4b/blob/master/python_ds4b/02_wrangle/02_data_import.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 # Data Import
-## Introduction
+## Obtaining Data 
+
+Without any data, there is little data science you can do. So the first step is the obtain data. Unless you are fortunate enough to already possess data, you may need to do one or more of the following:
+
+- Download data from another location (e.g., a webpage or server)
+- Query data from a database or API (e.g., MySQL or Twitter)
+- Extract data from another file (e.g., an HTML file or spreadsheet)
+- Generate data yourself (e.g., reading sensors or taking surveys)
+
+## Importing Data with pandas
 Working with data provided by Python packages is a great way to learn the tools of data science, but at some point you want to stop learning and start working with your own data. In this chapter, you’ll learn how to read plain-text rectangular files into Python. Here, we’ll only scratch the surface of data import, but many of the principles will translate to other forms of data. We’ll finish with a few pointers to packages that are useful for other types of data.
 
 Importing data is one of the most essential and very first steps in any data related problem. The ability to import the data correctly is a must-have skill for every aspiring data scientist.
@@ -372,5 +381,3 @@ pd.read_csv()
 ## Writing to a file
 
 ## Other types of data
-
-[Next Section: Tidy Data](https://colab.research.google.com/github/SoIllEconomist/ds4b/blob/master/python_ds4b/02_wrangle/03_tidy_data.ipynb)

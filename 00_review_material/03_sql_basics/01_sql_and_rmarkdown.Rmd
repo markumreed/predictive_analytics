@@ -1,0 +1,42 @@
+# Using SQL in R Markdown
+
+First let's use the command line and git to grab the necessary data. We will be following @nield2016getting the data for this section can be found [here](https://github.com/thomasnield/oreilly_getting_started_with_sql.git). 
+
+
+```{bash, eval=FALSE}
+git clone https://github.com/thomasnield/oreilly_getting_started_with_sql.git
+```
+
+```{r, eval=FALSE}
+library(DBI)
+db = dbConnect(RSQLite::SQLite(), dbname ="oreilly_getting_started_with_sql/rexon_metals.db")
+knitr::opts_chunk$set(connection = "db")
+```
+
+```{sql connection=db}
+SELECT * FROM CUSTOMER;
+```
+
+
+# Using SQL in Jupyter Notebooks
+
+First let's use the command line and git to grab the necessary data. We will be following @nield2016getting the data for this section can be found [here](https://github.com/thomasnield/oreilly_getting_started_with_sql.git). 
+
+
+```{bash, eval=FALSE}
+git clone https://github.com/thomasnield/oreilly_getting_started_with_sql.git
+```
+
+```{python, eval=FALSE}
+!pip install ipython-sql
+!git clone https://github.com/thomasnield/oreilly_getting_started_with_sql.git
+%load_ext sql
+%sql sqlite:///oreilly_getting_started_with_sql/rexon_metals.db
+```
+
+
+Using `%%sql` allows you to use SQL in Jupyter Notebook cells while using python in other cells.
+```{sql, eval=FALSE}
+%%sql 
+SELECT * FROM CUSTOMER;
+```

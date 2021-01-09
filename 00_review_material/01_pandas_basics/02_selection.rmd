@@ -1,5 +1,6 @@
 <a href="https://colab.research.google.com/github/SoIllEconomist/ds4b/blob/master/python_ds4b/02_wrangle/02_selection.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
+# Data Selection
 ## Selection by label
 For getting a cross section using a label:
 
@@ -315,7 +316,7 @@ df.iloc[1,1]
 
 ```
 
-# Boolean indexing
+## Boolean indexing
 Using a single column's values to select data.
 
 
@@ -738,7 +739,7 @@ df2[df2['E'].isin(['two', 'four'])]
 
 
 
-# Setting
+## Setting
 Setting a new column automatically aligns the data by the indexes.
 
 

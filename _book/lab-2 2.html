@@ -1,0 +1,2316 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 61 Lab 2 | Predictive Analytics</title>
+  <meta name="description" content="This course aims to go beyond the classical statistical methods. As computing power has increased many new, highly computational, regression, or “Machine Learning,” methods have been developed. There has been a significant expansion of the number of possible approaches. Since these methods are so new, the business community is generally unaware of their huge potential. With the explosion of “Big Data” problems, machine learning has become a hot field in many scientific areas as well as marketing, finance and other business disciplines. People with machine learning skills are in high demand." />
+  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 61 Lab 2 | Predictive Analytics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This course aims to go beyond the classical statistical methods. As computing power has increased many new, highly computational, regression, or “Machine Learning,” methods have been developed. There has been a significant expansion of the number of possible approaches. Since these methods are so new, the business community is generally unaware of their huge potential. With the explosion of “Big Data” problems, machine learning has become a hot field in many scientific areas as well as marketing, finance and other business disciplines. People with machine learning skills are in high demand." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 61 Lab 2 | Predictive Analytics" />
+  
+  <meta name="twitter:description" content="This course aims to go beyond the classical statistical methods. As computing power has increased many new, highly computational, regression, or “Machine Learning,” methods have been developed. There has been a significant expansion of the number of possible approaches. Since these methods are so new, the business community is generally unaware of their huge potential. With the explosion of “Big Data” problems, machine learning has become a hot field in many scientific areas as well as marketing, finance and other business disciplines. People with machine learning skills are in high demand." />
+  
+
+<meta name="author" content="Markum Reed" />
+
+
+<meta name="date" content="2021-01-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="chapter-6-linear-model-selection-and-regularization.html"/>
+<link rel="next" href="lab-3.html"/>
+<script src="libs/header-attrs-2.6.4/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Predictive Analytics</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#course-text"><i class="fa fa-check"></i><b>1.0.1</b> Course Text</a></li>
+<li class="chapter" data-level="1.0.2" data-path="index.html"><a href="index.html#course-material"><i class="fa fa-check"></i><b>1.0.2</b> Course Material</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="2" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html"><i class="fa fa-check"></i><b>2</b> Conditionals and Recursion</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#floor-division-and-modulus"><i class="fa fa-check"></i><b>2.1</b> Floor division and modulus</a></li>
+<li class="chapter" data-level="2.2" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#boolean-expressions"><i class="fa fa-check"></i><b>2.2</b> Boolean expressions</a></li>
+<li class="chapter" data-level="2.3" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#logical-operators"><i class="fa fa-check"></i><b>2.3</b> Logical operators</a></li>
+<li class="chapter" data-level="2.4" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#conditional-execution"><i class="fa fa-check"></i><b>2.4</b> Conditional execution</a></li>
+<li class="chapter" data-level="2.5" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#alternative-execution"><i class="fa fa-check"></i><b>2.5</b> Alternative execution</a></li>
+<li class="chapter" data-level="2.6" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#chained-conditionals"><i class="fa fa-check"></i><b>2.6</b> Chained conditionals</a></li>
+<li class="chapter" data-level="2.7" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#nested-conditionals"><i class="fa fa-check"></i><b>2.7</b> Nested conditionals</a></li>
+<li class="chapter" data-level="2.8" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#recursion"><i class="fa fa-check"></i><b>2.8</b> Recursion</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#what-is-recursion-in-python"><i class="fa fa-check"></i><b>2.8.1</b> What is recursion in Python?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#infinite-recursion"><i class="fa fa-check"></i><b>2.9</b> Infinite recursion</a></li>
+<li class="chapter" data-level="2.10" data-path="conditionals-and-recursion.html"><a href="conditionals-and-recursion.html#keyboard-input"><i class="fa fa-check"></i><b>2.10</b> Keyboard Input</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dictionaries.html"><a href="dictionaries.html"><i class="fa fa-check"></i><b>3</b> Dictionaries</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dictionaries.html"><a href="dictionaries.html#dictionary-as-a-collection-of-counters"><i class="fa fa-check"></i><b>3.1</b> Dictionary as a collection of counters</a></li>
+<li class="chapter" data-level="3.2" data-path="dictionaries.html"><a href="dictionaries.html#looping-and-dictionaries"><i class="fa fa-check"></i><b>3.2</b> Looping and dictionaries</a></li>
+<li class="chapter" data-level="3.3" data-path="dictionaries.html"><a href="dictionaries.html#reverse-lookup"><i class="fa fa-check"></i><b>3.3</b> Reverse Lookup</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html"><i class="fa fa-check"></i><b>4</b> Fruitful Functions (For Business)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html#return-values"><i class="fa fa-check"></i><b>4.1</b> Return values</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html#example"><i class="fa fa-check"></i><b>4.1.1</b> Example</a></li>
+<li class="chapter" data-level="4.1.2" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html#example-2"><i class="fa fa-check"></i><b>4.1.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html#boolean-functions"><i class="fa fa-check"></i><b>4.2</b> Boolean Functions</a></li>
+<li class="chapter" data-level="4.3" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html#recursion-factorial-example"><i class="fa fa-check"></i><b>4.3</b> Recursion (Factorial Example)</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html#step-1-decide-on-parameters"><i class="fa fa-check"></i><b>4.3.1</b> Step 1: Decide on parameters</a></li>
+<li class="chapter" data-level="4.3.2" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html#step-2-add-basic-conditional-argument"><i class="fa fa-check"></i><b>4.3.2</b> Step 2: Add basic conditional argument</a></li>
+<li class="chapter" data-level="4.3.3" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html#step-3-make-it-recursive"><i class="fa fa-check"></i><b>4.3.3</b> Step 3: Make it recursive</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html#fibonacci-example"><i class="fa fa-check"></i><b>4.4</b> Fibonacci Example</a></li>
+<li class="chapter" data-level="4.5" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html#checking-types-factorial-example-2"><i class="fa fa-check"></i><b>4.5</b> Checking types: Factorial Example 2</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="fruitful-functions-for-business.html"><a href="fruitful-functions-for-business.html#solution"><i class="fa fa-check"></i><b>4.5.1</b> Solution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>5</b> Functions</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="functions.html"><a href="functions.html#function-calls"><i class="fa fa-check"></i><b>5.1</b> Function calls</a></li>
+<li class="chapter" data-level="5.2" data-path="functions.html"><a href="functions.html#math-functions"><i class="fa fa-check"></i><b>5.2</b> Math functions</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="functions.html"><a href="functions.html#example-1"><i class="fa fa-check"></i><b>5.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="functions.html"><a href="functions.html#new-functions"><i class="fa fa-check"></i><b>5.3</b> New Functions</a></li>
+<li class="chapter" data-level="5.4" data-path="functions.html"><a href="functions.html#definitions-and-uses"><i class="fa fa-check"></i><b>5.4</b> Definitions and Uses</a></li>
+<li class="chapter" data-level="5.5" data-path="functions.html"><a href="functions.html#parameters-and-arguments"><i class="fa fa-check"></i><b>5.5</b> Parameters and arguments</a></li>
+<li class="chapter" data-level="5.6" data-path="functions.html"><a href="functions.html#variables-and-parameters-are-local"><i class="fa fa-check"></i><b>5.6</b> Variables and parameters are local</a></li>
+<li class="chapter" data-level="5.7" data-path="functions.html"><a href="functions.html#why-functions"><i class="fa fa-check"></i><b>5.7</b> Why functions</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html"><i class="fa fa-check"></i><b>6</b> Introduction, Types, &amp; Expressions</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#why-learn-to-code"><i class="fa fa-check"></i><b>6.1</b> Why Learn to Code?</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="introduction-types-expressions.html"><a href="introduction-types-expressions.html#outcomes"><i class="fa fa-check"></i><b>6.1.1</b> Outcomes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="why-python.html"><a href="why-python.html"><i class="fa fa-check"></i><b>7</b> Why Python?</a></li>
+<li class="chapter" data-level="8" data-path="storing-and-computing-data.html"><a href="storing-and-computing-data.html"><i class="fa fa-check"></i><b>8</b> Storing and Computing Data</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="storing-and-computing-data.html"><a href="storing-and-computing-data.html#expressions"><i class="fa fa-check"></i><b>8.1</b> Expressions</a></li>
+<li class="chapter" data-level="8.2" data-path="storing-and-computing-data.html"><a href="storing-and-computing-data.html#types"><i class="fa fa-check"></i><b>8.2</b> Types</a></li>
+<li class="chapter" data-level="8.3" data-path="storing-and-computing-data.html"><a href="storing-and-computing-data.html#how-to-tell-the-type-of-a-value"><i class="fa fa-check"></i><b>8.3</b> How to tell the type of a value</a></li>
+<li class="chapter" data-level="8.4" data-path="storing-and-computing-data.html"><a href="storing-and-computing-data.html#type-float-floating-point"><i class="fa fa-check"></i><b>8.4</b> Type: float (floating point)</a></li>
+<li class="chapter" data-level="8.5" data-path="storing-and-computing-data.html"><a href="storing-and-computing-data.html#types-int-integers"><i class="fa fa-check"></i><b>8.5</b> Types: int (integers)</a></li>
+<li class="chapter" data-level="8.6" data-path="storing-and-computing-data.html"><a href="storing-and-computing-data.html#type-bool-boolean"><i class="fa fa-check"></i><b>8.6</b> Type: bool (boolean)</a></li>
+<li class="chapter" data-level="8.7" data-path="storing-and-computing-data.html"><a href="storing-and-computing-data.html#type-str-string-for-text"><i class="fa fa-check"></i><b>8.7</b> Type: str (string) for text</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>9</b> Iteration</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="iteration.html"><a href="iteration.html#reassignment"><i class="fa fa-check"></i><b>9.1</b> Reassignment</a></li>
+<li class="chapter" data-level="9.2" data-path="iteration.html"><a href="iteration.html#updating-variables"><i class="fa fa-check"></i><b>9.2</b> Updating variables</a></li>
+<li class="chapter" data-level="9.3" data-path="iteration.html"><a href="iteration.html#while-statement"><i class="fa fa-check"></i><b>9.3</b> while statement</a></li>
+<li class="chapter" data-level="9.4" data-path="iteration.html"><a href="iteration.html#break"><i class="fa fa-check"></i><b>9.4</b> break</a></li>
+<li class="chapter" data-level="9.5" data-path="iteration.html"><a href="iteration.html#example-square-roots"><i class="fa fa-check"></i><b>9.5</b> Example: Square roots</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lists.html"><a href="lists.html"><i class="fa fa-check"></i><b>10</b> Lists</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lists.html"><a href="lists.html#list-sequence"><i class="fa fa-check"></i><b>10.1</b> List == Sequence</a></li>
+<li class="chapter" data-level="10.2" data-path="lists.html"><a href="lists.html#lists-are-mutable"><i class="fa fa-check"></i><b>10.2</b> Lists are Mutable</a></li>
+<li class="chapter" data-level="10.3" data-path="lists.html"><a href="lists.html#traversing-a-list"><i class="fa fa-check"></i><b>10.3</b> Traversing a list</a></li>
+<li class="chapter" data-level="10.4" data-path="lists.html"><a href="lists.html#list-operations"><i class="fa fa-check"></i><b>10.4</b> List operations</a></li>
+<li class="chapter" data-level="10.5" data-path="lists.html"><a href="lists.html#list-slices"><i class="fa fa-check"></i><b>10.5</b> List slices</a></li>
+<li class="chapter" data-level="10.6" data-path="lists.html"><a href="lists.html#list-methods"><i class="fa fa-check"></i><b>10.6</b> List methods</a></li>
+<li class="chapter" data-level="10.7" data-path="lists.html"><a href="lists.html#map-filter-reduce"><i class="fa fa-check"></i><b>10.7</b> Map, filter, reduce</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="lists.html"><a href="lists.html#reduce"><i class="fa fa-check"></i><b>10.7.1</b> Reduce</a></li>
+<li class="chapter" data-level="10.7.2" data-path="lists.html"><a href="lists.html#map"><i class="fa fa-check"></i><b>10.7.2</b> Map</a></li>
+<li class="chapter" data-level="10.7.3" data-path="lists.html"><a href="lists.html#filter"><i class="fa fa-check"></i><b>10.7.3</b> Filter</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="lists.html"><a href="lists.html#deleting-elements"><i class="fa fa-check"></i><b>10.8</b> Deleting Elements</a></li>
+<li class="chapter" data-level="10.9" data-path="lists.html"><a href="lists.html#lists-and-strings"><i class="fa fa-check"></i><b>10.9</b> Lists and strings</a></li>
+<li class="chapter" data-level="10.10" data-path="lists.html"><a href="lists.html#list-arguments"><i class="fa fa-check"></i><b>10.10</b> List arguments</a></li>
+<li class="chapter" data-level="10.11" data-path="lists.html"><a href="lists.html#debugging"><i class="fa fa-check"></i><b>10.11</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="10.11.1" data-path="lists.html"><a href="lists.html#most-list-methods-modify-the-argument-and-return-none"><i class="fa fa-check"></i><b>10.11.1</b> Most list methods modify the argument and return <code>None</code></a></li>
+<li class="chapter" data-level="10.11.2" data-path="lists.html"><a href="lists.html#pick-an-idiom-and-stick-with-it"><i class="fa fa-check"></i><b>10.11.2</b> Pick an idiom and stick with it</a></li>
+<li class="chapter" data-level="10.11.3" data-path="lists.html"><a href="lists.html#make-copies-to-avoid-aliasing."><i class="fa fa-check"></i><b>10.11.3</b> Make copies to avoid aliasing.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="python-basics.html"><a href="python-basics.html"><i class="fa fa-check"></i><b>11</b> Python Basics</a></li>
+<li class="chapter" data-level="12" data-path="strings.html"><a href="strings.html"><i class="fa fa-check"></i><b>12</b> Strings</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="strings.html"><a href="strings.html#a-string-is-a-sequence"><i class="fa fa-check"></i><b>12.1</b> A string is a sequence</a></li>
+<li class="chapter" data-level="12.2" data-path="strings.html"><a href="strings.html#len"><i class="fa fa-check"></i><b>12.2</b> len</a></li>
+<li class="chapter" data-level="12.3" data-path="strings.html"><a href="strings.html#traversal-with-a-for-loop"><i class="fa fa-check"></i><b>12.3</b> Traversal with a for loop</a></li>
+<li class="chapter" data-level="12.4" data-path="strings.html"><a href="strings.html#example-concatenation"><i class="fa fa-check"></i><b>12.4</b> Example: Concatenation</a></li>
+<li class="chapter" data-level="12.5" data-path="strings.html"><a href="strings.html#example-in-class-question"><i class="fa fa-check"></i><b>12.5</b> Example: In-class question</a></li>
+<li class="chapter" data-level="12.6" data-path="strings.html"><a href="strings.html#string-slices"><i class="fa fa-check"></i><b>12.6</b> String slices</a></li>
+<li class="chapter" data-level="12.7" data-path="strings.html"><a href="strings.html#strings-are-immutable"><i class="fa fa-check"></i><b>12.7</b> Strings are immutable</a></li>
+<li class="chapter" data-level="12.8" data-path="strings.html"><a href="strings.html#search"><i class="fa fa-check"></i><b>12.8</b> Search</a></li>
+<li class="chapter" data-level="12.9" data-path="strings.html"><a href="strings.html#looping-and-counting"><i class="fa fa-check"></i><b>12.9</b> Looping and counting</a></li>
+<li class="chapter" data-level="12.10" data-path="strings.html"><a href="strings.html#string-methods"><i class="fa fa-check"></i><b>12.10</b> String methods</a></li>
+<li class="chapter" data-level="12.11" data-path="strings.html"><a href="strings.html#in-operator"><i class="fa fa-check"></i><b>12.11</b> in operator</a></li>
+<li class="chapter" data-level="12.12" data-path="strings.html"><a href="strings.html#example-3"><i class="fa fa-check"></i><b>12.12</b> Example</a></li>
+<li class="chapter" data-level="12.13" data-path="strings.html"><a href="strings.html#string-comparison"><i class="fa fa-check"></i><b>12.13</b> String comparison</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="numpy.html"><a href="numpy.html"><i class="fa fa-check"></i><b>13</b> NumPy</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="numpy.html"><a href="numpy.html#using-numpy"><i class="fa fa-check"></i><b>13.1</b> Using NumPy</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="numpy-arrays.html"><a href="numpy-arrays.html"><i class="fa fa-check"></i><b>14</b> Numpy Arrays</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="numpy-arrays.html"><a href="numpy-arrays.html#creating-numpy-arrays"><i class="fa fa-check"></i><b>14.1</b> Creating NumPy Arrays</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="numpy-arrays.html"><a href="numpy-arrays.html#from-a-python-list"><i class="fa fa-check"></i><b>14.1.1</b> From a Python List</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="numpy-arrays.html"><a href="numpy-arrays.html#built-in-methods"><i class="fa fa-check"></i><b>14.2</b> Built-in Methods</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="numpy-arrays.html"><a href="numpy-arrays.html#arange"><i class="fa fa-check"></i><b>14.2.1</b> arange</a></li>
+<li class="chapter" data-level="14.2.2" data-path="numpy-arrays.html"><a href="numpy-arrays.html#zeros-and-ones"><i class="fa fa-check"></i><b>14.2.2</b> zeros and ones</a></li>
+<li class="chapter" data-level="14.2.3" data-path="numpy-arrays.html"><a href="numpy-arrays.html#linspace"><i class="fa fa-check"></i><b>14.2.3</b> linspace</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="numpy-arrays.html"><a href="numpy-arrays.html#eye"><i class="fa fa-check"></i><b>14.3</b> eye</a></li>
+<li class="chapter" data-level="14.4" data-path="numpy-arrays.html"><a href="numpy-arrays.html#random"><i class="fa fa-check"></i><b>14.4</b> Random</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="numpy-arrays.html"><a href="numpy-arrays.html#rand"><i class="fa fa-check"></i><b>14.4.1</b> rand</a></li>
+<li class="chapter" data-level="14.4.2" data-path="numpy-arrays.html"><a href="numpy-arrays.html#randn"><i class="fa fa-check"></i><b>14.4.2</b> randn</a></li>
+<li class="chapter" data-level="14.4.3" data-path="numpy-arrays.html"><a href="numpy-arrays.html#randint"><i class="fa fa-check"></i><b>14.4.3</b> randint</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="numpy-arrays.html"><a href="numpy-arrays.html#array-attributes-and-methods"><i class="fa fa-check"></i><b>14.5</b> Array Attributes and Methods</a></li>
+<li class="chapter" data-level="14.6" data-path="numpy-arrays.html"><a href="numpy-arrays.html#reshape"><i class="fa fa-check"></i><b>14.6</b> Reshape</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="numpy-arrays.html"><a href="numpy-arrays.html#maxminargmaxargmin"><i class="fa fa-check"></i><b>14.6.1</b> max,min,argmax,argmin</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="numpy-arrays.html"><a href="numpy-arrays.html#shape"><i class="fa fa-check"></i><b>14.7</b> Shape</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="numpy-arrays.html"><a href="numpy-arrays.html#dtype"><i class="fa fa-check"></i><b>14.7.1</b> dtype</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html"><i class="fa fa-check"></i><b>15</b> NumPy Indexing and Selection</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#bracket-indexing-and-selection"><i class="fa fa-check"></i><b>15.1</b> Bracket Indexing and Selection</a></li>
+<li class="chapter" data-level="15.2" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#broadcasting"><i class="fa fa-check"></i><b>15.2</b> Broadcasting</a></li>
+<li class="chapter" data-level="15.3" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#broadcasting-1"><i class="fa fa-check"></i><b>15.3</b> Broadcasting</a></li>
+<li class="chapter" data-level="15.4" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#broadcasting-dangers"><i class="fa fa-check"></i><b>15.4</b> Broadcasting (DANGERS)</a></li>
+<li class="chapter" data-level="15.5" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#copying"><i class="fa fa-check"></i><b>15.5</b> Copying</a></li>
+<li class="chapter" data-level="15.6" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#indexing-a-2d-array-matrices"><i class="fa fa-check"></i><b>15.6</b> Indexing a 2D array (matrices)</a></li>
+<li class="chapter" data-level="15.7" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#indexing-a-2d-array-matrices-1"><i class="fa fa-check"></i><b>15.7</b> Indexing a 2D array (matrices)</a></li>
+<li class="chapter" data-level="15.8" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#indexing-a-2d-array-matrices-2"><i class="fa fa-check"></i><b>15.8</b> Indexing a 2D array (matrices)</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#fancy-indexing"><i class="fa fa-check"></i><b>15.8.1</b> Fancy Indexing</a></li>
+<li class="chapter" data-level="15.8.2" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#fancy-indexing-1"><i class="fa fa-check"></i><b>15.8.2</b> Fancy Indexing</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#more-indexing-help"><i class="fa fa-check"></i><b>15.9</b> More Indexing Help</a></li>
+<li class="chapter" data-level="15.10" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#selection"><i class="fa fa-check"></i><b>15.10</b> Selection</a></li>
+<li class="chapter" data-level="15.11" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#selection-1"><i class="fa fa-check"></i><b>15.11</b> Selection</a></li>
+<li class="chapter" data-level="15.12" data-path="numpy-indexing-and-selection.html"><a href="numpy-indexing-and-selection.html#selection-2"><i class="fa fa-check"></i><b>15.12</b> Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="numpy-operations.html"><a href="numpy-operations.html"><i class="fa fa-check"></i><b>16</b> NumPy Operations</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="numpy-operations.html"><a href="numpy-operations.html#arithmetic"><i class="fa fa-check"></i><b>16.1</b> Arithmetic</a></li>
+<li class="chapter" data-level="16.2" data-path="numpy-operations.html"><a href="numpy-operations.html#arithmetic-1"><i class="fa fa-check"></i><b>16.2</b> Arithmetic</a></li>
+<li class="chapter" data-level="16.3" data-path="numpy-operations.html"><a href="numpy-operations.html#arithmetic-2"><i class="fa fa-check"></i><b>16.3</b> Arithmetic</a></li>
+<li class="chapter" data-level="16.4" data-path="numpy-operations.html"><a href="numpy-operations.html#arithmetic-3"><i class="fa fa-check"></i><b>16.4</b> Arithmetic</a></li>
+<li class="chapter" data-level="16.5" data-path="numpy-operations.html"><a href="numpy-operations.html#arithmetic-4"><i class="fa fa-check"></i><b>16.5</b> Arithmetic</a></li>
+<li class="chapter" data-level="16.6" data-path="numpy-operations.html"><a href="numpy-operations.html#universal-array-functions"><i class="fa fa-check"></i><b>16.6</b> Universal Array Functions</a></li>
+<li class="chapter" data-level="16.7" data-path="numpy-operations.html"><a href="numpy-operations.html#universal-array-functions-1"><i class="fa fa-check"></i><b>16.7</b> Universal Array Functions</a></li>
+<li class="chapter" data-level="16.8" data-path="numpy-operations.html"><a href="numpy-operations.html#universal-array-functions-2"><i class="fa fa-check"></i><b>16.8</b> Universal Array Functions</a></li>
+<li class="chapter" data-level="16.9" data-path="numpy-operations.html"><a href="numpy-operations.html#great-job"><i class="fa fa-check"></i><b>16.9</b> Great Job!</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>17</b> Introduction</a></li>
+<li class="chapter" data-level="18" data-path="dataframes.html"><a href="dataframes.html"><i class="fa fa-check"></i><b>18</b> DataFrames</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="dataframes.html"><a href="dataframes.html#introduction-1"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="dataframes.html"><a href="dataframes.html#creating-a-dataframe-using-list"><i class="fa fa-check"></i><b>18.2</b> Creating a dataframe using List:</a></li>
+<li class="chapter" data-level="18.3" data-path="dataframes.html"><a href="dataframes.html#creating-dataframe-from-dict-of-ndarraylists"><i class="fa fa-check"></i><b>18.3</b> Creating DataFrame from dict of ndarray/lists:</a></li>
+<li class="chapter" data-level="18.4" data-path="dataframes.html"><a href="dataframes.html#dealing-with-rows-and-columns"><i class="fa fa-check"></i><b>18.4</b> Dealing with Rows and Columns</a>
+<ul>
+<li class="chapter" data-level="18.4.1" data-path="dataframes.html"><a href="dataframes.html#column-selection"><i class="fa fa-check"></i><b>18.4.1</b> Column Selection:</a></li>
+</ul></li>
+<li class="chapter" data-level="18.5" data-path="dataframes.html"><a href="dataframes.html#select-multiple-columns"><i class="fa fa-check"></i><b>18.5</b> Select Multiple Columns</a></li>
+<li class="chapter" data-level="18.6" data-path="dataframes.html"><a href="dataframes.html#row-selection"><i class="fa fa-check"></i><b>18.6</b> Row Selection:</a></li>
+<li class="chapter" data-level="18.7" data-path="dataframes.html"><a href="dataframes.html#indexing-and-selecting-data"><i class="fa fa-check"></i><b>18.7</b> Indexing and Selecting Data</a>
+<ul>
+<li class="chapter" data-level="18.7.1" data-path="dataframes.html"><a href="dataframes.html#indexing-a-dataframe-using-indexing-operator"><i class="fa fa-check"></i><b>18.7.1</b> Indexing a Dataframe using indexing operator [] :</a></li>
+<li class="chapter" data-level="18.7.2" data-path="dataframes.html"><a href="dataframes.html#indexing-a-dataframe-using-.loc"><i class="fa fa-check"></i><b>18.7.2</b> Indexing a DataFrame using .loc[ ] :</a></li>
+<li class="chapter" data-level="18.7.3" data-path="dataframes.html"><a href="dataframes.html#indexing-a-dataframe-using-.iloc"><i class="fa fa-check"></i><b>18.7.3</b> Indexing a DataFrame using .iloc[ ] :</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="introduction-to-pandas.html"><a href="introduction-to-pandas.html"><i class="fa fa-check"></i><b>19</b> Introduction to Pandas</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="introduction-to-pandas.html"><a href="introduction-to-pandas.html#overview-of-pandas-capabilities"><i class="fa fa-check"></i><b>19.1</b> Overview of Pandas Capabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="pandas.html"><a href="pandas.html"><i class="fa fa-check"></i><b>20</b> Pandas</a></li>
+<li class="chapter" data-level="21" data-path="object-creation.html"><a href="object-creation.html"><i class="fa fa-check"></i><b>21</b> Object Creation</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="object-creation.html"><a href="object-creation.html#series"><i class="fa fa-check"></i><b>21.1</b> Series</a></li>
+<li class="chapter" data-level="21.2" data-path="object-creation.html"><a href="object-creation.html#series-creation"><i class="fa fa-check"></i><b>21.2</b> Series Creation</a></li>
+<li class="chapter" data-level="21.3" data-path="object-creation.html"><a href="object-creation.html#series-1"><i class="fa fa-check"></i><b>21.3</b> Series</a></li>
+<li class="chapter" data-level="21.4" data-path="object-creation.html"><a href="object-creation.html#series-examples"><i class="fa fa-check"></i><b>21.4</b> Series Examples</a></li>
+<li class="chapter" data-level="21.5" data-path="object-creation.html"><a href="object-creation.html#series-examples-1"><i class="fa fa-check"></i><b>21.5</b> Series Examples</a></li>
+<li class="chapter" data-level="21.6" data-path="object-creation.html"><a href="object-creation.html#series-example"><i class="fa fa-check"></i><b>21.6</b> Series Example</a></li>
+<li class="chapter" data-level="21.7" data-path="object-creation.html"><a href="object-creation.html#series-2"><i class="fa fa-check"></i><b>21.7</b> Series</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="dataframe-creation.html"><a href="dataframe-creation.html"><i class="fa fa-check"></i><b>22</b> DataFrame Creation</a></li>
+<li class="chapter" data-level="23" data-path="viewing-data.html"><a href="viewing-data.html"><i class="fa fa-check"></i><b>23</b> Viewing Data</a></li>
+<li class="chapter" data-level="24" data-path="selection-3.html"><a href="selection-3.html"><i class="fa fa-check"></i><b>24</b> Selection</a></li>
+<li class="chapter" data-level="25" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>25</b> Data Import</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="data-import.html"><a href="data-import.html#introduction-2"><i class="fa fa-check"></i><b>25.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="25.1.1" data-path="data-import.html"><a href="data-import.html#prerequisites"><i class="fa fa-check"></i><b>25.1.1</b> Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="25.2" data-path="data-import.html"><a href="data-import.html#getting-started"><i class="fa fa-check"></i><b>25.2</b> Getting started</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="data-import.html"><a href="data-import.html#exercises"><i class="fa fa-check"></i><b>25.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="25.3" data-path="data-import.html"><a href="data-import.html#parsing-a-list"><i class="fa fa-check"></i><b>25.3</b> Parsing a list</a></li>
+<li class="chapter" data-level="25.4" data-path="data-import.html"><a href="data-import.html#numbers"><i class="fa fa-check"></i><b>25.4</b> Numbers</a></li>
+<li class="chapter" data-level="25.5" data-path="data-import.html"><a href="data-import.html#strings-1"><i class="fa fa-check"></i><b>25.5</b> Strings</a></li>
+<li class="chapter" data-level="25.6" data-path="data-import.html"><a href="data-import.html#categoricals-in-pandas"><i class="fa fa-check"></i><b>25.6</b> Categoricals in Pandas</a></li>
+<li class="chapter" data-level="25.7" data-path="data-import.html"><a href="data-import.html#dates-date-times-and-times"><i class="fa fa-check"></i><b>25.7</b> Dates, date-times, and times</a>
+<ul>
+<li class="chapter" data-level="25.7.1" data-path="data-import.html"><a href="data-import.html#exercises-1"><i class="fa fa-check"></i><b>25.7.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="25.8" data-path="data-import.html"><a href="data-import.html#parsing-a-file"><i class="fa fa-check"></i><b>25.8</b> Parsing a file</a>
+<ul>
+<li class="chapter" data-level="25.8.1" data-path="data-import.html"><a href="data-import.html#strategy"><i class="fa fa-check"></i><b>25.8.1</b> Strategy</a></li>
+<li class="chapter" data-level="25.8.2" data-path="data-import.html"><a href="data-import.html#problems"><i class="fa fa-check"></i><b>25.8.2</b> Problems</a></li>
+<li class="chapter" data-level="25.8.3" data-path="data-import.html"><a href="data-import.html#other-strategies"><i class="fa fa-check"></i><b>25.8.3</b> Other Strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="25.9" data-path="data-import.html"><a href="data-import.html#writing-to-a-file"><i class="fa fa-check"></i><b>25.9</b> Writing to a file</a></li>
+<li class="chapter" data-level="25.10" data-path="data-import.html"><a href="data-import.html#other-types-of-data"><i class="fa fa-check"></i><b>25.10</b> Other types of data</a></li>
+<li class="chapter" data-level="25.11" data-path="data-import.html"><a href="data-import.html#selection-by-label"><i class="fa fa-check"></i><b>25.11</b> Selection by label</a></li>
+<li class="chapter" data-level="25.12" data-path="data-import.html"><a href="data-import.html#selection-by-position"><i class="fa fa-check"></i><b>25.12</b> Selection by position</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="boolean-indexing.html"><a href="boolean-indexing.html"><i class="fa fa-check"></i><b>26</b> Boolean indexing</a></li>
+<li class="chapter" data-level="27" data-path="setting.html"><a href="setting.html"><i class="fa fa-check"></i><b>27</b> Setting</a></li>
+<li class="chapter" data-level="28" data-path="missing-data.html"><a href="missing-data.html"><i class="fa fa-check"></i><b>28</b> Missing Data</a>
+<ul>
+<li class="chapter" data-level="28.1" data-path="missing-data.html"><a href="missing-data.html#dealing-with-missing-data"><i class="fa fa-check"></i><b>28.1</b> Dealing with Missing Data</a></li>
+<li class="chapter" data-level="28.2" data-path="missing-data.html"><a href="missing-data.html#creating-missing-data"><i class="fa fa-check"></i><b>28.2</b> Creating Missing Data</a></li>
+<li class="chapter" data-level="28.3" data-path="missing-data.html"><a href="missing-data.html#drop-missing-data"><i class="fa fa-check"></i><b>28.3</b> Drop Missing Data</a></li>
+<li class="chapter" data-level="28.4" data-path="missing-data.html"><a href="missing-data.html#keep-rows-at-threshold"><i class="fa fa-check"></i><b>28.4</b> Keep rows at Threshold</a></li>
+<li class="chapter" data-level="28.5" data-path="missing-data.html"><a href="missing-data.html#fill-missing-values"><i class="fa fa-check"></i><b>28.5</b> Fill Missing Values</a></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="done.html"><a href="done.html"><i class="fa fa-check"></i><b>29</b> DONE!</a></li>
+<li class="chapter" data-level="30" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>30</b> Tidy Data</a>
+<ul>
+<li class="chapter" data-level="30.1" data-path="tidy-data.html"><a href="tidy-data.html#introduction-3"><i class="fa fa-check"></i><b>30.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="30.1.1" data-path="tidy-data.html"><a href="tidy-data.html#prerequisties"><i class="fa fa-check"></i><b>30.1.1</b> Prerequisties</a></li>
+<li class="chapter" data-level="30.1.2" data-path="tidy-data.html"><a href="tidy-data.html#exercises-2"><i class="fa fa-check"></i><b>30.1.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="30.2" data-path="tidy-data.html"><a href="tidy-data.html#spreading-and-gathering"><i class="fa fa-check"></i><b>30.2</b> Spreading and gathering</a>
+<ul>
+<li class="chapter" data-level="30.2.1" data-path="tidy-data.html"><a href="tidy-data.html#melt-gathering"><i class="fa fa-check"></i><b>30.2.1</b> Melt (Gathering)</a></li>
+</ul></li>
+<li class="chapter" data-level="30.3" data-path="tidy-data.html"><a href="tidy-data.html#pivot-spreading"><i class="fa fa-check"></i><b>30.3</b> Pivot (Spreading)</a>
+<ul>
+<li class="chapter" data-level="30.3.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-3"><i class="fa fa-check"></i><b>30.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="30.4" data-path="tidy-data.html"><a href="tidy-data.html#separating-and-uniting"><i class="fa fa-check"></i><b>30.4</b> Separating and uniting</a></li>
+<li class="chapter" data-level="30.5" data-path="tidy-data.html"><a href="tidy-data.html#separate"><i class="fa fa-check"></i><b>30.5</b> Separate</a>
+<ul>
+<li class="chapter" data-level="30.5.1" data-path="tidy-data.html"><a href="tidy-data.html#unite"><i class="fa fa-check"></i><b>30.5.1</b> Unite</a></li>
+<li class="chapter" data-level="30.5.2" data-path="tidy-data.html"><a href="tidy-data.html#exercises-4"><i class="fa fa-check"></i><b>30.5.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="30.6" data-path="tidy-data.html"><a href="tidy-data.html#missing-values"><i class="fa fa-check"></i><b>30.6</b> Missing Values</a>
+<ul>
+<li class="chapter" data-level="30.6.1" data-path="tidy-data.html"><a href="tidy-data.html#exercise-2"><i class="fa fa-check"></i><b>30.6.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="30.7" data-path="tidy-data.html"><a href="tidy-data.html#case-study"><i class="fa fa-check"></i><b>30.7</b> Case Study</a>
+<ul>
+<li class="chapter" data-level="30.7.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-5"><i class="fa fa-check"></i><b>30.7.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="30.8" data-path="tidy-data.html"><a href="tidy-data.html#non-tidy-data"><i class="fa fa-check"></i><b>30.8</b> Non-tidy data</a></li>
+</ul></li>
+<li class="chapter" data-level="31" data-path="operations.html"><a href="operations.html"><i class="fa fa-check"></i><b>31</b> Operations</a>
+<ul>
+<li class="chapter" data-level="31.1" data-path="operations.html"><a href="operations.html#stats"><i class="fa fa-check"></i><b>31.1</b> Stats</a></li>
+</ul></li>
+<li class="chapter" data-level="32" data-path="apply.html"><a href="apply.html"><i class="fa fa-check"></i><b>32</b> Apply</a></li>
+<li class="chapter" data-level="33" data-path="histogramming.html"><a href="histogramming.html"><i class="fa fa-check"></i><b>33</b> Histogramming</a></li>
+<li class="chapter" data-level="34" data-path="string-methods-1.html"><a href="string-methods-1.html"><i class="fa fa-check"></i><b>34</b> String Methods</a></li>
+<li class="chapter" data-level="35" data-path="merge.html"><a href="merge.html"><i class="fa fa-check"></i><b>35</b> Merge</a>
+<ul>
+<li class="chapter" data-level="35.1" data-path="merge.html"><a href="merge.html#concat"><i class="fa fa-check"></i><b>35.1</b> Concat</a></li>
+</ul></li>
+<li class="chapter" data-level="36" data-path="join.html"><a href="join.html"><i class="fa fa-check"></i><b>36</b> Join</a></li>
+<li class="chapter" data-level="37" data-path="append.html"><a href="append.html"><i class="fa fa-check"></i><b>37</b> Append</a></li>
+<li class="chapter" data-level="38" data-path="merging-joining-and-concatenating.html"><a href="merging-joining-and-concatenating.html"><i class="fa fa-check"></i><b>38</b> Merging, Joining, and Concatenating</a>
+<ul>
+<li class="chapter" data-level="38.1" data-path="merging-joining-and-concatenating.html"><a href="merging-joining-and-concatenating.html#create-dataframe-examples-using-list-comprehension"><i class="fa fa-check"></i><b>38.1</b> Create DataFrame Examples Using List Comprehension</a></li>
+<li class="chapter" data-level="38.2" data-path="merging-joining-and-concatenating.html"><a href="merging-joining-and-concatenating.html#concatenation"><i class="fa fa-check"></i><b>38.2</b> Concatenation</a></li>
+<li class="chapter" data-level="38.3" data-path="merging-joining-and-concatenating.html"><a href="merging-joining-and-concatenating.html#example-dataframes-with-keys"><i class="fa fa-check"></i><b>38.3</b> Example DataFrames with Keys</a></li>
+<li class="chapter" data-level="38.4" data-path="merging-joining-and-concatenating.html"><a href="merging-joining-and-concatenating.html#merging"><i class="fa fa-check"></i><b>38.4</b> Merging</a></li>
+<li class="chapter" data-level="38.5" data-path="merging-joining-and-concatenating.html"><a href="merging-joining-and-concatenating.html#joining"><i class="fa fa-check"></i><b>38.5</b> Joining</a></li>
+</ul></li>
+<li class="chapter" data-level="39" data-path="done-1.html"><a href="done-1.html"><i class="fa fa-check"></i><b>39</b> DONE</a></li>
+<li class="chapter" data-level="40" data-path="grouping.html"><a href="grouping.html"><i class="fa fa-check"></i><b>40</b> Grouping</a></li>
+<li class="chapter" data-level="41" data-path="groupby.html"><a href="groupby.html"><i class="fa fa-check"></i><b>41</b> Groupby</a>
+<ul>
+<li class="chapter" data-level="41.1" data-path="groupby.html"><a href="groupby.html#groupby-1"><i class="fa fa-check"></i><b>41.1</b> groupby()</a></li>
+<li class="chapter" data-level="41.2" data-path="groupby.html"><a href="groupby.html#groupby-and-aggregation-methods"><i class="fa fa-check"></i><b>41.2</b> Groupby and Aggregation Methods</a></li>
+<li class="chapter" data-level="41.3" data-path="groupby.html"><a href="groupby.html#groupby-describe-method"><i class="fa fa-check"></i><b>41.3</b> Groupby + describe method</a></li>
+<li class="chapter" data-level="41.4" data-path="groupby.html"><a href="groupby.html#groupby-describe-method-1"><i class="fa fa-check"></i><b>41.4</b> Groupby + describe method</a></li>
+<li class="chapter" data-level="41.5" data-path="groupby.html"><a href="groupby.html#groupby-describe-method-multiple-numeric-values"><i class="fa fa-check"></i><b>41.5</b> Groupby + describe method (multiple numeric values)</a></li>
+</ul></li>
+<li class="chapter" data-level="42" data-path="done-2.html"><a href="done-2.html"><i class="fa fa-check"></i><b>42</b> DONE</a></li>
+<li class="chapter" data-level="43" data-path="reshaping.html"><a href="reshaping.html"><i class="fa fa-check"></i><b>43</b> Reshaping</a>
+<ul>
+<li class="chapter" data-level="43.1" data-path="reshaping.html"><a href="reshaping.html#stack"><i class="fa fa-check"></i><b>43.1</b> Stack</a></li>
+<li class="chapter" data-level="43.2" data-path="reshaping.html"><a href="reshaping.html#removing-columns"><i class="fa fa-check"></i><b>43.2</b> Removing Columns</a></li>
+<li class="chapter" data-level="43.3" data-path="reshaping.html"><a href="reshaping.html#removedrop-data-for-real"><i class="fa fa-check"></i><b>43.3</b> Remove/Drop data (For real)</a></li>
+<li class="chapter" data-level="43.4" data-path="reshaping.html"><a href="reshaping.html#dropping-rows"><i class="fa fa-check"></i><b>43.4</b> Dropping rows</a></li>
+<li class="chapter" data-level="43.5" data-path="reshaping.html"><a href="reshaping.html#why-0-for-row-1-for-column"><i class="fa fa-check"></i><b>43.5</b> Why 0 for row; 1 for column</a></li>
+</ul></li>
+<li class="chapter" data-level="44" data-path="pivot-tables.html"><a href="pivot-tables.html"><i class="fa fa-check"></i><b>44</b> Pivot tables</a></li>
+<li class="chapter" data-level="45" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>45</b> Time Series</a></li>
+<li class="chapter" data-level="46" data-path="categoricals.html"><a href="categoricals.html"><i class="fa fa-check"></i><b>46</b> Categoricals</a></li>
+<li class="chapter" data-level="47" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>47</b> Plotting</a></li>
+<li class="chapter" data-level="48" data-path="getting-data-inout.html"><a href="getting-data-inout.html"><i class="fa fa-check"></i><b>48</b> Getting data in/out</a>
+<ul>
+<li class="chapter" data-level="48.1" data-path="getting-data-inout.html"><a href="getting-data-inout.html#csv"><i class="fa fa-check"></i><b>48.1</b> CSV</a></li>
+<li class="chapter" data-level="48.2" data-path="getting-data-inout.html"><a href="getting-data-inout.html#hdf5"><i class="fa fa-check"></i><b>48.2</b> HDF5</a></li>
+<li class="chapter" data-level="48.3" data-path="getting-data-inout.html"><a href="getting-data-inout.html#excel"><i class="fa fa-check"></i><b>48.3</b> Excel</a></li>
+</ul></li>
+<li class="chapter" data-level="49" data-path="data-input-and-output.html"><a href="data-input-and-output.html"><i class="fa fa-check"></i><b>49</b> Data Input and Output</a>
+<ul>
+<li class="chapter" data-level="49.1" data-path="data-input-and-output.html"><a href="data-input-and-output.html#csv-1"><i class="fa fa-check"></i><b>49.1</b> CSV</a>
+<ul>
+<li class="chapter" data-level="49.1.1" data-path="data-input-and-output.html"><a href="data-input-and-output.html#csv-input"><i class="fa fa-check"></i><b>49.1.1</b> CSV Input</a></li>
+<li class="chapter" data-level="49.1.2" data-path="data-input-and-output.html"><a href="data-input-and-output.html#csv-output"><i class="fa fa-check"></i><b>49.1.2</b> CSV Output</a></li>
+</ul></li>
+<li class="chapter" data-level="49.2" data-path="data-input-and-output.html"><a href="data-input-and-output.html#excel-1"><i class="fa fa-check"></i><b>49.2</b> Excel</a>
+<ul>
+<li class="chapter" data-level="49.2.1" data-path="data-input-and-output.html"><a href="data-input-and-output.html#excel-output"><i class="fa fa-check"></i><b>49.2.1</b> Excel Output</a></li>
+<li class="chapter" data-level="49.2.2" data-path="data-input-and-output.html"><a href="data-input-and-output.html#html-input"><i class="fa fa-check"></i><b>49.2.2</b> HTML Input</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="50" data-path="operations-1.html"><a href="operations-1.html"><i class="fa fa-check"></i><b>50</b> Operations</a>
+<ul>
+<li class="chapter" data-level="50.1" data-path="operations-1.html"><a href="operations-1.html#unique"><i class="fa fa-check"></i><b>50.1</b> Unique</a></li>
+<li class="chapter" data-level="50.2" data-path="operations-1.html"><a href="operations-1.html#select-data"><i class="fa fa-check"></i><b>50.2</b> Select Data</a></li>
+<li class="chapter" data-level="50.3" data-path="operations-1.html"><a href="operations-1.html#applying-functions"><i class="fa fa-check"></i><b>50.3</b> Applying Functions</a></li>
+<li class="chapter" data-level="50.4" data-path="operations-1.html"><a href="operations-1.html#columns"><i class="fa fa-check"></i><b>50.4</b> Columns</a></li>
+<li class="chapter" data-level="50.5" data-path="operations-1.html"><a href="operations-1.html#sort-and-order-dataframes"><i class="fa fa-check"></i><b>50.5</b> Sort and Order DataFrames</a></li>
+<li class="chapter" data-level="50.6" data-path="operations-1.html"><a href="operations-1.html#null-values"><i class="fa fa-check"></i><b>50.6</b> Null Values</a></li>
+</ul></li>
+<li class="chapter" data-level="51" data-path="sql.html"><a href="sql.html"><i class="fa fa-check"></i><b>51</b> SQL</a></li>
+<li class="chapter" data-level="52" data-path="pandas-basics.html"><a href="pandas-basics.html"><i class="fa fa-check"></i><b>52</b> Pandas Basics</a></li>
+<li class="chapter" data-level="53" data-path="statistical-learning.html"><a href="statistical-learning.html"><i class="fa fa-check"></i><b>53</b> Statistical Learning</a>
+<ul>
+<li class="chapter" data-level="53.1" data-path="statistical-learning.html"><a href="statistical-learning.html#what-is-statistical-learning"><i class="fa fa-check"></i><b>53.1</b> What is Statistical Learning?</a>
+<ul>
+<li class="chapter" data-level="53.1.1" data-path="statistical-learning.html"><a href="statistical-learning.html#why-estimate-f"><i class="fa fa-check"></i><b>53.1.1</b> Why Estimate <span class="math inline">\(f\)</span>?</a></li>
+<li class="chapter" data-level="53.1.2" data-path="statistical-learning.html"><a href="statistical-learning.html#how-to-estimate-f"><i class="fa fa-check"></i><b>53.1.2</b> How to Estimate <span class="math inline">\(f\)</span>?</a></li>
+<li class="chapter" data-level="53.1.3" data-path="statistical-learning.html"><a href="statistical-learning.html#accuracy-vs.-interpretability"><i class="fa fa-check"></i><b>53.1.3</b> Accuracy vs. Interpretability</a></li>
+<li class="chapter" data-level="53.1.4" data-path="statistical-learning.html"><a href="statistical-learning.html#supervised-vs.-unsupervised-learning"><i class="fa fa-check"></i><b>53.1.4</b> Supervised vs. Unsupervised Learning</a></li>
+<li class="chapter" data-level="53.1.5" data-path="statistical-learning.html"><a href="statistical-learning.html#regression-vs.-classification"><i class="fa fa-check"></i><b>53.1.5</b> Regression vs. Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="53.2" data-path="statistical-learning.html"><a href="statistical-learning.html#assessing-model-accuracy"><i class="fa fa-check"></i><b>53.2</b> Assessing Model Accuracy</a>
+<ul>
+<li class="chapter" data-level="53.2.1" data-path="statistical-learning.html"><a href="statistical-learning.html#measuring-quality-of-fit"><i class="fa fa-check"></i><b>53.2.1</b> Measuring Quality of Fit</a></li>
+<li class="chapter" data-level="53.2.2" data-path="statistical-learning.html"><a href="statistical-learning.html#the-bias-variance-tradeoff"><i class="fa fa-check"></i><b>53.2.2</b> The Bias-Variance Tradeoff</a></li>
+<li class="chapter" data-level="53.2.3" data-path="statistical-learning.html"><a href="statistical-learning.html#the-classification-setting"><i class="fa fa-check"></i><b>53.2.3</b> The Classification Setting</a></li>
+</ul></li>
+<li class="chapter" data-level="53.3" data-path="statistical-learning.html"><a href="statistical-learning.html#footnotes"><i class="fa fa-check"></i><b>53.3</b> Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="54" data-path="introduction-to-machine-learning.html"><a href="introduction-to-machine-learning.html"><i class="fa fa-check"></i><b>54</b> Introduction to Machine Learning</a></li>
+<li class="chapter" data-level="55" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html"><i class="fa fa-check"></i><b>55</b> Chapter 3 - Linear Regression</a>
+<ul>
+<li class="chapter" data-level="55.0.1" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#load-datasets"><i class="fa fa-check"></i><b>55.0.1</b> Load Datasets</a></li>
+<li class="chapter" data-level="55.1" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>55.1</b> 3.1 Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="55.1.1" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#figure-3.1---least-squares-fit"><i class="fa fa-check"></i><b>55.1.1</b> Figure 3.1 - Least squares fit</a></li>
+<li class="chapter" data-level="55.1.2" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#figure-3.2---regression-coefficients---rss"><i class="fa fa-check"></i><b>55.1.2</b> Figure 3.2 - Regression coefficients - RSS</a></li>
+<li class="chapter" data-level="55.1.3" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#confidence-interval-on-page-67-table-3.1-3.2---statsmodels"><i class="fa fa-check"></i><b>55.1.3</b> Confidence interval on page 67 &amp; Table 3.1 &amp; 3.2 - Statsmodels</a></li>
+<li class="chapter" data-level="55.1.4" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#table-3.1-3.2---scikit-learn"><i class="fa fa-check"></i><b>55.1.4</b> Table 3.1 &amp; 3.2 - Scikit-learn</a></li>
+</ul></li>
+<li class="chapter" data-level="55.2" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>55.2</b> 3.2 Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="55.2.1" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#table-3.3---statsmodels"><i class="fa fa-check"></i><b>55.2.1</b> Table 3.3 - Statsmodels</a></li>
+<li class="chapter" data-level="55.2.2" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#table-3.4-3.6---statsmodels"><i class="fa fa-check"></i><b>55.2.2</b> Table 3.4 &amp; 3.6 - Statsmodels</a></li>
+<li class="chapter" data-level="55.2.3" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#table-3.5---correlation-matrix"><i class="fa fa-check"></i><b>55.2.3</b> Table 3.5 - Correlation Matrix</a></li>
+<li class="chapter" data-level="55.2.4" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#figure-3.5---multiple-linear-regression"><i class="fa fa-check"></i><b>55.2.4</b> Figure 3.5 - Multiple Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="55.3" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#other-considerations-in-the-regression-model"><i class="fa fa-check"></i><b>55.3</b> 3.3 Other Considerations in the Regression Model</a>
+<ul>
+<li class="chapter" data-level="55.3.1" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#figure-3.6"><i class="fa fa-check"></i><b>55.3.1</b> Figure 3.6</a></li>
+<li class="chapter" data-level="55.3.2" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#table-3.7"><i class="fa fa-check"></i><b>55.3.2</b> Table 3.7</a></li>
+<li class="chapter" data-level="55.3.3" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#table-3.8"><i class="fa fa-check"></i><b>55.3.3</b> Table 3.8</a></li>
+<li class="chapter" data-level="55.3.4" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#table-3.9---interaction-variables"><i class="fa fa-check"></i><b>55.3.4</b> Table 3.9 - Interaction Variables</a></li>
+<li class="chapter" data-level="55.3.5" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#figure-3.7---interaction-between-qualitative-and-quantative-variables"><i class="fa fa-check"></i><b>55.3.5</b> Figure 3.7 - Interaction between qualitative and quantative variables</a></li>
+<li class="chapter" data-level="55.3.6" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#figure-3.8---non-linear-relationships"><i class="fa fa-check"></i><b>55.3.6</b> Figure 3.8 - Non-linear relationships</a></li>
+<li class="chapter" data-level="55.3.7" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#table-3.10"><i class="fa fa-check"></i><b>55.3.7</b> Table 3.10</a></li>
+<li class="chapter" data-level="55.3.8" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#figure-3.9"><i class="fa fa-check"></i><b>55.3.8</b> Figure 3.9</a></li>
+<li class="chapter" data-level="55.3.9" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#figure-3.14"><i class="fa fa-check"></i><b>55.3.9</b> Figure 3.14</a></li>
+<li class="chapter" data-level="55.3.10" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#figure-3.15"><i class="fa fa-check"></i><b>55.3.10</b> Figure 3.15</a></li>
+<li class="chapter" data-level="55.3.11" data-path="chapter-3-linear-regression.html"><a href="chapter-3-linear-regression.html#variance-inflation-factor---page-102"><i class="fa fa-check"></i><b>55.3.11</b> Variance Inflation Factor - page 102</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="56" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>56</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="56.1" data-path="linear-regression.html"><a href="linear-regression.html#simple-linear-regression-1"><i class="fa fa-check"></i><b>56.1</b> Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="56.1.1" data-path="linear-regression.html"><a href="linear-regression.html#estimating-the-coefficients"><i class="fa fa-check"></i><b>56.1.1</b> Estimating the Coefficients</a></li>
+<li class="chapter" data-level="56.1.2" data-path="linear-regression.html"><a href="linear-regression.html#assessing-the-accuracy-of-the-coefficent-estimates"><i class="fa fa-check"></i><b>56.1.2</b> Assessing the Accuracy of the Coefficent Estimates</a></li>
+<li class="chapter" data-level="56.1.3" data-path="linear-regression.html"><a href="linear-regression.html#assessing-the-accuracy-of-the-model"><i class="fa fa-check"></i><b>56.1.3</b> Assessing the Accuracy of the Model</a></li>
+<li class="chapter" data-level="56.1.4" data-path="linear-regression.html"><a href="linear-regression.html#residual-standard-errors"><i class="fa fa-check"></i><b>56.1.4</b> Residual Standard Errors</a></li>
+<li class="chapter" data-level="56.1.5" data-path="linear-regression.html"><a href="linear-regression.html#r2-statistic"><i class="fa fa-check"></i><b>56.1.5</b> <span class="math inline">\(R^2\)</span> Statistic</a></li>
+</ul></li>
+<li class="chapter" data-level="56.2" data-path="linear-regression.html"><a href="linear-regression.html#multiple-linear-regression-1"><i class="fa fa-check"></i><b>56.2</b> Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="56.2.1" data-path="linear-regression.html"><a href="linear-regression.html#estimating-the-regression-coefficients"><i class="fa fa-check"></i><b>56.2.1</b> Estimating the Regression Coefficients</a></li>
+<li class="chapter" data-level="56.2.2" data-path="linear-regression.html"><a href="linear-regression.html#important-questions"><i class="fa fa-check"></i><b>56.2.2</b> Important Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="56.3" data-path="linear-regression.html"><a href="linear-regression.html#other-considerations-in-the-regression-model-1"><i class="fa fa-check"></i><b>56.3</b> Other Considerations In the Regression Model</a>
+<ul>
+<li class="chapter" data-level="56.3.1" data-path="linear-regression.html"><a href="linear-regression.html#qualitative-predictors"><i class="fa fa-check"></i><b>56.3.1</b> Qualitative Predictors</a></li>
+<li class="chapter" data-level="56.3.2" data-path="linear-regression.html"><a href="linear-regression.html#extensions-of-the-linear-model"><i class="fa fa-check"></i><b>56.3.2</b> Extensions of the Linear Model</a></li>
+<li class="chapter" data-level="56.3.3" data-path="linear-regression.html"><a href="linear-regression.html#potential-problems"><i class="fa fa-check"></i><b>56.3.3</b> Potential Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="56.4" data-path="linear-regression.html"><a href="linear-regression.html#the-marketing-plan"><i class="fa fa-check"></i><b>56.4</b> The Marketing Plan</a></li>
+<li class="chapter" data-level="56.5" data-path="linear-regression.html"><a href="linear-regression.html#comparison-of-linear-regression-and-k-nearest-neighbors"><i class="fa fa-check"></i><b>56.5</b> Comparison of Linear Regression and K-Nearest Neighbors</a></li>
+<li class="chapter" data-level="56.6" data-path="linear-regression.html"><a href="linear-regression.html#footnotes-1"><i class="fa fa-check"></i><b>56.6</b> Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="57" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html"><i class="fa fa-check"></i><b>57</b> Chapter 4 - Classification</a>
+<ul>
+<li class="chapter" data-level="57.0.1" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html#load-dataset"><i class="fa fa-check"></i><b>57.0.1</b> Load dataset</a></li>
+<li class="chapter" data-level="57.0.2" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html#figure-4.1---default-data-set"><i class="fa fa-check"></i><b>57.0.2</b> Figure 4.1 - Default data set</a></li>
+<li class="chapter" data-level="57.1" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html#logistic-regression"><i class="fa fa-check"></i><b>57.1</b> 4.3 Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="57.1.1" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html#figure-4.2"><i class="fa fa-check"></i><b>57.1.1</b> Figure 4.2</a></li>
+<li class="chapter" data-level="57.1.2" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html#table-4.1"><i class="fa fa-check"></i><b>57.1.2</b> Table 4.1</a></li>
+<li class="chapter" data-level="57.1.3" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html#table-4.2"><i class="fa fa-check"></i><b>57.1.3</b> Table 4.2</a></li>
+<li class="chapter" data-level="57.1.4" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html#table-4.3---multiple-logistic-regression"><i class="fa fa-check"></i><b>57.1.4</b> Table 4.3 - Multiple Logistic Regression</a></li>
+<li class="chapter" data-level="57.1.5" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html#figure-4.3---confounding"><i class="fa fa-check"></i><b>57.1.5</b> Figure 4.3 - Confounding</a></li>
+</ul></li>
+<li class="chapter" data-level="57.2" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>57.2</b> 4.4 Linear Discriminant Analysis</a>
+<ul>
+<li class="chapter" data-level="57.2.1" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html#table-4.4"><i class="fa fa-check"></i><b>57.2.1</b> Table 4.4</a></li>
+<li class="chapter" data-level="57.2.2" data-path="chapter-4-classification.html"><a href="chapter-4-classification.html#table-4.5"><i class="fa fa-check"></i><b>57.2.2</b> Table 4.5</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="58" data-path="lab.html"><a href="lab.html"><i class="fa fa-check"></i><b>58</b> Lab</a>
+<ul>
+<li class="chapter" data-level="58.0.1" data-path="lab.html"><a href="lab.html#linear-discriminant-analysis-1"><i class="fa fa-check"></i><b>58.0.1</b> 4.6.3 Linear Discriminant Analysis</a></li>
+<li class="chapter" data-level="58.0.2" data-path="lab.html"><a href="lab.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>58.0.2</b> 4.6.4 Quadratic Discriminant Analysis</a></li>
+<li class="chapter" data-level="58.0.3" data-path="lab.html"><a href="lab.html#k-nearest-neighbors-1"><i class="fa fa-check"></i><b>58.0.3</b> 4.6.5 K-Nearest Neighbors</a></li>
+<li class="chapter" data-level="58.0.4" data-path="lab.html"><a href="lab.html#an-application-to-caravan-insurance-data"><i class="fa fa-check"></i><b>58.0.4</b> 4.6.6 An Application to Caravan Insurance Data</a></li>
+</ul></li>
+<li class="chapter" data-level="59" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html"><i class="fa fa-check"></i><b>59</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="59.1" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#an-overview-of-classification"><i class="fa fa-check"></i><b>59.1</b> An Overview of Classification</a></li>
+<li class="chapter" data-level="59.2" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#why-not-linear-regression"><i class="fa fa-check"></i><b>59.2</b> Why Not Linear Regression?</a></li>
+<li class="chapter" data-level="59.3" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#logistic-regression-3"><i class="fa fa-check"></i><b>59.3</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="59.3.1" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#the-logistic-model"><i class="fa fa-check"></i><b>59.3.1</b> The Logistic Model</a></li>
+<li class="chapter" data-level="59.3.2" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#estimating-the-regression-coefficients-1"><i class="fa fa-check"></i><b>59.3.2</b> Estimating the Regression Coefficients</a></li>
+<li class="chapter" data-level="59.3.3" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#making-predictions"><i class="fa fa-check"></i><b>59.3.3</b> Making Predictions</a></li>
+<li class="chapter" data-level="59.3.4" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#multiple-logistic-regression"><i class="fa fa-check"></i><b>59.3.4</b> Multiple Logistic Regression</a></li>
+<li class="chapter" data-level="59.3.5" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#logistic-regression-for-more-than-two-response-classes"><i class="fa fa-check"></i><b>59.3.5</b> Logistic Regression for more than two response classes</a></li>
+</ul></li>
+<li class="chapter" data-level="59.4" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#linear-discriminant-analysis-2"><i class="fa fa-check"></i><b>59.4</b> Linear Discriminant Analysis</a>
+<ul>
+<li class="chapter" data-level="59.4.1" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#bayes-theorem-for-classification"><i class="fa fa-check"></i><b>59.4.1</b> Bayes Theorem for Classification</a></li>
+<li class="chapter" data-level="59.4.2" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#linear-discriminant-analysis-for-p1"><i class="fa fa-check"></i><b>59.4.2</b> Linear Discriminant Analysis for p=1</a></li>
+<li class="chapter" data-level="59.4.3" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#linear-discriminant-analysis-for-p-1"><i class="fa fa-check"></i><b>59.4.3</b> Linear Discriminant Analysis for p &gt; 1</a></li>
+<li class="chapter" data-level="59.4.4" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#quadratic-discriminant-analysis-1"><i class="fa fa-check"></i><b>59.4.4</b> Quadratic Discriminant Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="59.5" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#a-comparison-of-classification-methods"><i class="fa fa-check"></i><b>59.5</b> A Comparison of Classification Methods</a></li>
+<li class="chapter" data-level="59.6" data-path="logistic-regression-2.html"><a href="logistic-regression-2.html#footnotes-2"><i class="fa fa-check"></i><b>59.6</b> Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="60" data-path="chapter-6-linear-model-selection-and-regularization.html"><a href="chapter-6-linear-model-selection-and-regularization.html"><i class="fa fa-check"></i><b>60</b> Chapter 6 - Linear Model Selection and Regularization</a></li>
+<li class="chapter" data-level="61" data-path="lab-2.html"><a href="lab-2.html"><i class="fa fa-check"></i><b>61</b> Lab 2</a>
+<ul>
+<li class="chapter" data-level="61.0.1" data-path="lab-2.html"><a href="lab-2.html#ridge-regression"><i class="fa fa-check"></i><b>61.0.1</b> 6.6.1 Ridge Regression</a></li>
+<li class="chapter" data-level="61.0.2" data-path="lab-2.html"><a href="lab-2.html#scikit-learn-1"><i class="fa fa-check"></i><b>61.0.2</b> Scikit-learn</a></li>
+<li class="chapter" data-level="61.0.3" data-path="lab-2.html"><a href="lab-2.html#python-glmnet-update-2016-08-29"><i class="fa fa-check"></i><b>61.0.3</b> python-glmnet (update 2016-08-29)</a></li>
+<li class="chapter" data-level="61.0.4" data-path="lab-2.html"><a href="lab-2.html#the-lasso"><i class="fa fa-check"></i><b>61.0.4</b> 6.6.2 The Lasso</a></li>
+<li class="chapter" data-level="61.0.5" data-path="lab-2.html"><a href="lab-2.html#scikit-learn-2"><i class="fa fa-check"></i><b>61.0.5</b> Scikit-learn</a></li>
+<li class="chapter" data-level="61.0.6" data-path="lab-2.html"><a href="lab-2.html#python-glmnet"><i class="fa fa-check"></i><b>61.0.6</b> python-glmnet</a></li>
+</ul></li>
+<li class="chapter" data-level="62" data-path="lab-3.html"><a href="lab-3.html"><i class="fa fa-check"></i><b>62</b> Lab 3</a>
+<ul>
+<li class="chapter" data-level="62.0.1" data-path="lab-3.html"><a href="lab-3.html#principal-components-regression"><i class="fa fa-check"></i><b>62.0.1</b> 6.7.1 Principal Components Regression</a></li>
+<li class="chapter" data-level="62.0.2" data-path="lab-3.html"><a href="lab-3.html#partial-least-squares"><i class="fa fa-check"></i><b>62.0.2</b> 6.7.2 Partial Least Squares</a></li>
+</ul></li>
+<li class="chapter" data-level="63" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html"><i class="fa fa-check"></i><b>63</b> Linear Model Selection and Regularization</a>
+<ul>
+<li class="chapter" data-level="63.1" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#subset-selection"><i class="fa fa-check"></i><b>63.1</b> Subset Selection</a>
+<ul>
+<li class="chapter" data-level="63.1.1" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#best-subset-selection"><i class="fa fa-check"></i><b>63.1.1</b> Best Subset Selection</a></li>
+<li class="chapter" data-level="63.1.2" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#stepwise-selection"><i class="fa fa-check"></i><b>63.1.2</b> Stepwise Selection</a></li>
+<li class="chapter" data-level="63.1.3" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#choosing-the-optimal-model"><i class="fa fa-check"></i><b>63.1.3</b> Choosing the Optimal Model</a></li>
+</ul></li>
+<li class="chapter" data-level="63.2" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#shrinkage-methods"><i class="fa fa-check"></i><b>63.2</b> Shrinkage Methods</a>
+<ul>
+<li class="chapter" data-level="63.2.1" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>63.2.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="63.2.2" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#the-lasso-1"><i class="fa fa-check"></i><b>63.2.2</b> The Lasso</a></li>
+<li class="chapter" data-level="63.2.3" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>63.2.3</b> Selecting the Tuning Parameter</a></li>
+</ul></li>
+<li class="chapter" data-level="63.3" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#dimension-reduction-methods"><i class="fa fa-check"></i><b>63.3</b> Dimension Reduction Methods</a>
+<ul>
+<li class="chapter" data-level="63.3.1" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#principal-components-regression-1"><i class="fa fa-check"></i><b>63.3.1</b> Principal Components Regression</a></li>
+<li class="chapter" data-level="63.3.2" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#partial-least-squares-1"><i class="fa fa-check"></i><b>63.3.2</b> Partial Least Squares</a></li>
+</ul></li>
+<li class="chapter" data-level="63.4" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#considerations-in-high-dimensions"><i class="fa fa-check"></i><b>63.4</b> Considerations in High Dimensions</a>
+<ul>
+<li class="chapter" data-level="63.4.1" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#high-dimensional-data"><i class="fa fa-check"></i><b>63.4.1</b> High-Dimensional Data</a></li>
+<li class="chapter" data-level="63.4.2" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#what-goes-wrong-in-high-dimensions"><i class="fa fa-check"></i><b>63.4.2</b> What Goes Wrong in High Dimensions?</a></li>
+<li class="chapter" data-level="63.4.3" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#regression-in-high-dimensions"><i class="fa fa-check"></i><b>63.4.3</b> Regression in High Dimensions</a></li>
+<li class="chapter" data-level="63.4.4" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#interpreting-results-in-high-dimensions"><i class="fa fa-check"></i><b>63.4.4</b> Interpreting Results in High Dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="63.5" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#footnotes-3"><i class="fa fa-check"></i><b>63.5</b> Footnotes</a>
+<ul>
+<li class="chapter" data-level="63.5.1" data-path="linear-model-selection-and-regularization.html"><a href="linear-model-selection-and-regularization.html#blah"><i class="fa fa-check"></i><b>63.5.1</b> blah</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="64" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html"><i class="fa fa-check"></i><b>64</b> Chapter 7 - Moving Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="64.0.1" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#load-dataset-1"><i class="fa fa-check"></i><b>64.0.1</b> Load dataset</a></li>
+<li class="chapter" data-level="64.1" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#lab-1"><i class="fa fa-check"></i><b>64.1</b> Lab</a>
+<ul>
+<li class="chapter" data-level="64.1.1" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#polynomial-regression-and-step-functions"><i class="fa fa-check"></i><b>64.1.1</b> 7.8.1 Polynomial Regression and Step Functions</a></li>
+<li class="chapter" data-level="64.1.2" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#figure-7.1"><i class="fa fa-check"></i><b>64.1.2</b> Figure 7.1</a></li>
+<li class="chapter" data-level="64.1.3" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#figure-7.2"><i class="fa fa-check"></i><b>64.1.3</b> Figure 7.2</a></li>
+<li class="chapter" data-level="64.1.4" data-path="chapter-7-moving-beyond-linearity.html"><a href="chapter-7-moving-beyond-linearity.html#splines"><i class="fa fa-check"></i><b>64.1.4</b> 7.8.2 Splines</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="65" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html"><i class="fa fa-check"></i><b>65</b> Moving Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="65.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#polynomial-regression"><i class="fa fa-check"></i><b>65.1</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="65.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#step-functions"><i class="fa fa-check"></i><b>65.2</b> Step Functions</a></li>
+<li class="chapter" data-level="65.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#basis-functions"><i class="fa fa-check"></i><b>65.3</b> Basis Functions</a></li>
+<li class="chapter" data-level="65.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#regression-splines"><i class="fa fa-check"></i><b>65.4</b> Regression Splines</a>
+<ul>
+<li class="chapter" data-level="65.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#piecewise-polynomials"><i class="fa fa-check"></i><b>65.4.1</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="65.4.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#constraints-and-splines"><i class="fa fa-check"></i><b>65.4.2</b> Constraints and Splines</a></li>
+<li class="chapter" data-level="65.4.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#the-spline-basis-representation"><i class="fa fa-check"></i><b>65.4.3</b> The Spline Basis Representation</a></li>
+<li class="chapter" data-level="65.4.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#choosing-the-number-and-the-locations-of-the-knots"><i class="fa fa-check"></i><b>65.4.4</b> Choosing the Number and the Locations of the Knots</a></li>
+<li class="chapter" data-level="65.4.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#comparison-to-polynomial-regression"><i class="fa fa-check"></i><b>65.4.5</b> Comparison to Polynomial Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="65.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#smoothing-splines"><i class="fa fa-check"></i><b>65.5</b> Smoothing Splines</a>
+<ul>
+<li class="chapter" data-level="65.5.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#an-overview-of-smoothing-splines"><i class="fa fa-check"></i><b>65.5.1</b> An Overview of Smoothing Splines</a></li>
+<li class="chapter" data-level="65.5.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#choosing-the-smoothing-parameter-lambda"><i class="fa fa-check"></i><b>65.5.2</b> Choosing the Smoothing Parameter <span class="math inline">\(\lambda\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="65.6" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#local-regression"><i class="fa fa-check"></i><b>65.6</b> Local Regression</a></li>
+<li class="chapter" data-level="65.7" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#generalized-additive-models"><i class="fa fa-check"></i><b>65.7</b> Generalized Additive Models</a>
+<ul>
+<li class="chapter" data-level="65.7.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gams-for-regression-problems"><i class="fa fa-check"></i><b>65.7.1</b> GAMs for Regression Problems</a></li>
+<li class="chapter" data-level="65.7.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gams-for-classification-problems"><i class="fa fa-check"></i><b>65.7.2</b> GAMs for Classification Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="65.8" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#footnotes-4"><i class="fa fa-check"></i><b>65.8</b> Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="66" data-path="tree-based-methods.html"><a href="tree-based-methods.html"><i class="fa fa-check"></i><b>66</b> Tree-Based Methods</a>
+<ul>
+<li class="chapter" data-level="66.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#the-basics-of-decision-trees"><i class="fa fa-check"></i><b>66.1</b> The Basics of Decision Trees</a>
+<ul>
+<li class="chapter" data-level="66.1.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#regression-trees"><i class="fa fa-check"></i><b>66.1.1</b> Regression Trees</a></li>
+<li class="chapter" data-level="66.1.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#classification-trees"><i class="fa fa-check"></i><b>66.1.2</b> Classification Trees</a></li>
+<li class="chapter" data-level="66.1.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#trees-versus-linear-models"><i class="fa fa-check"></i><b>66.1.3</b> Trees Versus Linear Models</a></li>
+<li class="chapter" data-level="66.1.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#advantages-and-disadvantages-of-trees"><i class="fa fa-check"></i><b>66.1.4</b> Advantages and Disadvantages of Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="66.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-random-forests-boosting"><i class="fa fa-check"></i><b>66.2</b> Bagging, Random Forests, Boosting</a>
+<ul>
+<li class="chapter" data-level="66.2.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging"><i class="fa fa-check"></i><b>66.2.1</b> Bagging</a></li>
+<li class="chapter" data-level="66.2.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#random-forests"><i class="fa fa-check"></i><b>66.2.2</b> Random Forests</a></li>
+<li class="chapter" data-level="66.2.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#boosting"><i class="fa fa-check"></i><b>66.2.3</b> Boosting</a></li>
+</ul></li>
+<li class="chapter" data-level="66.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#footnotes-5"><i class="fa fa-check"></i><b>66.3</b> Footnotes</a>
+<ul>
+<li class="chapter" data-level="66.3.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#blah-1"><i class="fa fa-check"></i><b>66.3.1</b> blah</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="67" data-path="chapter-8-tree-based-methods.html"><a href="chapter-8-tree-based-methods.html"><i class="fa fa-check"></i><b>67</b> Chapter 8 - Tree-based Methods</a>
+<ul>
+<li class="chapter" data-level="67.0.1" data-path="chapter-8-tree-based-methods.html"><a href="chapter-8-tree-based-methods.html#regression-trees-1"><i class="fa fa-check"></i><b>67.0.1</b> 8.1.1 Regression Trees</a></li>
+<li class="chapter" data-level="67.0.2" data-path="chapter-8-tree-based-methods.html"><a href="chapter-8-tree-based-methods.html#figure-8.1"><i class="fa fa-check"></i><b>67.0.2</b> Figure 8.1</a></li>
+<li class="chapter" data-level="67.0.3" data-path="chapter-8-tree-based-methods.html"><a href="chapter-8-tree-based-methods.html#figure-8.2"><i class="fa fa-check"></i><b>67.0.3</b> Figure 8.2</a></li>
+<li class="chapter" data-level="67.0.4" data-path="chapter-8-tree-based-methods.html"><a href="chapter-8-tree-based-methods.html#pruning"><i class="fa fa-check"></i><b>67.0.4</b> Pruning</a></li>
+<li class="chapter" data-level="67.0.5" data-path="chapter-8-tree-based-methods.html"><a href="chapter-8-tree-based-methods.html#classification-trees-1"><i class="fa fa-check"></i><b>67.0.5</b> 8.1.2 Classification Trees</a></li>
+<li class="chapter" data-level="67.1" data-path="chapter-8-tree-based-methods.html"><a href="chapter-8-tree-based-methods.html#lab-4"><i class="fa fa-check"></i><b>67.1</b> Lab</a>
+<ul>
+<li class="chapter" data-level="67.1.1" data-path="chapter-8-tree-based-methods.html"><a href="chapter-8-tree-based-methods.html#fitting-classification-trees"><i class="fa fa-check"></i><b>67.1.1</b> 8.3.1 Fitting Classification Trees</a></li>
+<li class="chapter" data-level="67.1.2" data-path="chapter-8-tree-based-methods.html"><a href="chapter-8-tree-based-methods.html#fitting-regression-trees"><i class="fa fa-check"></i><b>67.1.2</b> 8.3.2 Fitting Regression Trees</a></li>
+<li class="chapter" data-level="67.1.3" data-path="chapter-8-tree-based-methods.html"><a href="chapter-8-tree-based-methods.html#bagging-and-random-forests"><i class="fa fa-check"></i><b>67.1.3</b> 8.3.3 Bagging and Random Forests</a></li>
+<li class="chapter" data-level="67.1.4" data-path="chapter-8-tree-based-methods.html"><a href="chapter-8-tree-based-methods.html#boosting-1"><i class="fa fa-check"></i><b>67.1.4</b> 8.3.4 Boosting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="68" data-path="chapter-9-support-vector-machines.html"><a href="chapter-9-support-vector-machines.html"><i class="fa fa-check"></i><b>68</b> Chapter 9 - Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="68.1" data-path="chapter-9-support-vector-machines.html"><a href="chapter-9-support-vector-machines.html#lab-5"><i class="fa fa-check"></i><b>68.1</b> LAB</a>
+<ul>
+<li class="chapter" data-level="68.1.1" data-path="chapter-9-support-vector-machines.html"><a href="chapter-9-support-vector-machines.html#support-vector-classifier"><i class="fa fa-check"></i><b>68.1.1</b> 9.6.1 Support Vector Classifier</a></li>
+<li class="chapter" data-level="68.1.2" data-path="chapter-9-support-vector-machines.html"><a href="chapter-9-support-vector-machines.html#support-vector-machine"><i class="fa fa-check"></i><b>68.1.2</b> 9.6.2 Support Vector Machine</a></li>
+<li class="chapter" data-level="68.1.3" data-path="chapter-9-support-vector-machines.html"><a href="chapter-9-support-vector-machines.html#roc-curves"><i class="fa fa-check"></i><b>68.1.3</b> 9.6.3 ROC Curves</a></li>
+<li class="chapter" data-level="68.1.4" data-path="chapter-9-support-vector-machines.html"><a href="chapter-9-support-vector-machines.html#svm-with-multiple-classes"><i class="fa fa-check"></i><b>68.1.4</b> 9.6.4 SVM with Multiple Classes</a></li>
+<li class="chapter" data-level="68.1.5" data-path="chapter-9-support-vector-machines.html"><a href="chapter-9-support-vector-machines.html#application-to-gene-expression-data"><i class="fa fa-check"></i><b>68.1.5</b> 9.6.5 Application to Gene Expression Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="69" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>69</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="69.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximal-margin-classifier"><i class="fa fa-check"></i><b>69.1</b> Maximal Margin Classifier</a>
+<ul>
+<li class="chapter" data-level="69.1.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#what-is-a-hyperplane"><i class="fa fa-check"></i><b>69.1.1</b> What Is a Hyperplane?</a></li>
+<li class="chapter" data-level="69.1.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#classification-using-a-separating-hyperplane"><i class="fa fa-check"></i><b>69.1.2</b> Classification Using a Separating Hyperplane</a></li>
+<li class="chapter" data-level="69.1.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-maximal-margin-classifier"><i class="fa fa-check"></i><b>69.1.3</b> The Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="69.1.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#construction-of-the-maximal-margin-classifier"><i class="fa fa-check"></i><b>69.1.4</b> Construction of the Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="69.1.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-non-separable-case"><i class="fa fa-check"></i><b>69.1.5</b> The Non-separable Case</a></li>
+</ul></li>
+<li class="chapter" data-level="69.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-classifiers"><i class="fa fa-check"></i><b>69.2</b> Support Vector Classifiers</a>
+<ul>
+<li class="chapter" data-level="69.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#overview-of-the-support-vector-classifier"><i class="fa fa-check"></i><b>69.2.1</b> Overview of the Support Vector Classifier</a></li>
+<li class="chapter" data-level="69.2.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#details-of-the-support-vector-classifier"><i class="fa fa-check"></i><b>69.2.2</b> Details of the Support Vector Classifier</a></li>
+</ul></li>
+<li class="chapter" data-level="69.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-machines-1"><i class="fa fa-check"></i><b>69.3</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="69.3.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#classification-with-non-linear-decision-boundaries"><i class="fa fa-check"></i><b>69.3.1</b> Classification with Non-Linear Decision Boundaries</a></li>
+<li class="chapter" data-level="69.3.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-support-vector-machine"><i class="fa fa-check"></i><b>69.3.2</b> The Support Vector Machine</a></li>
+</ul></li>
+<li class="chapter" data-level="69.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svms-with-more-than-two-classes"><i class="fa fa-check"></i><b>69.4</b> SVMs with More than Two Classes</a>
+<ul>
+<li class="chapter" data-level="69.4.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#one-versus-one-classification"><i class="fa fa-check"></i><b>69.4.1</b> One-Versus-One Classification</a></li>
+<li class="chapter" data-level="69.4.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#one-versus-all-classification"><i class="fa fa-check"></i><b>69.4.2</b> One-Versus-All Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="69.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#relationship-to-logistic-regression"><i class="fa fa-check"></i><b>69.5</b> Relationship to Logistic Regression</a></li>
+<li class="chapter" data-level="69.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#footnotes-6"><i class="fa fa-check"></i><b>69.6</b> Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="70" data-path="chapter-10-unsupervised-learning.html"><a href="chapter-10-unsupervised-learning.html"><i class="fa fa-check"></i><b>70</b> Chapter 10 - Unsupervised Learning</a>
+<ul>
+<li class="chapter" data-level="70.1" data-path="chapter-10-unsupervised-learning.html"><a href="chapter-10-unsupervised-learning.html#lab-1-principal-component-analysis"><i class="fa fa-check"></i><b>70.1</b> Lab 1: Principal Component Analysis</a></li>
+<li class="chapter" data-level="70.2" data-path="chapter-10-unsupervised-learning.html"><a href="chapter-10-unsupervised-learning.html#lab-2-clustering"><i class="fa fa-check"></i><b>70.2</b> Lab 2: Clustering</a>
+<ul>
+<li class="chapter" data-level="70.2.1" data-path="chapter-10-unsupervised-learning.html"><a href="chapter-10-unsupervised-learning.html#k-means-clustering"><i class="fa fa-check"></i><b>70.2.1</b> 10.5.1 K-Means Clustering</a></li>
+<li class="chapter" data-level="70.2.2" data-path="chapter-10-unsupervised-learning.html"><a href="chapter-10-unsupervised-learning.html#hierarchical-clustering"><i class="fa fa-check"></i><b>70.2.2</b> 10.5.3 Hierarchical Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="70.3" data-path="chapter-10-unsupervised-learning.html"><a href="chapter-10-unsupervised-learning.html#lab-3-nci60-data-example"><i class="fa fa-check"></i><b>70.3</b> Lab 3: NCI60 Data Example</a>
+<ul>
+<li class="chapter" data-level="70.3.1" data-path="chapter-10-unsupervised-learning.html"><a href="chapter-10-unsupervised-learning.html#pca"><i class="fa fa-check"></i><b>70.3.1</b> § 10.6.1 PCA</a></li>
+<li class="chapter" data-level="70.3.2" data-path="chapter-10-unsupervised-learning.html"><a href="chapter-10-unsupervised-learning.html#clustering"><i class="fa fa-check"></i><b>70.3.2</b> § 10.6.2 Clustering</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="71" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html"><i class="fa fa-check"></i><b>71</b> Unsupervised Learning</a>
+<ul>
+<li class="chapter" data-level="71.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#the-challenge-of-unsupervised-learning"><i class="fa fa-check"></i><b>71.1</b> The Challenge of Unsupervised Learning</a></li>
+<li class="chapter" data-level="71.2" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#principal-components-analysis"><i class="fa fa-check"></i><b>71.2</b> Principal Components Analysis</a>
+<ul>
+<li class="chapter" data-level="71.2.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#what-are-principal-components"><i class="fa fa-check"></i><b>71.2.1</b> What Are Principal Components?</a></li>
+<li class="chapter" data-level="71.2.2" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#another-interpretation-of-principal-components"><i class="fa fa-check"></i><b>71.2.2</b> Another Interpretation of Principal Components</a></li>
+<li class="chapter" data-level="71.2.3" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#more-on-pca"><i class="fa fa-check"></i><b>71.2.3</b> More on PCA</a></li>
+<li class="chapter" data-level="71.2.4" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#other-uses-for-principal-components"><i class="fa fa-check"></i><b>71.2.4</b> Other Uses for Principal Components</a></li>
+</ul></li>
+<li class="chapter" data-level="71.3" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#clustering-methods"><i class="fa fa-check"></i><b>71.3</b> Clustering Methods</a>
+<ul>
+<li class="chapter" data-level="71.3.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#k-means-clustering-1"><i class="fa fa-check"></i><b>71.3.1</b> <span class="math inline">\(K\)</span>-Means Clustering</a></li>
+<li class="chapter" data-level="71.3.2" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#hierarchical-clustering-1"><i class="fa fa-check"></i><b>71.3.2</b> Hierarchical Clustering</a></li>
+<li class="chapter" data-level="71.3.3" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#practical-issues-in-clustering"><i class="fa fa-check"></i><b>71.3.3</b> Practical Issues in Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="71.4" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#footnotes-7"><i class="fa fa-check"></i><b>71.4</b> Footnotes</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predictive Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lab-2" class="section level1" number="61">
+<h1><span class="header-section-number">Chapter 61</span> Lab 2</h1>
+<div class="sourceCode" id="cb1070"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1070-1"><a href="lab-2.html#cb1070-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In R, I exported the dataset from package &#39;ISLR&#39; to a csv file.</span></span>
+<span id="cb1070-2"><a href="lab-2.html#cb1070-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&#39;Data/Hitters.csv&#39;</span>, index_col<span class="op">=</span><span class="dv">0</span>).dropna()</span>
+<span id="cb1070-3"><a href="lab-2.html#cb1070-3" aria-hidden="true" tabindex="-1"></a>df.index.name <span class="op">=</span> <span class="st">&#39;Player&#39;</span></span>
+<span id="cb1070-4"><a href="lab-2.html#cb1070-4" aria-hidden="true" tabindex="-1"></a>df.info()</span></code></pre></div>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 263 entries, -Alan Ashby to -Willie Wilson
+Data columns (total 20 columns):
+AtBat        263 non-null int64
+Hits         263 non-null int64
+HmRun        263 non-null int64
+Runs         263 non-null int64
+RBI          263 non-null int64
+Walks        263 non-null int64
+Years        263 non-null int64
+CAtBat       263 non-null int64
+CHits        263 non-null int64
+CHmRun       263 non-null int64
+CRuns        263 non-null int64
+CRBI         263 non-null int64
+CWalks       263 non-null int64
+League       263 non-null object
+Division     263 non-null object
+PutOuts      263 non-null int64
+Assists      263 non-null int64
+Errors       263 non-null int64
+Salary       263 non-null float64
+NewLeague    263 non-null object
+dtypes: float64(1), int64(16), object(3)
+memory usage: 43.1+ KB</code></pre>
+<div class="sourceCode" id="cb1072"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1072-1"><a href="lab-2.html#cb1072-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+AtBat
+</th>
+<th>
+Hits
+</th>
+<th>
+HmRun
+</th>
+<th>
+Runs
+</th>
+<th>
+RBI
+</th>
+<th>
+Walks
+</th>
+<th>
+Years
+</th>
+<th>
+CAtBat
+</th>
+<th>
+CHits
+</th>
+<th>
+CHmRun
+</th>
+<th>
+CRuns
+</th>
+<th>
+CRBI
+</th>
+<th>
+CWalks
+</th>
+<th>
+League
+</th>
+<th>
+Division
+</th>
+<th>
+PutOuts
+</th>
+<th>
+Assists
+</th>
+<th>
+Errors
+</th>
+<th>
+Salary
+</th>
+<th>
+NewLeague
+</th>
+</tr>
+<tr>
+<th>
+Player
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+-Alan Ashby
+</th>
+<td>
+315
+</td>
+<td>
+81
+</td>
+<td>
+7
+</td>
+<td>
+24
+</td>
+<td>
+38
+</td>
+<td>
+39
+</td>
+<td>
+14
+</td>
+<td>
+3449
+</td>
+<td>
+835
+</td>
+<td>
+69
+</td>
+<td>
+321
+</td>
+<td>
+414
+</td>
+<td>
+375
+</td>
+<td>
+N
+</td>
+<td>
+W
+</td>
+<td>
+632
+</td>
+<td>
+43
+</td>
+<td>
+10
+</td>
+<td>
+475.0
+</td>
+<td>
+N
+</td>
+</tr>
+<tr>
+<th>
+-Alvin Davis
+</th>
+<td>
+479
+</td>
+<td>
+130
+</td>
+<td>
+18
+</td>
+<td>
+66
+</td>
+<td>
+72
+</td>
+<td>
+76
+</td>
+<td>
+3
+</td>
+<td>
+1624
+</td>
+<td>
+457
+</td>
+<td>
+63
+</td>
+<td>
+224
+</td>
+<td>
+266
+</td>
+<td>
+263
+</td>
+<td>
+A
+</td>
+<td>
+W
+</td>
+<td>
+880
+</td>
+<td>
+82
+</td>
+<td>
+14
+</td>
+<td>
+480.0
+</td>
+<td>
+A
+</td>
+</tr>
+<tr>
+<th>
+-Andre Dawson
+</th>
+<td>
+496
+</td>
+<td>
+141
+</td>
+<td>
+20
+</td>
+<td>
+65
+</td>
+<td>
+78
+</td>
+<td>
+37
+</td>
+<td>
+11
+</td>
+<td>
+5628
+</td>
+<td>
+1575
+</td>
+<td>
+225
+</td>
+<td>
+828
+</td>
+<td>
+838
+</td>
+<td>
+354
+</td>
+<td>
+N
+</td>
+<td>
+E
+</td>
+<td>
+200
+</td>
+<td>
+11
+</td>
+<td>
+3
+</td>
+<td>
+500.0
+</td>
+<td>
+N
+</td>
+</tr>
+<tr>
+<th>
+-Andres Galarraga
+</th>
+<td>
+321
+</td>
+<td>
+87
+</td>
+<td>
+10
+</td>
+<td>
+39
+</td>
+<td>
+42
+</td>
+<td>
+30
+</td>
+<td>
+2
+</td>
+<td>
+396
+</td>
+<td>
+101
+</td>
+<td>
+12
+</td>
+<td>
+48
+</td>
+<td>
+46
+</td>
+<td>
+33
+</td>
+<td>
+N
+</td>
+<td>
+E
+</td>
+<td>
+805
+</td>
+<td>
+40
+</td>
+<td>
+4
+</td>
+<td>
+91.5
+</td>
+<td>
+N
+</td>
+</tr>
+<tr>
+<th>
+-Alfredo Griffin
+</th>
+<td>
+594
+</td>
+<td>
+169
+</td>
+<td>
+4
+</td>
+<td>
+74
+</td>
+<td>
+51
+</td>
+<td>
+35
+</td>
+<td>
+11
+</td>
+<td>
+4408
+</td>
+<td>
+1133
+</td>
+<td>
+19
+</td>
+<td>
+501
+</td>
+<td>
+336
+</td>
+<td>
+194
+</td>
+<td>
+A
+</td>
+<td>
+W
+</td>
+<td>
+282
+</td>
+<td>
+421
+</td>
+<td>
+25
+</td>
+<td>
+750.0
+</td>
+<td>
+A
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb1073"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1073-1"><a href="lab-2.html#cb1073-1" aria-hidden="true" tabindex="-1"></a>dummies <span class="op">=</span> pd.get_dummies(df[[<span class="st">&#39;League&#39;</span>, <span class="st">&#39;Division&#39;</span>, <span class="st">&#39;NewLeague&#39;</span>]])</span>
+<span id="cb1073-2"><a href="lab-2.html#cb1073-2" aria-hidden="true" tabindex="-1"></a>dummies.info()</span>
+<span id="cb1073-3"><a href="lab-2.html#cb1073-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dummies.head())</span></code></pre></div>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 263 entries, -Alan Ashby to -Willie Wilson
+Data columns (total 6 columns):
+League_A       263 non-null uint8
+League_N       263 non-null uint8
+Division_E     263 non-null uint8
+Division_W     263 non-null uint8
+NewLeague_A    263 non-null uint8
+NewLeague_N    263 non-null uint8
+dtypes: uint8(6)
+memory usage: 3.6+ KB
+                   League_A  League_N  Division_E  Division_W  NewLeague_A  \
+Player                                                                       
+-Alan Ashby               0         1           0           1            0   
+-Alvin Davis              1         0           0           1            1   
+-Andre Dawson             0         1           1           0            0   
+-Andres Galarraga         0         1           1           0            0   
+-Alfredo Griffin          1         0           0           1            1   
+
+                   NewLeague_N  
+Player                          
+-Alan Ashby                  1  
+-Alvin Davis                 0  
+-Andre Dawson                1  
+-Andres Galarraga            1  
+-Alfredo Griffin             0  </code></pre>
+<div class="sourceCode" id="cb1075"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1075-1"><a href="lab-2.html#cb1075-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df.Salary</span>
+<span id="cb1075-2"><a href="lab-2.html#cb1075-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1075-3"><a href="lab-2.html#cb1075-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the column with the independent variable (Salary), and columns for which we created dummy variables</span></span>
+<span id="cb1075-4"><a href="lab-2.html#cb1075-4" aria-hidden="true" tabindex="-1"></a>X_ <span class="op">=</span> df.drop([<span class="st">&#39;Salary&#39;</span>, <span class="st">&#39;League&#39;</span>, <span class="st">&#39;Division&#39;</span>, <span class="st">&#39;NewLeague&#39;</span>], axis<span class="op">=</span><span class="dv">1</span>).astype(<span class="st">&#39;float64&#39;</span>)</span>
+<span id="cb1075-5"><a href="lab-2.html#cb1075-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the feature set X.</span></span>
+<span id="cb1075-6"><a href="lab-2.html#cb1075-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.concat([X_, dummies[[<span class="st">&#39;League_N&#39;</span>, <span class="st">&#39;Division_W&#39;</span>, <span class="st">&#39;NewLeague_N&#39;</span>]]], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1075-7"><a href="lab-2.html#cb1075-7" aria-hidden="true" tabindex="-1"></a>X.info()</span></code></pre></div>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 263 entries, -Alan Ashby to -Willie Wilson
+Data columns (total 19 columns):
+AtBat          263 non-null float64
+Hits           263 non-null float64
+HmRun          263 non-null float64
+Runs           263 non-null float64
+RBI            263 non-null float64
+Walks          263 non-null float64
+Years          263 non-null float64
+CAtBat         263 non-null float64
+CHits          263 non-null float64
+CHmRun         263 non-null float64
+CRuns          263 non-null float64
+CRBI           263 non-null float64
+CWalks         263 non-null float64
+PutOuts        263 non-null float64
+Assists        263 non-null float64
+Errors         263 non-null float64
+League_N       263 non-null uint8
+Division_W     263 non-null uint8
+NewLeague_N    263 non-null uint8
+dtypes: float64(16), uint8(3)
+memory usage: 35.7+ KB</code></pre>
+<div class="sourceCode" id="cb1077"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1077-1"><a href="lab-2.html#cb1077-1" aria-hidden="true" tabindex="-1"></a>X.head(<span class="dv">5</span>)</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+AtBat
+</th>
+<th>
+Hits
+</th>
+<th>
+HmRun
+</th>
+<th>
+Runs
+</th>
+<th>
+RBI
+</th>
+<th>
+Walks
+</th>
+<th>
+Years
+</th>
+<th>
+CAtBat
+</th>
+<th>
+CHits
+</th>
+<th>
+CHmRun
+</th>
+<th>
+CRuns
+</th>
+<th>
+CRBI
+</th>
+<th>
+CWalks
+</th>
+<th>
+PutOuts
+</th>
+<th>
+Assists
+</th>
+<th>
+Errors
+</th>
+<th>
+League_N
+</th>
+<th>
+Division_W
+</th>
+<th>
+NewLeague_N
+</th>
+</tr>
+<tr>
+<th>
+Player
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+-Alan Ashby
+</th>
+<td>
+315.0
+</td>
+<td>
+81.0
+</td>
+<td>
+7.0
+</td>
+<td>
+24.0
+</td>
+<td>
+38.0
+</td>
+<td>
+39.0
+</td>
+<td>
+14.0
+</td>
+<td>
+3449.0
+</td>
+<td>
+835.0
+</td>
+<td>
+69.0
+</td>
+<td>
+321.0
+</td>
+<td>
+414.0
+</td>
+<td>
+375.0
+</td>
+<td>
+632.0
+</td>
+<td>
+43.0
+</td>
+<td>
+10.0
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+-Alvin Davis
+</th>
+<td>
+479.0
+</td>
+<td>
+130.0
+</td>
+<td>
+18.0
+</td>
+<td>
+66.0
+</td>
+<td>
+72.0
+</td>
+<td>
+76.0
+</td>
+<td>
+3.0
+</td>
+<td>
+1624.0
+</td>
+<td>
+457.0
+</td>
+<td>
+63.0
+</td>
+<td>
+224.0
+</td>
+<td>
+266.0
+</td>
+<td>
+263.0
+</td>
+<td>
+880.0
+</td>
+<td>
+82.0
+</td>
+<td>
+14.0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+-Andre Dawson
+</th>
+<td>
+496.0
+</td>
+<td>
+141.0
+</td>
+<td>
+20.0
+</td>
+<td>
+65.0
+</td>
+<td>
+78.0
+</td>
+<td>
+37.0
+</td>
+<td>
+11.0
+</td>
+<td>
+5628.0
+</td>
+<td>
+1575.0
+</td>
+<td>
+225.0
+</td>
+<td>
+828.0
+</td>
+<td>
+838.0
+</td>
+<td>
+354.0
+</td>
+<td>
+200.0
+</td>
+<td>
+11.0
+</td>
+<td>
+3.0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+-Andres Galarraga
+</th>
+<td>
+321.0
+</td>
+<td>
+87.0
+</td>
+<td>
+10.0
+</td>
+<td>
+39.0
+</td>
+<td>
+42.0
+</td>
+<td>
+30.0
+</td>
+<td>
+2.0
+</td>
+<td>
+396.0
+</td>
+<td>
+101.0
+</td>
+<td>
+12.0
+</td>
+<td>
+48.0
+</td>
+<td>
+46.0
+</td>
+<td>
+33.0
+</td>
+<td>
+805.0
+</td>
+<td>
+40.0
+</td>
+<td>
+4.0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+-Alfredo Griffin
+</th>
+<td>
+594.0
+</td>
+<td>
+169.0
+</td>
+<td>
+4.0
+</td>
+<td>
+74.0
+</td>
+<td>
+51.0
+</td>
+<td>
+35.0
+</td>
+<td>
+11.0
+</td>
+<td>
+4408.0
+</td>
+<td>
+1133.0
+</td>
+<td>
+19.0
+</td>
+<td>
+501.0
+</td>
+<td>
+336.0
+</td>
+<td>
+194.0
+</td>
+<td>
+282.0
+</td>
+<td>
+421.0
+</td>
+<td>
+25.0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="i-executed-the-r-code-and-downloaded-the-exact-same-trainingtest-sets-used-in-the-book." class="section level4" number="61.0.0.1">
+<h4><span class="header-section-number">61.0.0.1</span> I executed the R code and downloaded the exact same training/test sets used in the book.</h4>
+<div class="sourceCode" id="cb1078"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1078-1"><a href="lab-2.html#cb1078-1" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> pd.read_csv(<span class="st">&#39;Data/Hitters_X_train.csv&#39;</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1078-2"><a href="lab-2.html#cb1078-2" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> pd.read_csv(<span class="st">&#39;Data/Hitters_y_train.csv&#39;</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1078-3"><a href="lab-2.html#cb1078-3" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> pd.read_csv(<span class="st">&#39;Data/Hitters_X_test.csv&#39;</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1078-4"><a href="lab-2.html#cb1078-4" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> pd.read_csv(<span class="st">&#39;Data/Hitters_y_test.csv&#39;</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
+</div>
+<div id="ridge-regression" class="section level3" number="61.0.1">
+<h3><span class="header-section-number">61.0.1</span> 6.6.1 Ridge Regression</h3>
+</div>
+<div id="scikit-learn-1" class="section level3" number="61.0.2">
+<h3><span class="header-section-number">61.0.2</span> Scikit-learn</h3>
+<p>The <strong>glmnet</strong> algorithms in R optimize the objective function using cyclical coordinate descent, while scikit-learn Ridge regression uses linear least squares with L2 regularization. They are rather different implementations, but the general principles are the same.</p>
+<p>The <strong>glmnet() function in R</strong> optimizes:
+### <span class="math display">\[ \frac{1}{N}|| X\beta-y||^2_2+\lambda\bigg(\frac{1}{2}(1−\alpha)||\beta||^2_2 \ +\ \alpha||\beta||_1\bigg) \]</span>
+(See R documentation and <a href="https://cran.r-project.org/web/packages/glmnet/vignettes/glmnet_beta.pdf" class="uri">https://cran.r-project.org/web/packages/glmnet/vignettes/glmnet_beta.pdf</a>)<BR>
+The function supports L1 and L2 regularization. For just Ridge regression we need to use $= 0 $. This reduces the above cost function to
+### <span class="math display">\[ \frac{1}{N}|| X\beta-y||^2_2+\frac{1}{2}\lambda ||\beta||^2_2 \]</span>
+The <strong>sklearn Ridge()</strong> function optimizes:
+### <span class="math display">\[ ||X\beta - y||^2_2 + \alpha ||\beta||^2_2 \]</span>
+which is equivalent to optimizing
+### <span class="math display">\[ \frac{1}{N}||X\beta - y||^2_2 + \frac{\alpha}{N} ||\beta||^2_2 \]</span></p>
+<div class="sourceCode" id="cb1079"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1079-1"><a href="lab-2.html#cb1079-1" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> <span class="dv">10</span><span class="op">**</span>np.linspace(<span class="dv">10</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">100</span>)<span class="op">*</span><span class="fl">0.5</span></span>
+<span id="cb1079-2"><a href="lab-2.html#cb1079-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1079-3"><a href="lab-2.html#cb1079-3" aria-hidden="true" tabindex="-1"></a>ridge <span class="op">=</span> Ridge()</span>
+<span id="cb1079-4"><a href="lab-2.html#cb1079-4" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> []</span>
+<span id="cb1079-5"><a href="lab-2.html#cb1079-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1079-6"><a href="lab-2.html#cb1079-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> alphas:</span>
+<span id="cb1079-7"><a href="lab-2.html#cb1079-7" aria-hidden="true" tabindex="-1"></a>    ridge.set_params(alpha<span class="op">=</span>a)</span>
+<span id="cb1079-8"><a href="lab-2.html#cb1079-8" aria-hidden="true" tabindex="-1"></a>    ridge.fit(scale(X), y)</span>
+<span id="cb1079-9"><a href="lab-2.html#cb1079-9" aria-hidden="true" tabindex="-1"></a>    coefs.append(ridge.coef_)</span>
+<span id="cb1079-10"><a href="lab-2.html#cb1079-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1079-11"><a href="lab-2.html#cb1079-11" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.gca()</span>
+<span id="cb1079-12"><a href="lab-2.html#cb1079-12" aria-hidden="true" tabindex="-1"></a>ax.plot(alphas, coefs)</span>
+<span id="cb1079-13"><a href="lab-2.html#cb1079-13" aria-hidden="true" tabindex="-1"></a>ax.set_xscale(<span class="st">&#39;log&#39;</span>)</span>
+<span id="cb1079-14"><a href="lab-2.html#cb1079-14" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(ax.get_xlim()[::<span class="op">-</span><span class="dv">1</span>])  <span class="co"># reverse axis</span></span>
+<span id="cb1079-15"><a href="lab-2.html#cb1079-15" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">&#39;tight&#39;</span>)</span>
+<span id="cb1079-16"><a href="lab-2.html#cb1079-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;alpha&#39;</span>)</span>
+<span id="cb1079-17"><a href="lab-2.html#cb1079-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;weights&#39;</span>)</span>
+<span id="cb1079-18"><a href="lab-2.html#cb1079-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Ridge coefficients as a function of the regularization&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<div class="figure">
+<img src="ch06_code_files/ch06_code_14_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<p>The above plot shows that the Ridge coefficients get larger when we decrease alpha.</p>
+<div id="alpha-4" class="section level4" number="61.0.2.1">
+<h4><span class="header-section-number">61.0.2.1</span> Alpha = 4</h4>
+<div class="sourceCode" id="cb1080"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1080-1"><a href="lab-2.html#cb1080-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1080-2"><a href="lab-2.html#cb1080-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1080-3"><a href="lab-2.html#cb1080-3" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler().fit(X_train)</span></code></pre></div>
+<div class="sourceCode" id="cb1081"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1081-1"><a href="lab-2.html#cb1081-1" aria-hidden="true" tabindex="-1"></a>ridge2 <span class="op">=</span> Ridge(alpha<span class="op">=</span><span class="bu">len</span>(X_)<span class="op">*</span><span class="dv">11498</span><span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb1081-2"><a href="lab-2.html#cb1081-2" aria-hidden="true" tabindex="-1"></a>ridge2.fit(scaler.transform(X_train), y_train)</span>
+<span id="cb1081-3"><a href="lab-2.html#cb1081-3" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> ridge2.predict(scaler.transform(X_test))</span>
+<span id="cb1081-4"><a href="lab-2.html#cb1081-4" aria-hidden="true" tabindex="-1"></a>mean_squared_error(y_test, pred)</span></code></pre></div>
+<pre><code>193147.46143016344</code></pre>
+<div class="sourceCode" id="cb1083"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1083-1"><a href="lab-2.html#cb1083-1" aria-hidden="true" tabindex="-1"></a>pd.Series(ridge2.coef_.flatten(), index<span class="op">=</span>X.columns)</span></code></pre></div>
+<pre><code>AtBat          0.015146
+Hits           0.016050
+HmRun          0.013561
+Runs           0.015681
+RBI            0.016782
+Walks          0.019662
+Years          0.010390
+CAtBat         0.016570
+CHits          0.017627
+CHmRun         0.015072
+CRuns          0.018771
+CRBI           0.016697
+CWalks         0.016821
+PutOuts        0.003228
+Assists       -0.007600
+Errors         0.013672
+League_N       0.003519
+Division_W     0.003339
+NewLeague_N    0.003499
+dtype: float64</code></pre>
+</div>
+<div id="alpha-1010" class="section level4" number="61.0.2.2">
+<h4><span class="header-section-number">61.0.2.2</span> Alpha = <span class="math inline">\(10^{10}\)</span></h4>
+<p>This big penalty shrinks the coefficients to a very large degree and makes the model more biased, resulting in a higher MSE.</p>
+<div class="sourceCode" id="cb1085"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1085-1"><a href="lab-2.html#cb1085-1" aria-hidden="true" tabindex="-1"></a>ridge2.set_params(alpha<span class="op">=</span><span class="dv">10</span><span class="op">**</span><span class="dv">10</span>)</span>
+<span id="cb1085-2"><a href="lab-2.html#cb1085-2" aria-hidden="true" tabindex="-1"></a>ridge2.fit(scale(X_train), y_train)</span>
+<span id="cb1085-3"><a href="lab-2.html#cb1085-3" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> ridge2.predict(scale(X_test))</span>
+<span id="cb1085-4"><a href="lab-2.html#cb1085-4" aria-hidden="true" tabindex="-1"></a>mean_squared_error(y_test, pred)</span></code></pre></div>
+<pre><code>193253.09741651407</code></pre>
+</div>
+<div id="compute-the-regularization-path-using-ridgecv" class="section level4" number="61.0.2.3">
+<h4><span class="header-section-number">61.0.2.3</span> Compute the regularization path using RidgeCV</h4>
+<div class="sourceCode" id="cb1087"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1087-1"><a href="lab-2.html#cb1087-1" aria-hidden="true" tabindex="-1"></a>ridgecv <span class="op">=</span> RidgeCV(alphas<span class="op">=</span>alphas, scoring<span class="op">=</span><span class="st">&#39;neg_mean_squared_error&#39;</span>)</span>
+<span id="cb1087-2"><a href="lab-2.html#cb1087-2" aria-hidden="true" tabindex="-1"></a>ridgecv.fit(scale(X_train), y_train)</span></code></pre></div>
+<pre><code>RidgeCV(alphas=array([5.00000e+09, 3.78232e+09, ..., 6.60971e-03, 5.00000e-03]),
+    cv=None, fit_intercept=True, gcv_mode=None, normalize=False,
+    scoring=&#39;neg_mean_squared_error&#39;, store_cv_values=False)</code></pre>
+<div class="sourceCode" id="cb1089"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1089-1"><a href="lab-2.html#cb1089-1" aria-hidden="true" tabindex="-1"></a>ridgecv.alpha_</span></code></pre></div>
+<pre><code>115.5064850041579</code></pre>
+<div class="sourceCode" id="cb1091"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1091-1"><a href="lab-2.html#cb1091-1" aria-hidden="true" tabindex="-1"></a>ridge2.set_params(alpha<span class="op">=</span>ridgecv.alpha_)</span>
+<span id="cb1091-2"><a href="lab-2.html#cb1091-2" aria-hidden="true" tabindex="-1"></a>ridge2.fit(scale(X_train), y_train)</span>
+<span id="cb1091-3"><a href="lab-2.html#cb1091-3" aria-hidden="true" tabindex="-1"></a>mean_squared_error(y_test, ridge2.predict(scale(X_test)))</span></code></pre></div>
+<pre><code>97384.92959172592</code></pre>
+<div class="sourceCode" id="cb1093"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1093-1"><a href="lab-2.html#cb1093-1" aria-hidden="true" tabindex="-1"></a>pd.Series(ridge2.coef_.flatten(), index<span class="op">=</span>X.columns)</span></code></pre></div>
+<pre><code>AtBat           7.576771
+Hits           22.596030
+HmRun          18.971990
+Runs           20.193945
+RBI            21.063875
+Walks          55.713281
+Years          -4.687149
+CAtBat         20.496892
+CHits          29.230247
+CHmRun         14.293124
+CRuns          35.881788
+CRBI           20.212172
+CWalks         24.419768
+PutOuts        16.128910
+Assists       -44.102264
+Errors         54.624503
+League_N        5.771464
+Division_W     -0.293713
+NewLeague_N    11.137518
+dtype: float64</code></pre>
+</div>
+</div>
+<div id="python-glmnet-update-2016-08-29" class="section level3" number="61.0.3">
+<h3><span class="header-section-number">61.0.3</span> python-glmnet (update 2016-08-29)</h3>
+<p>This relatively new module is a wrapper for the fortran library used in the R package <code>glmnet</code>. It gives mostly the exact same results as described in the book. However, the <code>predict()</code> method does not give you the regression <em>coefficients</em> for lambda values not in the lambda_path. It only returns the predicted values.
+<a href="https://github.com/civisanalytics/python-glmnet" class="uri">https://github.com/civisanalytics/python-glmnet</a></p>
+<div class="sourceCode" id="cb1095"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1095-1"><a href="lab-2.html#cb1095-1" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> <span class="dv">10</span><span class="op">**</span>np.linspace(<span class="dv">10</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">100</span>)</span>
+<span id="cb1095-2"><a href="lab-2.html#cb1095-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1095-3"><a href="lab-2.html#cb1095-3" aria-hidden="true" tabindex="-1"></a>ridge3 <span class="op">=</span> gln.ElasticNet(alpha<span class="op">=</span><span class="dv">0</span>, lambda_path<span class="op">=</span>grid)</span>
+<span id="cb1095-4"><a href="lab-2.html#cb1095-4" aria-hidden="true" tabindex="-1"></a>ridge3.fit(X, y)</span></code></pre></div>
+<pre><code>ElasticNet(alpha=0, cut_point=1.0, fit_intercept=True,
+      lambda_path=array([1.00000e+10, 7.56463e+09, ..., 1.32194e-02, 1.00000e-02]),
+      max_iter=100000, min_lambda_ratio=0.0001, n_jobs=1, n_lambda=100,
+      n_splits=3, random_state=None, scoring=None, standardize=True,
+      tol=1e-07, verbose=False)</code></pre>
+<div id="lambda-11498" class="section level4" number="61.0.3.1">
+<h4><span class="header-section-number">61.0.3.1</span> Lambda 11498</h4>
+<div class="sourceCode" id="cb1097"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1097-1"><a href="lab-2.html#cb1097-1" aria-hidden="true" tabindex="-1"></a>ridge3.lambda_path_[<span class="dv">49</span>]</span></code></pre></div>
+<pre><code>11497.569953977356</code></pre>
+<div class="sourceCode" id="cb1099"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1099-1"><a href="lab-2.html#cb1099-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Intercept: </span><span class="sc">{:.3f}</span><span class="st">&#39;</span>.<span class="bu">format</span>(ridge3.intercept_path_[<span class="dv">49</span>]))</span></code></pre></div>
+<pre><code>Intercept: 407.356</code></pre>
+<div class="sourceCode" id="cb1101"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1101-1"><a href="lab-2.html#cb1101-1" aria-hidden="true" tabindex="-1"></a>pd.Series(np.<span class="bu">round</span>(ridge3.coef_path_[:,<span class="dv">49</span>], decimals<span class="op">=</span><span class="dv">3</span>), index<span class="op">=</span>X.columns)</span></code></pre></div>
+<pre><code>AtBat          0.037
+Hits           0.138
+HmRun          0.525
+Runs           0.231
+RBI            0.240
+Walks          0.290
+Years          1.108
+CAtBat         0.003
+CHits          0.012
+CHmRun         0.088
+CRuns          0.023
+CRBI           0.024
+CWalks         0.025
+PutOuts        0.016
+Assists        0.003
+Errors        -0.021
+League_N       0.085
+Division_W    -6.215
+NewLeague_N    0.301
+dtype: float64</code></pre>
+<div class="sourceCode" id="cb1103"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1103-1"><a href="lab-2.html#cb1103-1" aria-hidden="true" tabindex="-1"></a>np.sqrt(np.<span class="bu">sum</span>(ridge3.coef_path_[:,<span class="dv">49</span>]<span class="op">**</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>6.3606122865384505</code></pre>
+</div>
+<div id="lambda-705" class="section level4" number="61.0.3.2">
+<h4><span class="header-section-number">61.0.3.2</span> Lambda 705</h4>
+<div class="sourceCode" id="cb1105"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1105-1"><a href="lab-2.html#cb1105-1" aria-hidden="true" tabindex="-1"></a>ridge3.lambda_path_[<span class="dv">59</span>]</span></code></pre></div>
+<pre><code>705.4802310718645</code></pre>
+<div class="sourceCode" id="cb1107"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1107-1"><a href="lab-2.html#cb1107-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Intercept: </span><span class="sc">{:.3f}</span><span class="st">&#39;</span>.<span class="bu">format</span>(ridge3.intercept_path_[<span class="dv">59</span>]))</span></code></pre></div>
+<pre><code>Intercept: 54.325</code></pre>
+<div class="sourceCode" id="cb1109"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1109-1"><a href="lab-2.html#cb1109-1" aria-hidden="true" tabindex="-1"></a>pd.Series(np.<span class="bu">round</span>(ridge3.coef_path_[:,<span class="dv">59</span>], decimals<span class="op">=</span><span class="dv">3</span>), index<span class="op">=</span>X.columns)</span></code></pre></div>
+<pre><code>AtBat           0.112
+Hits            0.656
+HmRun           1.180
+Runs            0.938
+RBI             0.847
+Walks           1.320
+Years           2.596
+CAtBat          0.011
+CHits           0.047
+CHmRun          0.338
+CRuns           0.094
+CRBI            0.098
+CWalks          0.072
+PutOuts         0.119
+Assists         0.016
+Errors         -0.704
+League_N       13.684
+Division_W    -54.659
+NewLeague_N     8.612
+dtype: float64</code></pre>
+<div class="sourceCode" id="cb1111"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1111-1"><a href="lab-2.html#cb1111-1" aria-hidden="true" tabindex="-1"></a>np.sqrt(np.<span class="bu">sum</span>(ridge3.coef_path_[:,<span class="dv">59</span>]<span class="op">**</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>57.11003436702412</code></pre>
+</div>
+<div id="fit-model-using-just-the-training-set." class="section level4" number="61.0.3.3">
+<h4><span class="header-section-number">61.0.3.3</span> Fit model using just the training set.</h4>
+<div class="sourceCode" id="cb1113"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1113-1"><a href="lab-2.html#cb1113-1" aria-hidden="true" tabindex="-1"></a>ridge4 <span class="op">=</span> gln.ElasticNet(alpha<span class="op">=</span><span class="dv">0</span>, lambda_path<span class="op">=</span>grid, scoring<span class="op">=</span><span class="st">&#39;mean_squared_error&#39;</span>, tol<span class="op">=</span><span class="fl">1e-12</span>)</span>
+<span id="cb1113-2"><a href="lab-2.html#cb1113-2" aria-hidden="true" tabindex="-1"></a>ridge4.fit(X_train, y_train.values.ravel())</span></code></pre></div>
+<pre><code>ElasticNet(alpha=0, cut_point=1.0, fit_intercept=True,
+      lambda_path=array([1.00000e+10, 7.56463e+09, ..., 1.32194e-02, 1.00000e-02]),
+      max_iter=100000, min_lambda_ratio=0.0001, n_jobs=1, n_lambda=100,
+      n_splits=3, random_state=None, scoring=&#39;mean_squared_error&#39;,
+      standardize=True, tol=1e-12, verbose=False)</code></pre>
+<div class="sourceCode" id="cb1115"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1115-1"><a href="lab-2.html#cb1115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prediction using lambda = 4</span></span>
+<span id="cb1115-2"><a href="lab-2.html#cb1115-2" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> ridge4.predict(X_test, lamb<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb1115-3"><a href="lab-2.html#cb1115-3" aria-hidden="true" tabindex="-1"></a>mean_squared_error(y_test.values.ravel(), pred)</span></code></pre></div>
+<pre><code>101036.83230892917</code></pre>
+</div>
+<div id="lambda-chosen-by-cross-validation" class="section level4" number="61.0.3.4">
+<h4><span class="header-section-number">61.0.3.4</span> Lambda chosen by cross validation</h4>
+<div class="sourceCode" id="cb1117"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1117-1"><a href="lab-2.html#cb1117-1" aria-hidden="true" tabindex="-1"></a>ridge5 <span class="op">=</span> gln.ElasticNet(alpha<span class="op">=</span><span class="dv">0</span>, scoring<span class="op">=</span><span class="st">&#39;mean_squared_error&#39;</span>)</span>
+<span id="cb1117-2"><a href="lab-2.html#cb1117-2" aria-hidden="true" tabindex="-1"></a>ridge5.fit(X_train, y_train.values.ravel())</span></code></pre></div>
+<pre><code>ElasticNet(alpha=0, cut_point=1.0, fit_intercept=True, lambda_path=None,
+      max_iter=100000, min_lambda_ratio=0.0001, n_jobs=1, n_lambda=100,
+      n_splits=3, random_state=None, scoring=&#39;mean_squared_error&#39;,
+      standardize=True, tol=1e-07, verbose=False)</code></pre>
+<div class="sourceCode" id="cb1119"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1119-1"><a href="lab-2.html#cb1119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lambda with best CV performance</span></span>
+<span id="cb1119-2"><a href="lab-2.html#cb1119-2" aria-hidden="true" tabindex="-1"></a>ridge5.lambda_max_</span></code></pre></div>
+<pre><code>255.04348848905948</code></pre>
+<div class="sourceCode" id="cb1121"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1121-1"><a href="lab-2.html#cb1121-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lambda larger than lambda_max_, but with a CV score that is within 1 standard deviation away from lambda_max_ </span></span>
+<span id="cb1121-2"><a href="lab-2.html#cb1121-2" aria-hidden="true" tabindex="-1"></a>ridge5.lambda_best_</span></code></pre></div>
+<pre><code>array([1974.70910641])</code></pre>
+<div class="sourceCode" id="cb1123"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1123-1"><a href="lab-2.html#cb1123-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">6</span>))</span>
+<span id="cb1123-2"><a href="lab-2.html#cb1123-2" aria-hidden="true" tabindex="-1"></a>plt.errorbar(np.log(ridge5.lambda_path_), <span class="op">-</span>ridge5.cv_mean_score_, color<span class="op">=</span><span class="st">&#39;r&#39;</span>, linestyle<span class="op">=</span><span class="st">&#39;None&#39;</span>, marker<span class="op">=</span><span class="st">&#39;o&#39;</span>,</span>
+<span id="cb1123-3"><a href="lab-2.html#cb1123-3" aria-hidden="true" tabindex="-1"></a>             markersize<span class="op">=</span><span class="dv">5</span>, yerr<span class="op">=</span>ridge5.cv_standard_error_, ecolor<span class="op">=</span><span class="st">&#39;lightgrey&#39;</span>, capsize<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb1123-4"><a href="lab-2.html#cb1123-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1123-5"><a href="lab-2.html#cb1123-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ref, txt <span class="kw">in</span> <span class="bu">zip</span>([ridge5.lambda_best_, ridge5.lambda_max_], [<span class="st">&#39;Lambda best&#39;</span>, <span class="st">&#39;Lambda max&#39;</span>]):</span>
+<span id="cb1123-6"><a href="lab-2.html#cb1123-6" aria-hidden="true" tabindex="-1"></a>    plt.axvline(x<span class="op">=</span>np.log(ref), linestyle<span class="op">=</span><span class="st">&#39;dashed&#39;</span>, color<span class="op">=</span><span class="st">&#39;lightgrey&#39;</span>)</span>
+<span id="cb1123-7"><a href="lab-2.html#cb1123-7" aria-hidden="true" tabindex="-1"></a>    plt.text(np.log(ref), <span class="fl">.95</span><span class="op">*</span>plt.gca().get_ylim()[<span class="dv">1</span>], txt, ha<span class="op">=</span><span class="st">&#39;center&#39;</span>)</span>
+<span id="cb1123-8"><a href="lab-2.html#cb1123-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1123-9"><a href="lab-2.html#cb1123-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;log(Lambda)&#39;</span>)</span>
+<span id="cb1123-10"><a href="lab-2.html#cb1123-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Mean-Squared Error&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<div class="figure">
+<img src="ch06_code_files/ch06_code_46_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<div class="sourceCode" id="cb1124"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1124-1"><a href="lab-2.html#cb1124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE for lambda with best CV performance</span></span>
+<span id="cb1124-2"><a href="lab-2.html#cb1124-2" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> ridge5.predict(X_test, lamb<span class="op">=</span>ridge5.lambda_max_)</span>
+<span id="cb1124-3"><a href="lab-2.html#cb1124-3" aria-hidden="true" tabindex="-1"></a>mean_squared_error(y_test, pred)</span></code></pre></div>
+<pre><code>96006.84514850576</code></pre>
+</div>
+<div id="fit-model-to-full-data-set" class="section level4" number="61.0.3.5">
+<h4><span class="header-section-number">61.0.3.5</span> Fit model to full data set</h4>
+<div class="sourceCode" id="cb1126"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1126-1"><a href="lab-2.html#cb1126-1" aria-hidden="true" tabindex="-1"></a>ridge6<span class="op">=</span> gln.ElasticNet(alpha<span class="op">=</span><span class="dv">0</span>, scoring<span class="op">=</span><span class="st">&#39;mean_squared_error&#39;</span>, n_splits<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1126-2"><a href="lab-2.html#cb1126-2" aria-hidden="true" tabindex="-1"></a>ridge6.fit(X, y)</span></code></pre></div>
+<pre><code>ElasticNet(alpha=0, cut_point=1.0, fit_intercept=True, lambda_path=None,
+      max_iter=100000, min_lambda_ratio=0.0001, n_jobs=1, n_lambda=100,
+      n_splits=10, random_state=None, scoring=&#39;mean_squared_error&#39;,
+      standardize=True, tol=1e-07, verbose=False)</code></pre>
+<div class="sourceCode" id="cb1128"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1128-1"><a href="lab-2.html#cb1128-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These are not really close to the ones in the book.</span></span>
+<span id="cb1128-2"><a href="lab-2.html#cb1128-2" aria-hidden="true" tabindex="-1"></a>pd.Series(ridge6.coef_path_[:,ridge6.lambda_max_inx_], index<span class="op">=</span>X.columns)</span></code></pre></div>
+<pre><code>AtBat           -0.681594
+Hits             2.772311
+HmRun           -1.365704
+Runs             1.014812
+RBI              0.713030
+Walks            3.378558
+Years           -9.066826
+CAtBat          -0.001200
+CHits            0.136102
+CHmRun           0.697992
+CRuns            0.295890
+CRBI             0.257072
+CWalks          -0.278966
+PutOuts          0.263887
+Assists          0.169878
+Errors          -3.685656
+League_N        53.209503
+Division_W    -122.834334
+NewLeague_N    -18.102528
+dtype: float64</code></pre>
+</div>
+</div>
+<div id="the-lasso" class="section level3" number="61.0.4">
+<h3><span class="header-section-number">61.0.4</span> 6.6.2 The Lasso</h3>
+</div>
+<div id="scikit-learn-2" class="section level3" number="61.0.5">
+<h3><span class="header-section-number">61.0.5</span> Scikit-learn</h3>
+<p>For both <strong>glmnet</strong> in R and sklearn <strong>Lasso()</strong> function the standard L1 penalty is:
+### <span class="math display">\[ \lambda |\beta|_1 \]</span></p>
+<div class="sourceCode" id="cb1130"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1130-1"><a href="lab-2.html#cb1130-1" aria-hidden="true" tabindex="-1"></a>lasso <span class="op">=</span> Lasso(max_iter<span class="op">=</span><span class="dv">10000</span>)</span>
+<span id="cb1130-2"><a href="lab-2.html#cb1130-2" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> []</span>
+<span id="cb1130-3"><a href="lab-2.html#cb1130-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1130-4"><a href="lab-2.html#cb1130-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> alphas<span class="op">*</span><span class="dv">2</span>:</span>
+<span id="cb1130-5"><a href="lab-2.html#cb1130-5" aria-hidden="true" tabindex="-1"></a>    lasso.set_params(alpha<span class="op">=</span>a)</span>
+<span id="cb1130-6"><a href="lab-2.html#cb1130-6" aria-hidden="true" tabindex="-1"></a>    lasso.fit(scale(X_train), y_train)</span>
+<span id="cb1130-7"><a href="lab-2.html#cb1130-7" aria-hidden="true" tabindex="-1"></a>    coefs.append(lasso.coef_)</span>
+<span id="cb1130-8"><a href="lab-2.html#cb1130-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1130-9"><a href="lab-2.html#cb1130-9" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.gca()</span>
+<span id="cb1130-10"><a href="lab-2.html#cb1130-10" aria-hidden="true" tabindex="-1"></a>ax.plot(alphas<span class="op">*</span><span class="dv">2</span>, coefs)</span>
+<span id="cb1130-11"><a href="lab-2.html#cb1130-11" aria-hidden="true" tabindex="-1"></a>ax.set_xscale(<span class="st">&#39;log&#39;</span>)</span>
+<span id="cb1130-12"><a href="lab-2.html#cb1130-12" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(ax.get_xlim()[::<span class="op">-</span><span class="dv">1</span>])  <span class="co"># reverse axis</span></span>
+<span id="cb1130-13"><a href="lab-2.html#cb1130-13" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">&#39;tight&#39;</span>)</span>
+<span id="cb1130-14"><a href="lab-2.html#cb1130-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;alpha&#39;</span>)</span>
+<span id="cb1130-15"><a href="lab-2.html#cb1130-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;weights&#39;</span>)</span>
+<span id="cb1130-16"><a href="lab-2.html#cb1130-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Lasso coefficients as a function of the regularization&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<div class="figure">
+<img src="ch06_code_files/ch06_code_54_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<div class="sourceCode" id="cb1131"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1131-1"><a href="lab-2.html#cb1131-1" aria-hidden="true" tabindex="-1"></a>lassocv <span class="op">=</span> LassoCV(alphas<span class="op">=</span><span class="va">None</span>, cv<span class="op">=</span><span class="dv">10</span>, max_iter<span class="op">=</span><span class="dv">10000</span>)</span>
+<span id="cb1131-2"><a href="lab-2.html#cb1131-2" aria-hidden="true" tabindex="-1"></a>lassocv.fit(scale(X_train), y_train.values.ravel())</span></code></pre></div>
+<pre><code>LassoCV(alphas=None, copy_X=True, cv=10, eps=0.001, fit_intercept=True,
+    max_iter=10000, n_alphas=100, n_jobs=1, normalize=False,
+    positive=False, precompute=&#39;auto&#39;, random_state=None,
+    selection=&#39;cyclic&#39;, tol=0.0001, verbose=False)</code></pre>
+<div class="sourceCode" id="cb1133"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1133-1"><a href="lab-2.html#cb1133-1" aria-hidden="true" tabindex="-1"></a>lassocv.alpha_</span></code></pre></div>
+<pre><code>30.013822564464284</code></pre>
+<div class="sourceCode" id="cb1135"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1135-1"><a href="lab-2.html#cb1135-1" aria-hidden="true" tabindex="-1"></a>lasso.set_params(alpha<span class="op">=</span>lassocv.alpha_)</span>
+<span id="cb1135-2"><a href="lab-2.html#cb1135-2" aria-hidden="true" tabindex="-1"></a>lasso.fit(scale(X_train), y_train)</span>
+<span id="cb1135-3"><a href="lab-2.html#cb1135-3" aria-hidden="true" tabindex="-1"></a>mean_squared_error(y_test, lasso.predict(scale(X_test)))</span></code></pre></div>
+<pre><code>102924.90954696963</code></pre>
+<div class="sourceCode" id="cb1137"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1137-1"><a href="lab-2.html#cb1137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Some of the coefficients are now reduced to exactly zero.</span></span>
+<span id="cb1137-2"><a href="lab-2.html#cb1137-2" aria-hidden="true" tabindex="-1"></a>pd.Series(lasso.coef_, index<span class="op">=</span>X.columns)</span></code></pre></div>
+<pre><code>AtBat            0.000000
+Hits             0.000000
+HmRun            2.154219
+Runs             0.000000
+RBI             30.835560
+Walks          104.071528
+Years           -0.000000
+CAtBat           0.000000
+CHits            0.000000
+CHmRun           0.000000
+CRuns          132.858095
+CRBI             0.000000
+CWalks           0.000000
+PutOuts          1.896185
+Assists        -51.058752
+Errors          76.779641
+League_N         0.000000
+Division_W       0.000000
+NewLeague_N      0.000000
+dtype: float64</code></pre>
+</div>
+<div id="python-glmnet" class="section level3" number="61.0.6">
+<h3><span class="header-section-number">61.0.6</span> python-glmnet</h3>
+<div class="sourceCode" id="cb1139"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1139-1"><a href="lab-2.html#cb1139-1" aria-hidden="true" tabindex="-1"></a>lasso2 <span class="op">=</span> gln.ElasticNet(alpha<span class="op">=</span><span class="dv">1</span>, lambda_path<span class="op">=</span>grid, scoring<span class="op">=</span><span class="st">&#39;mean_squared_error&#39;</span>, n_splits<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1139-2"><a href="lab-2.html#cb1139-2" aria-hidden="true" tabindex="-1"></a>lasso2.fit(X_train, y_train.values.ravel())</span></code></pre></div>
+<pre><code>ElasticNet(alpha=1, cut_point=1.0, fit_intercept=True,
+      lambda_path=array([1.00000e+10, 7.56463e+09, ..., 1.32194e-02, 1.00000e-02]),
+      max_iter=100000, min_lambda_ratio=0.0001, n_jobs=1, n_lambda=100,
+      n_splits=10, random_state=None, scoring=&#39;mean_squared_error&#39;,
+      standardize=True, tol=1e-07, verbose=False)</code></pre>
+<div class="sourceCode" id="cb1141"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1141-1"><a href="lab-2.html#cb1141-1" aria-hidden="true" tabindex="-1"></a>l1_norm <span class="op">=</span> np.<span class="bu">sum</span>(np.<span class="bu">abs</span>(lasso2.coef_path_), axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1141-2"><a href="lab-2.html#cb1141-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1141-3"><a href="lab-2.html#cb1141-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb1141-4"><a href="lab-2.html#cb1141-4" aria-hidden="true" tabindex="-1"></a>plt.plot(l1_norm, lasso2.coef_path_.T)</span>
+<span id="cb1141-5"><a href="lab-2.html#cb1141-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;L1 norm&#39;</span>)</span>
+<span id="cb1141-6"><a href="lab-2.html#cb1141-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Coefficients&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<div class="figure">
+<img src="ch06_code_files/ch06_code_61_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<div id="let-glmnet-create-a-grid-to-use-in-cv" class="section level4" number="61.0.6.1">
+<h4><span class="header-section-number">61.0.6.1</span> Let glmnet() create a grid to use in CV</h4>
+<div class="sourceCode" id="cb1142"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1142-1"><a href="lab-2.html#cb1142-1" aria-hidden="true" tabindex="-1"></a>lasso3 <span class="op">=</span> gln.ElasticNet(alpha<span class="op">=</span><span class="dv">1</span>, scoring<span class="op">=</span><span class="st">&#39;mean_squared_error&#39;</span>, n_splits<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1142-2"><a href="lab-2.html#cb1142-2" aria-hidden="true" tabindex="-1"></a>lasso3.fit(X_train, y_train.values.ravel())</span></code></pre></div>
+<pre><code>ElasticNet(alpha=1, cut_point=1.0, fit_intercept=True, lambda_path=None,
+      max_iter=100000, min_lambda_ratio=0.0001, n_jobs=1, n_lambda=100,
+      n_splits=10, random_state=None, scoring=&#39;mean_squared_error&#39;,
+      standardize=True, tol=1e-07, verbose=False)</code></pre>
+<div class="sourceCode" id="cb1144"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1144-1"><a href="lab-2.html#cb1144-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">6</span>))</span>
+<span id="cb1144-2"><a href="lab-2.html#cb1144-2" aria-hidden="true" tabindex="-1"></a>plt.errorbar(np.log(lasso3.lambda_path_), <span class="op">-</span>lasso3.cv_mean_score_, color<span class="op">=</span><span class="st">&#39;r&#39;</span>, linestyle<span class="op">=</span><span class="st">&#39;None&#39;</span>, marker<span class="op">=</span><span class="st">&#39;o&#39;</span>,</span>
+<span id="cb1144-3"><a href="lab-2.html#cb1144-3" aria-hidden="true" tabindex="-1"></a>             markersize<span class="op">=</span><span class="dv">5</span>, yerr<span class="op">=</span>lasso3.cv_standard_error_, ecolor<span class="op">=</span><span class="st">&#39;lightgrey&#39;</span>, capsize<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb1144-4"><a href="lab-2.html#cb1144-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1144-5"><a href="lab-2.html#cb1144-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ref, txt <span class="kw">in</span> <span class="bu">zip</span>([lasso3.lambda_best_, lasso3.lambda_max_], [<span class="st">&#39;Lambda best&#39;</span>, <span class="st">&#39;Lambda max&#39;</span>]):</span>
+<span id="cb1144-6"><a href="lab-2.html#cb1144-6" aria-hidden="true" tabindex="-1"></a>    plt.axvline(x<span class="op">=</span>np.log(ref), linestyle<span class="op">=</span><span class="st">&#39;dashed&#39;</span>, color<span class="op">=</span><span class="st">&#39;lightgrey&#39;</span>)</span>
+<span id="cb1144-7"><a href="lab-2.html#cb1144-7" aria-hidden="true" tabindex="-1"></a>    plt.text(np.log(ref), <span class="fl">.95</span><span class="op">*</span>plt.gca().get_ylim()[<span class="dv">1</span>], txt, ha<span class="op">=</span><span class="st">&#39;center&#39;</span>)</span>
+<span id="cb1144-8"><a href="lab-2.html#cb1144-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1144-9"><a href="lab-2.html#cb1144-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;log(Lambda)&#39;</span>)</span>
+<span id="cb1144-10"><a href="lab-2.html#cb1144-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Mean-Squared Error&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<div class="figure">
+<img src="ch06_code_files/ch06_code_64_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<div class="sourceCode" id="cb1145"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1145-1"><a href="lab-2.html#cb1145-1" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> lasso3.predict(X_test, lamb<span class="op">=</span>lasso3.lambda_max_)</span>
+<span id="cb1145-2"><a href="lab-2.html#cb1145-2" aria-hidden="true" tabindex="-1"></a>mean_squared_error(y_test, pred)</span></code></pre></div>
+<pre><code>101294.32852317697</code></pre>
+</div>
+<div id="fit-model-on-full-dataset" class="section level4" number="61.0.6.2">
+<h4><span class="header-section-number">61.0.6.2</span> Fit model on full dataset</h4>
+<div class="sourceCode" id="cb1147"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1147-1"><a href="lab-2.html#cb1147-1" aria-hidden="true" tabindex="-1"></a>lasso4 <span class="op">=</span> gln.ElasticNet(alpha<span class="op">=</span><span class="dv">1</span>, lambda_path<span class="op">=</span>grid, scoring<span class="op">=</span><span class="st">&#39;mean_squared_error&#39;</span>, n_splits<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1147-2"><a href="lab-2.html#cb1147-2" aria-hidden="true" tabindex="-1"></a>lasso4.fit(X, y)</span></code></pre></div>
+<pre><code>ElasticNet(alpha=1, cut_point=1.0, fit_intercept=True,
+      lambda_path=array([1.00000e+10, 7.56463e+09, ..., 1.32194e-02, 1.00000e-02]),
+      max_iter=100000, min_lambda_ratio=0.0001, n_jobs=1, n_lambda=100,
+      n_splits=10, random_state=None, scoring=&#39;mean_squared_error&#39;,
+      standardize=True, tol=1e-07, verbose=False)</code></pre>
+<div class="sourceCode" id="cb1149"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1149-1"><a href="lab-2.html#cb1149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These are not really close to the ones in the book.</span></span>
+<span id="cb1149-2"><a href="lab-2.html#cb1149-2" aria-hidden="true" tabindex="-1"></a>pd.Series(lasso4.coef_path_[:,lasso4.lambda_max_inx_], index<span class="op">=</span>X.columns)</span></code></pre></div>
+<pre><code>AtBat           -1.560098
+Hits             5.693168
+HmRun            0.000000
+Runs             0.000000
+RBI              0.000000
+Walks            4.750540
+Years           -9.518024
+CAtBat           0.000000
+CHits            0.000000
+CHmRun           0.519161
+CRuns            0.660407
+CRBI             0.391541
+CWalks          -0.532687
+PutOuts          0.272620
+Assists          0.174816
+Errors          -2.056721
+League_N        32.109569
+Division_W    -119.258342
+NewLeague_N      0.000000
+dtype: float64</code></pre>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chapter-6-linear-model-selection-and-regularization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lab-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["predictive_analytics.pdf", "predictive_analytics.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

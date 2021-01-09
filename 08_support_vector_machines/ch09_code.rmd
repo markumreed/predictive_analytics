@@ -1,4 +1,4 @@
-# Chapter 9 - Support Vector Machines
+# Support Vector Machines: Practice
 
 - [Lab: 9.6.1 Support Vector Classifier](#9.6.1-Support-Vector-Classifier)
 - [Lab: 9.6.2 Support Vector Machine](#9.6.2-Support-Vector-Machine)

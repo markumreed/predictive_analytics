@@ -1,21 +1,17 @@
-<h1>Table of Contents<span class="tocSkip"></span></h1>
-<div class="toc"><ul class="toc-item"><li><span><a href="#Unsupervised-Learning" data-toc-modified-id="Unsupervised-Learning-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>Unsupervised Learning</a></span><ul class="toc-item"><li><span><a href="#The-Challenge-of-Unsupervised-Learning" data-toc-modified-id="The-Challenge-of-Unsupervised-Learning-10.1"><span class="toc-item-num">10.1&nbsp;&nbsp;</span>The Challenge of Unsupervised Learning</a></span></li><li><span><a href="#Principal-Components-Analysis" data-toc-modified-id="Principal-Components-Analysis-10.2"><span class="toc-item-num">10.2&nbsp;&nbsp;</span>Principal Components Analysis</a></span><ul class="toc-item"><li><span><a href="#What-Are-Principal-Components?" data-toc-modified-id="What-Are-Principal-Components?-10.2.1"><span class="toc-item-num">10.2.1&nbsp;&nbsp;</span>What Are Principal Components?</a></span></li><li><span><a href="#Another-Interpretation-of-Principal-Components" data-toc-modified-id="Another-Interpretation-of-Principal-Components-10.2.2"><span class="toc-item-num">10.2.2&nbsp;&nbsp;</span>Another Interpretation of Principal Components</a></span></li><li><span><a href="#More-on-PCA" data-toc-modified-id="More-on-PCA-10.2.3"><span class="toc-item-num">10.2.3&nbsp;&nbsp;</span>More on PCA</a></span></li><li><span><a href="#Other-Uses-for-Principal-Components" data-toc-modified-id="Other-Uses-for-Principal-Components-10.2.4"><span class="toc-item-num">10.2.4&nbsp;&nbsp;</span>Other Uses for Principal Components</a></span></li></ul></li><li><span><a href="#Clustering-Methods" data-toc-modified-id="Clustering-Methods-10.3"><span class="toc-item-num">10.3&nbsp;&nbsp;</span>Clustering Methods</a></span><ul class="toc-item"><li><span><a href="#$K$-Means-Clustering" data-toc-modified-id="$K$-Means-Clustering-10.3.1"><span class="toc-item-num">10.3.1&nbsp;&nbsp;</span>$K$-Means Clustering</a></span></li><li><span><a href="#Hierarchical-Clustering" data-toc-modified-id="Hierarchical-Clustering-10.3.2"><span class="toc-item-num">10.3.2&nbsp;&nbsp;</span>Hierarchical Clustering</a></span></li><li><span><a href="#Practical-Issues-in-Clustering" data-toc-modified-id="Practical-Issues-in-Clustering-10.3.3"><span class="toc-item-num">10.3.3&nbsp;&nbsp;</span>Practical Issues in Clustering</a></span></li></ul></li><li><span><a href="#Footnotes" data-toc-modified-id="Footnotes-10.4"><span class="toc-item-num">10.4&nbsp;&nbsp;</span>Footnotes</a></span></li></ul></li></ul></div>
-
-___
-# Unsupervised Learning
+# Unsupervised Learning: Theory
 ___
 
 ## The Challenge of Unsupervised Learning
 
 - ***Unsupervised learning*** is learning in the absence of a response. It is often part of ***exploratory data analysis*** (EDA).
-- Without a response, we aren't intested in prediction or classification, rather we are interested in discovering interesting things about the data. This can be difficult because such a goal is somewhat subjective.
-- Objective performance critera for unsupervised learning can also be challenging. 
+- Without a response, we aren't interested in prediction or classification, rather we are interested in discovering interesting things about the data. This can be difficult because such a goal is somewhat subjective.
+- Objective performance criteria for unsupervised learning can also be challenging. 
 
 
 
 ## Principal Components Analysis
 
-- Principal components were discussed earlier as a dimensional reduction methof in the [context of regression](#Principal-Components-Regression). They provide a low-dimensional representation of the data that contains as much variation as possible.
+- Principal components were discussed earlier as a dimensional reduction method in the [context of regression](#Principal-Components-Regression). They provide a low-dimensional representation of the data that contains as much variation as possible.
 - ***Principal Components Analysis*** is the process of computing principal components and using them in data analysis.
 
 ### What Are Principal Components?

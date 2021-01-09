@@ -1,4 +1,4 @@
-# Chapter 3 - Linear Regression
+# Linear Regression: Practice
 
 - [Load Datasets](#Load-Datasets)
 - [3.1 Simple Linear Regression](#3.1-Simple-Linear-Regression)
